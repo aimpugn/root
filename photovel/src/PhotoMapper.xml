@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PhotoMapper">
+  <insert id="insertPhoto" parameterType="Photo">
+    INSERT INTO Photo VALUES(#{contentDetailId}, #{photoFileName}, #{photoTopFlag}, #{photoDate}, #{photoLatitude}, #{photoLongitude})
+  </insert>
+  <select id="selectAll" resultType="Photo">
+    SELECT photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude FROM Photo
+  </select>
+  <select id="selectByContentId" parameterType="int" resultType="Photo">
+   SELECT photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude
+   FROM Photo p JOIN Content_detail cd ON p.content_detail_id = cd.content_detail_id 
+   WHERE content_id = #{content_id}
+  </select>
+</mapper>

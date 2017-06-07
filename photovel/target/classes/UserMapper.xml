@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+  <insert id="insertUser" parameterType="User">
+    INSERT INTO User
+	VALUES (#{userId}, #{userPassword}, #{userNickName}, #{userGender}, 
+	#{userPhone1},  #{userPhone2}, #{userProfilePhoto}, SYSDATE(), 'N', 
+	SYSDATE(), #{userSnsStatus}, #{userSnsToken}, #{userPushToken}, #{userFriendCount})
+  </insert>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases> 
+    <typeAlias alias="Advertisement" type="com.photovel.vo.Advertisement"/>
+    <typeAlias alias="Bookmark" type="com.photovel.vo.Bookmark"/>
+    <typeAlias alias="Comment" type="com.photovel.vo.Comment"/>
+    <typeAlias alias="Content" type="com.photovel.vo.Content"/>
+    <typeAlias alias="ContentDetail" type="com.photovel.vo.ContentDetail"/>
+    <typeAlias alias="Friend" type="com.photovel.vo.Friend"/>
+    <typeAlias alias="Good" type="com.photovel.vo.Good"/>
+    <typeAlias alias="MainImage" type="com.photovel.vo.MainImage"/>
+    <typeAlias alias="Permission" type="com.photovel.vo.Permission"/>
+    <typeAlias alias="Photo" type="com.photovel.vo.Photo"/>
+    <typeAlias alias="User" type="com.photovel.vo.User"/>
+  </typeAliases>
+
+  <mappers>
+  	<mapper resource="UserMapper.xml"/>
+  	<mapper resource="PermissionMapper.xml"/>
+  	<mapper resource="ContentMapper.xml"/>
+  	<mapper resource="ContentDetailMapper.xml"/>
+  	<mapper resource="PhotoMapper.xml"/>
+  </mappers>
+</configuration>
