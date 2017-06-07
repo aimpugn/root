@@ -7,6 +7,8 @@ public class ContentDetail {
     private Integer contentDetailId;
 
     private String detailContent;
+    
+    private Photo photo;
 
     public Integer getContentId() {
         return contentId;
@@ -30,6 +32,14 @@ public class ContentDetail {
 
     public void setDetailContent(String detailContent) {
         this.detailContent = detailContent;
+    }
+    
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     // ContentDetail 모델 복사

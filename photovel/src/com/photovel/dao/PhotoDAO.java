@@ -13,8 +13,8 @@ public class PhotoDAO {
 	@Autowired
 	private SqlSession session;
 
-	public void insert(Photo p) {
-		
+	public void insert(Photo photo) {
+		session.insert("PhotoMapper.insertPhoto", photo);
 	}
 
 	public List<Photo> selectAll() throws Exception {

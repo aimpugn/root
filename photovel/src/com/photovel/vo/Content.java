@@ -1,6 +1,7 @@
 package com.photovel.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Content {
 
@@ -23,6 +24,8 @@ public class Content {
     private Integer adId;
 
     private Integer contentShareCount;
+    
+    private List<ContentDetail> details;
 
     public Integer getContentId() {
         return contentId;
@@ -103,6 +106,12 @@ public class Content {
     public void setContentShareCount(Integer contentShareCount) {
         this.contentShareCount = contentShareCount;
     }
+    public List<ContentDetail> getDetails() {
+		return details;
+	}
+	public void setDetails(List<ContentDetail> details) {
+		this.details = details;
+	}
 
     // Content 모델 복사
     public void CopyData(Content param)
