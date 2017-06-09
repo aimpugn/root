@@ -1,60 +1,41 @@
 package com.photovel.vo;
 
 public class Permission {
-
-    private String userId;
-
-    private Integer friendRecomFlag;
-
-    private Integer friendSearchFlag;
-
-    private Integer feedFlag;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Integer getFriendRecomFlag() {
-        return friendRecomFlag;
-    }
-
-    public void setFriendRecomFlag(Integer friendRecomFlag) {
-        this.friendRecomFlag = friendRecomFlag;
-    }
-
-    public Integer getFriendSearchFlag() {
-        return friendSearchFlag;
-    }
-
-    public void setFriendSearchFlag(Integer friendSearchFlag) {
-        this.friendSearchFlag = friendSearchFlag;
-    }
-
-    public Integer getFeedFlag() {
-        return feedFlag;
-    }
-
-    public void setFeedFlag(Integer feedFlag) {
-        this.feedFlag = feedFlag;
-    }
-
-    // Permission 모델 복사
-    public void CopyData(Permission param)
-    {
-        this.userId = param.getUserId();
-        this.friendRecomFlag = param.getFriendRecomFlag();
-        this.friendSearchFlag = param.getFriendSearchFlag();
-        this.feedFlag = param.getFeedFlag();
-    }
-
+	private User user;
+	private int friendRecomFlag;
+	private int friendSearchFlag;
+	private int feedFlag;
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public int getFriendRecomFlag() {
+		return friendRecomFlag;
+	}
+	public void setFriendRecomFlag(int friendRecomFlag) {
+		this.friendRecomFlag = friendRecomFlag;
+	}
+	public int getFriendSearchFlag() {
+		return friendSearchFlag;
+	}
+	public void setFriendSearchFlag(int friendSearchFlag) {
+		this.friendSearchFlag = friendSearchFlag;
+	}
+	public int getFeedFlag() {
+		return feedFlag;
+	}
+	public void setFeedFlag(int feedFlag) {
+		this.feedFlag = feedFlag;
+	}
+	
 	@Override
 	public String toString() {
-		return "Permission [userId=" + userId + ", friendRecomFlag=" + friendRecomFlag + ", friendSearchFlag="
+		return "Permission [user=" + user + ", friendRecomFlag=" + friendRecomFlag + ", friendSearchFlag="
 				+ friendSearchFlag + ", feedFlag=" + feedFlag + "]";
 	}
-    
+
+	
 }

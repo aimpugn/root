@@ -4,58 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ContentMapper">
   <resultMap type="Content" id="ContentMap">
-    <!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
-    <id column="content_id" property="contentId" />
-    <result column="user_id" property="userId"/>
-    <result column="content_subject" property="contentSubject"/>
-    <result column="content" property="content"/>
-    <result column="content_written_date" property="contentWrittenDate"/>
-    <result column="content_private_flag" property="contentPrivateFlag"/>
-    <result column="content_delete_status" property="contentDeleteStatus"/>
-    <result column="content_warning_status" property="contentWarningStatus"/>
-    <result column="ad_id" property="adId"/>
-    <result column="content_share_count" property="contentShareCount"/>
-    <!-- Content:ContentDetail의 관계가 1:many collection -->
-    <collection property="details" ofType="ContentDetail">
-      <id column="content_id" property="contentId"/>
-      <id column="content_detail_id" property="contentDetailId"/>
-      <result column="detail_content" property="detailContent"/>
-      <!-- ContentDetail:Photo의 관계가 1:1 association -->
-      <association property="photo" javaType="Photo">
-        <id column="content_detail_id" property="contentDetailId"/>
-        <id column="photo_file_name" property="photoFileName"/>
-        <result column="photo_date" property="photoDate"/>
-        <result column="photo_latitude" property="photoLatitude"/>
-        <result column="photo_longitude" property="photoLongitude"/>
-        <result column="photo_top_flag" property="photoTopFlag"/>
-      </association>
-    </collection>
+	<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
+	<id column="content_id" property="contentId" />
+	<result column="content_subject" property="contentSubject"/>
+	<result column="content" property="content"/>
+	<result column="content_written_date" property="contentWrittenDate"/>
+	<result column="content_private_flag" property="contentPrivateFlag"/>
+	<result column="content_delete_status" property="contentDeleteStatus"/>
+	<result column="content_warning_status" property="contentWarningStatus"/>
+	<result column="content_share_count" property="contentShareCount"/>
+	<result column="good_count" property="goodCount"/>
+	<result column="comment_count" property="commentCount"/>
+	<result column="content_detail_count" property="contentDetailCount"/>
+	<association property="user" javaType="User">
+		<id column="user_id" property="userId"/>
+	</association>
+	<association property="advertisement" javaType="Advertisement">
+		<id column="ad_id" property="adId"/>
+	</association>
   </resultMap>
-
-  <!-- <resultMap type="Content" id="ContentMainMap">
-    <id column="content_id" property="contentId" />
-  </resultMap> -->
+  
   <insert id="insertContent" parameterType="Content">
-    INSERT INTO Content VALUES('', #{userId}, #{contentSubject}, #{content}, SYSDATE(), 'F', 'F', 0, #{adId}, 0)
+	INSERT INTO Content VALUES('', #{userId}, #{contentSubject}, #{content}, SYSDATE(), 'F', 'F', 0, #{adId}, 0)
   </insert>
   <select id="selectById" parameterType="int" resultMap="ContentMap">
-    SELECT 
-      Content.content_id content_id, user_id, content_subject, content, 
-      content_written_date, content_private_flag, content_delete_status, 
-      content_warning_status, ad_id, content_share_count, 
-      Content_detail.content_detail_id content_detail_id, detail_content, 
-      photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag 
-    FROM Content JOIN Content_detail ON Content.content_id = Content_detail.content_id 
-    JOIN Photo ON Content_detail.content_detail_id = Photo.content_detail_id
-    WHERE Content.content_id = #{contentId}
+	SELECT 
+	  Content.content_id content_id, user_id, content_subject, content, 
+	  content_written_date, content_private_flag, content_delete_status, 
+	  content_warning_status, ad_id, content_share_count, 
+	  (select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count,
+	  (select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count 
+	FROM Content JOIN Content_detail ON Content.content_id = Content_detail.content_id
+	WHERE Content.content_id = #{contentId}
   </select>
-  <!-- <select id="selectAll" resultType="ContentMainMap">
-        SELECT 
-      Content.content_id content_id, User.user_nick_name user_nick_name, content_subject, content_share_count, 
-      (select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count, 
-      (select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count, 
-      (select count(*) from Content JOIN Content_detail ON Content.content_id = Content_detail.content_id) content_detail_count
-    FROM Content JOIN User ON Content.user_id = User.user_id
-  </select> -->
+  
+  <select id="selectAll" resultMap="ContentMap">
+	SELECT content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date,
+		(select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count, 
+		(select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count,
+		(select count(*) from Content JOIN Content_detail ON Content.content_id = Content_detail.content_id) content_detail_count
+	FROM Content JOIN User ON Content.user_id = User.user_id
+	ORDER BY content_written_date ASC
+  </select>
 
 </mapper>

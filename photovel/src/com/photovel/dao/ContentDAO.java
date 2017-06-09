@@ -16,6 +16,9 @@ public class ContentDAO {
 	public void insert(Content content) {
 		session.insert("ContentMapper.insertContent", content);
 	}
+	public void update(Content content) {
+		session.update("ContentMapper.insertContent", content);
+	}
 	public Content selectById(int contentId){
 		return session.selectOne("ContentMapper.selectById", contentId); 
 	}

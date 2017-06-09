@@ -3,8 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ContentDetailMapper">
-  <insert id="insertContentDetail" parameterType="ContentDetail">
+  <resultMap id="ContentDetailMap" type="ContentDetail">
+    <id column="content_detail_id" property="contentDetailId" />
+    <result column="content_id" property="contentId"/>
+    <result column="detail_content" property="detailContent"/>
+    <association property="photo" javaType="Photo">
+      <id column="content_detail_id" property="contentDetailId"/>
+      <id column="photo_file_name" property="photoFileName"/>
+      <result column="photo_date" property="photoDate"/>
+      <result column="photo_latitude" property="photoLatitude"/>
+      <result column="photo_longitude" property="photoLongitude"/>
+      <result column="photo_top_flag" property="photoTopFlag"/>
+    </association>
+  </resultMap>
+
+  <insert id="insertDetail" parameterType="ContentDetail">
     INSERT INTO Content_detail VALUES(#{contentId}, #{contentDetailId}, #{detailContent})
   </insert>
-  
+
+  <select id="selectById" parameterType="int" resultMap="ContentDetailMap">
+	SELECT content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
+	FROM Content_detail JOIN Content ON Content_detail.content_id = Content.content_id
+	JOIN Photo ON Content_detail.content_detail_id = Photo.content_detail_id
+	WHERE Content.content_id = #{contentId}
+  </select>
+   
 </mapper>

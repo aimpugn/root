@@ -22,6 +22,7 @@
   	<mapper resource="PermissionMapper.xml"/>
   	<mapper resource="ContentMapper.xml"/>
   	<mapper resource="ContentDetailMapper.xml"/>
+  	<mapper resource="CommentMapper.xml"/>
   	<mapper resource="PhotoMapper.xml"/>
   </mappers>
 </configuration>
