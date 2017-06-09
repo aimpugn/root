@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper">
+  <resultMap id="CommentMap" type="Comment">
+    <id column="content_id" property="contentId" />
+    <id column="comment_id" property="commentId" />
+    <result column="comment_content" property="commentContent"/>
+    <result column="comment_date" property="commentDate"/>
+    <association property="user" javaType="User">
+      <id column="user_id" property="userId"/>
+      <result column="user_nick_name" property="userNickName"/>
+    </association>
+  </resultMap>
+  <insert id="insertComment" parameterType="Comment">
+    INSERT INTO Comment VALUES(#{contentId}, #{commentId}, #{user.getUserId()}, #{commentContent}, #{commentDate})
+  </insert>
+
+  <select id="selectById" parameterType="int" resultMap="CommentMap">
+	SELECT Comment.content_id content_id, comment_id, comment_content, comment_date, Comment.user_id usesr_id, user_nick_name
+	FROM Comment JOIN Content ON Comment.content_id = Content.content_id
+	JOIN User ON Comment.user_id = User.user_id
+	WHERE Content.content_id = #{contentId}
+  </select>
+</mapper>

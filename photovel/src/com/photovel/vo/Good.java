@@ -1,37 +1,24 @@
 package com.photovel.vo;
 
 public class Good {
-
-    private Integer contentId;
-
-    private String userId;
-
-    public Integer getContentId() {
-        return contentId;
-    }
-
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    // Good 모델 복사
-    public void CopyData(Good param)
-    {
-        this.contentId = param.getContentId();
-        this.userId = param.getUserId();
-    }
-
+	private int contentId;
+	private User user;
+	
+	public int getContentId() {
+		return contentId;
+	}
+	public void setContentId(int contentId) {
+		this.contentId = contentId;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Override
 	public String toString() {
-		return "Good [contentId=" + contentId + ", userId=" + userId + "]";
+		return "Good [contentId=" + contentId + ", user=" + user + "]";
 	}
-    
 }
