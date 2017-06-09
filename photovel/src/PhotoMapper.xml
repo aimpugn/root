@@ -10,7 +10,7 @@
     SELECT photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude FROM Photo
   </select>
   <select id="selectByContentId" parameterType="int" resultType="Photo">
-   SELECT photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude
+   SELECT <!-- content_detail_id ContenDetailId, --> photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude
    FROM Photo p JOIN Content_detail cd ON p.content_detail_id = cd.content_detail_id 
    WHERE content_id = #{content_id}
   </select>
