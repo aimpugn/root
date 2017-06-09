@@ -5,12 +5,29 @@
 * 작성일 : 2017. 06
 */
 
+/* 색상 */
+.color-sky{color: #20a8d8;}
+/* 여백 */
+.space-top-5{margin-top: 1.5em;}
+.space-em-0{margin:0;}
+.space-percent-5{margin-top: 5%;}
+
 nav.wrap-pagination{text-align: center;}
-/* .table > caption + thead > tr:first-child > th,
-.table > colgroup + thead > tr:first-child > th,
-.table > thead:first-child > tr:first-child > th,
-.table > caption + thead > tr:first-child > td,
-.table > colgroup + thead > tr:first-child > td,
-.table > thead:first-child > tr:first-child > td {
-  border-top: 1px solid #ddd;
-} */
+.breadcrumb{background: none; border-bottom: 1px solid #cfd8dc; padding-left: 0;}
+.breadcrumb > li > a {color: #B0bec5;}
+.breadcrumb > li.active > a{color: #263238;}
+.breadcrumb > li > a:hover{color: #20a8d8;}
+
+footer{/* background: #0C1A1E; color: #fff; */
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    padding: 0 1rem;
+    line-height: 50px;
+    color: #263238;
+    background: #eceff1;
+    border-top: 1px solid #cfd8dc;
+}
+
