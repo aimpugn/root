@@ -4,32 +4,48 @@
 <%--  head
 ------------------------------------------- --%>
 <%@include file="/admin/common/head.jsp"%>
-
 <script>
 $(function(){
-
-	$btnLogin.click(function(){
+	var $form = $('form');
+	var itemValue = localStorage.getItem("saveId");
+	
+	//저장된 ID 값(itemValue)가 있으면 받아온다.
+	if(itemValue != null){
+		$('#inputId').val(itemValue);
+	}
+	var admin = '${requestScope.admin}'; // 결과 true 반환
+	console.log("scope" + admin + "어드민");
+	
+	var $btnLogin = $('#btnLogin');
+	console.log("btn"+ $btnLogin);
+	
+	$form.submit(function(){
 		
-		var $btnLogin = $('#btnLogin');
-		var id = $('#inputId').val();
-		var pw = $('#inputPassword').val();
-		var $saveId = $('#saveId').prop("checked");	
+		var adminId = $('#inputId').val();
+		console.log("id"+id);
+		var adminPw = $('#inputPassword').val();
+		var saveIdCheck = $('#saveId').prop("checked");	
 		
-		if( $saveId == true ){
+		console.log("아이디" + daminId, adminPassword);
+		if( saveIdCheck == true ){
 			localStorage.setItem("saveId", id);
 		}else{
 			localStorage.removeItem("saveId");
 		}
 		
+		var data = {'adminId': adminId, 'adminPassword': adminPassword, 'saveId': saveId };
+		console.log("data" +data);
 		$.ajax({
-			url : 'login.do',
+			url : 'adminLogin',
 			method:'POST', 			
-			data: $form.serialize(),
+			data: data,
 			success: function(responseData){
 				var data = responseData.trim();
-				if( data == '1'){
+				//console.log(data);
+				if( data == '1' ){
 					alert("로그인 성공");
-					location.href= '${pageContext.request.contextPath}';					
+					/* location.href= '${pageContext.request.contextPath}';	 */		
+					location.href='/admin/member/member.jsp';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
 				} else if ( data == 'stop'){
@@ -51,7 +67,17 @@ $(function(){
 </script>
 </head>
 
+
 <body>
+
+<%-- <% HttpSession session2 = request.getSession();
+	Object loginInfo;
+	if(session.getAttribute("loginInfo") instanceof Admin){
+		loginInfo = (Admin) session.getAttribute("loginInfo");
+	}else{
+		loginInfo = (Admin) session.getAttribute("loginInfo");
+	}
+%> --%>
 <div class="container-fluid">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
@@ -68,7 +94,7 @@ $(function(){
 						<div class="form-group">
 							<label for="inputId" class="col-sm-3 control-label">아아디</label>
 							<div class="col-sm-8">
-								<input type="email" class="form-control" id="inputId" placeholder="아아디">
+								<input type="text" class="form-control" id="inputId" placeholder="아아디">
 							</div>
 						</div>
 						<div class="form-group">
