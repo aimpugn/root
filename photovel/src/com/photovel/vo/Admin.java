@@ -10,6 +10,9 @@ public class Admin {
 
     private String adminStatusFlag;
 
+	public Admin(String adminId, String adminPassword, String adminNickName, String adminStatusFlag) {
+	}
+
 	public String getAdminId() {
 		return adminId;
 	}

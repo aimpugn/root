@@ -1,9 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8"%>>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.photovel.vo.Admin" %>
 <c:set var="admin" value="${requestScope.adm}" />
-
-<%@include file="/admin/include/head.jsp"%>
 
 <script>
 $(function(){
@@ -25,7 +23,7 @@ $(function(){
 		var data = todayDate;
 		$.ajax({
 			url: url,
-			method: 'post',
+			method: 'get',
 			data : data,
 			success: function(responseData){
 				if(url =='logout.do'){
@@ -38,6 +36,34 @@ $(function(){
 		});
 		return false;
 	});
+	
+	//현재 header 메뉴 위치 표시 
+	// 현재페이지 표시하기	
+	var url = location.href;
+	var folderArray = new Array(
+			//통계
+			url.indexOf("/photovel/admin/static"),
+			//멤버
+			url.indexOf("/photovel/admin/member"),
+			//콘텐츠
+			url.indexOf("/photovel/admin/board"),
+			//사이트
+			url.indexOf("/photovel/admin/site")
+	);
+
+	if(folderArray[0] != -1){
+	    $("#navbar li:eq(1)").addClass("active");
+	};
+	if(folderArray[1] != -1){
+	    $("#navbar li:eq(2)").addClass("active");
+	};
+	if(folderArray[2] != -1){
+	    $("#navbar li:eq(3)").addClass("active");
+	};
+	if(folderArray[3] != -1){
+	    $("#navbar li:eq(4)").addClass("active");
+	};
+	
 });
 
 </script>
@@ -59,9 +85,10 @@ response.sendRedirect(/photovel/admin);
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#">Photovel 어드민</a>
 			</div>
@@ -69,15 +96,12 @@ response.sendRedirect(/photovel/admin);
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
 				<p class="navbar-text narvar-right">Welcome ${adm.adminNickName}님!</p>
 				<ul class="nav navbar-nav">
-					
-					
 					<li><a href="/photovel/admin/common/logout">로그아웃</a></li>
-					<li><a href="/photovel/admin/member/member">회원관리</a></li>
-					<li><a href="/photovel/admin/board/board">게시글관리</a></li>
-					<li><a href="/photovel/admin/static/static">통계관리</a></li>
-					<li><a href="/photovel/admin/main/main">메인관리</a></li>
+					<li><a href="/photovel/admin/static/dashboard.jsp">통계관리</a></li>
+					<li><a href="/photovel/admin/member/member.jsp">회원관리</a></li>
+					<li><a href="/photovel/admin/board/board.jsp">게시글관리</a></li>
+					<li><a href="/photovel/admin/site/mainCustom.jsp">사이트관리</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<%-- <% } %> --%>

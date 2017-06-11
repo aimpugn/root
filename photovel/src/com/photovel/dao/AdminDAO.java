@@ -1,4 +1,5 @@
 package com.photovel.dao;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -113,7 +114,7 @@ public class AdminDAO{
 		this.insert(admin);		
 	}
 
-	
+
 	public Admin login(String adminId, String adminPassword) throws Exception {
 		Admin ad = this.selectById(adminId);
 		return ad;

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,10 +83,28 @@ public class AdminController {
 		session.removeAttribute("loginInfo");
 		String forwardURL = "/admin";
 		return forwardURL;
-	
 	}
 	
-	
+	@PostMapping(value="/admin/adminAdd")
+	public String adminAdd(String adminId, String adminPassword, String adminNickName, String adminStatus, Model model) throws ServletException, IOException{
+		String msg="-1";
+		try {
+			Admin ad = dao.selectById(adminId) ;
+			if (ad != null ){
+				Admin adm = new Admin(adminId, adminPassword, adminNickName, adminStatus);
+				dao.regist(new Admin(adminId, adminPassword, adminNickName, adminStatus));
+				System.out.println(adm);
+				msg="1";
+				}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("msg", msg);
+		String forwardURL = "/admin/common/result.jsp"; 
+		return forwardURL;
+	}
 	
 	
 	/*@RequestMapping(value="/membermanagelist.do")
