@@ -1,13 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@include file="/admin/common/head.jsp"%>
-<%-- <% HttpSession session2 = request.getSession();
-	Object loginInfo;
-	if(session.getAttribute("loginInfo") instanceof Admin){
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}else{
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}
-%> --%>
+<%@ page contentType="text/html; charset=UTF-8"%>>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.photovel.vo.Admin" %>
+<c:set var="admin" value="${requestScope.adm}" />
+
+<%@include file="/admin/include/head.jsp"%>
+
 <script>
 $(function(){
 	var $header = $("header");
@@ -19,7 +16,7 @@ $(function(){
 	var cur_month = today.getMonth() + 1;
 	var cur_day = today.getDate();
 	
-	var todayDate = (cur_year+ '/' + cur_month + '/'+cur_day)
+	var todayDate = (cur_year+ '.' + cur_month + '.'+cur_day)
 
 	//console.log(todayDate);
 
@@ -45,6 +42,17 @@ $(function(){
 
 </script>
 
+<%-- <% HttpSession session2 = request.getSession();
+Object loginInfo;
+	if(session.getAttribute("loginInfo") instanceof Admin){
+		loginInfo = (Admin) session.getAttribute("loginInfo");
+	}else{
+		loginInfo = (Admin) session.getAttribute("loginInfo");
+	}
+ if(loginInfo == null) { %>
+response.sendRedirect(/photovel/admin);
+	<% } else { %>
+	 --%>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -59,16 +67,17 @@ $(function(){
 			</div>
 			
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
-				<p class="navbar-text narvar-right">Welcome <% if(loginInfo != null) { %>${sessionScope.loginInfo.adminNickName}<% } %>!</p>
+				<p class="navbar-text narvar-right">Welcome ${adm.adminNickName}님!</p>
 				<ul class="nav navbar-nav">
 					
 					
-					<li><a href="/photovel/admin/common/logout.html">로그아웃</a></li>
-					<li><a href="/photovel/admin/member/member.html">회원관리</a></li>
-					<li><a href="/photovel/admin/board/board.html">게시글관리</a></li>
-					<li><a href="/photovel/admin/static/static.html">통계관리</a></li>
-					<li><a href="/photovel/admin/main/main.html">메인관리</a></li>
+					<li><a href="/photovel/admin/common/logout">로그아웃</a></li>
+					<li><a href="/photovel/admin/member/member">회원관리</a></li>
+					<li><a href="/photovel/admin/board/board">게시글관리</a></li>
+					<li><a href="/photovel/admin/static/static">통계관리</a></li>
+					<li><a href="/photovel/admin/main/main">메인관리</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	<%-- <% } %> --%>

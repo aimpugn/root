@@ -4,27 +4,26 @@
 
 <%--  head
 ------------------------------------------- --%>
-<%@include file="/admin/common/head.jsp" %>
-
-    
+<%@include file="/admin/include/head.jsp" %>
+  
 </head>
 
 <body>
-<%--  gnb
+<%--  header
 ------------------------------------------- --%>
-<%@include file="/admin/common/header.jsp" %>
+<%@include file="/admin/include/header.jsp" %>
 
 	<div class="container-fluid">
 		<div class="row">
 		
 			<%--  navSidebar
 			------------------------------------------- --%>
-			<%@include file="/admin/common/navSidebar.jsp" %>
+			<%@include file="/admin/include/navSidebar.jsp" %>
 		
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<%--  navSidebar
 				------------------------------------------- --%>
-				<%@include file="/admin/common/breadcrumb.jsp" %>
+				<%@include file="/admin/include/breadcrumb.jsp" %>
 				<form class="navbar-form" role="search">
 					<div class="col-lg-6">
 						<div class="input-group">
@@ -150,14 +149,14 @@
 				</div>
 				<%--  pagination
 		   		------------------------------------------- --%>
-				<%@include file="/admin/common/pagination.jsp" %>
+				<%@include file="/admin/include/pagination.jsp" %>
 			</div>
 		</div>
 	</div>
 
 <%--  footer
 ------------------------------------------- --%>
-<%@include file="/admin/common/footer.jsp" %>
+<%@include file="/admin/include/footer.jsp" %>
 
 <%-- Modal --%>  
 <%@include file="/admin/common/modalMember.jsp" %>

@@ -10,35 +10,35 @@ public class Admin {
 
     private String adminStatusFlag;
 
-	public String getAdminUserId() {
+	public String getAdminId() {
 		return adminId;
 	}
 
-	public void setAdminUserId(String adminId) {
+	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
 
-	public String getAdminUserPassword() {
+	public String getAdminPassword() {
 		return adminPassword;
 	}
 
-	public void setAdminUserPassword(String adminPassword) {
+	public void setAdminPassword(String adminPassword) {
 		this.adminPassword = adminPassword;
 	}
 
-	public String getAdminUserNickName() {
+	public String getAdminNickName() {
 		return adminNickName;
 	}
 
-	public void setAdminUserNickName(String adminUserNickName) {
-		this.adminNickName = adminUserNickName;
+	public void setAdminNickName(String adminNickName) {
+		this.adminNickName = adminNickName;
 	}
 
-	public String getadminUserStatusFlag() {
+	public String getadminStatusFlag() {
 		return adminStatusFlag;
 	}
 
-	public void setadminUserStatusFlag(String adminStatusFlag) {
+	public void setadminStatusFlag(String adminStatusFlag) {
 		this.adminStatusFlag = adminStatusFlag;
 	}
 

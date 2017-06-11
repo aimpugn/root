@@ -3,7 +3,7 @@
 
 <%--  head
 ------------------------------------------- --%>
-<%@include file="/admin/common/head.jsp"%>
+<%@include file="/admin/include/head.jsp"%>
 <script>
 $(function(){
 	var $form = $('form');
@@ -14,30 +14,30 @@ $(function(){
 		$('#inputId').val(itemValue);
 	}
 	var admin = '${requestScope.admin}'; // 결과 true 반환
-	console.log("scope" + admin + "어드민");
-	
+		
 	var $btnLogin = $('#btnLogin');
-	console.log("btn"+ $btnLogin);
 	
-	$form.submit(function(){
-		
+	/*$btnLogin.click(function(){*/
+ 	$form.submit(function(){ 
+	 			
 		var adminId = $('#inputId').val();
-		console.log("id"+id);
-		var adminPw = $('#inputPassword').val();
-		var saveIdCheck = $('#saveId').prop("checked");	
-		
-		console.log("아이디" + daminId, adminPassword);
-		if( saveIdCheck == true ){
+		var adminPassword = $('#inputPassword').val();
+		//alert("id"+adminId+"pw" + adminPassword);
+		console.log("id"+adminId+"pw" + adminPassword);
+		/* var saveIdCheck = $('#saveId').prop("checked");	
+		console.log(saveIdCheck); */
+		//console.log("아이디" + adminId + adminPassword);
+/* 		if( saveIdCheck == true ){
 			localStorage.setItem("saveId", id);
 		}else{
 			localStorage.removeItem("saveId");
-		}
+		} */
 		
-		var data = {'adminId': adminId, 'adminPassword': adminPassword, 'saveId': saveId };
-		console.log("data" +data);
+		var data = {'adminId': adminId, 'adminPassword': adminPassword };
+		console.log("data" + data);
 		$.ajax({
-			url : 'adminLogin',
-			method:'POST', 			
+			url : '/photovel/admin/adminLogin',
+			method:'GET', 			
 			data: data,
 			success: function(responseData){
 				var data = responseData.trim();
@@ -45,7 +45,7 @@ $(function(){
 				if( data == '1' ){
 					alert("로그인 성공");
 					/* location.href= '${pageContext.request.contextPath}';	 */		
-					location.href='/admin/member/member.jsp';
+					location.href='/photovel/admin/member/member.jsp';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
 				} else if ( data == 'stop'){
@@ -100,8 +100,7 @@ $(function(){
 						<div class="form-group">
 							<label for="inputPassword" class="col-sm-3 control-label">Password</label>
 							<div class="col-sm-8">
-								<input type="password" class="form-control" id="inputPassword"
-									placeholder="Password">
+								<input type="password" class="form-control" id="inputPassword" 									placeholder="Password">
 							</div>
 						</div>
 						<div class="form-group">

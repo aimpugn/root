@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +30,7 @@ public class AdminController {
 	@Autowired
 	AdminDAO dao;
 	
-	@RequestMapping(value="/admin")
+	@GetMapping(value="/admin")
 	public String goLogin(Model model){
 	      boolean admin=true;
 	      model.addAttribute("admin", admin);
@@ -36,60 +38,52 @@ public class AdminController {
 	      return forwardURL;
 	}
 	
-	@RequestMapping(value="/adminLogin")
+	@GetMapping(value="/admin/adminLogin")
 	public String login(String adminId, String adminPassword, HttpSession session, Model model) {
-		
+		System.out.println("들어오나"+adminId+ adminPassword);
 		String msg = "-1";
-		String forwardURL = "/result.jsp"; 
+		
 		try{
 			Admin ad = dao.selectById(adminId);
-			if( !"L".equals( ad.getadminUserStatusFlag() ) && !"S".equals( ad.getadminUserStatusFlag() ) ){				
+			//String status = ad.getadminStatusFlag();
+			//String pw = ad.getAdminPassword();
+			String status = "N";
+			String pw = "1234";
+			//System.out.println(status);
+			System.out.println("트라이 되나"+adminId+ adminPassword);
+			if( adminPassword.equals(pw) ){		
+				if ( !"L".equals( status ) && !"S".equals( status ) ) {
 				Admin adm = dao.login(adminId, adminPassword);
 	        	session.setAttribute("loginInfo", adm);// 로그인 정보를 지움. 현재 로그인 실패해도 이전의 로그인 성공 작업이 남는 것을 방지 
 	        	session.setMaxInactiveInterval(10000);
-	        	forwardURL = "/result.jsp";
 	        	msg = "1";
-			} if( "L".equals( ad.getadminUserStatusFlag() ) ){
-				msg = "leave";
-				System.out.println("상태값"+msg);
-			} else{
-				msg = "stop";
-				System.out.println("상태값"+msg);
-			}
-		} catch (Exception e) {
+	        	System.out.println("로그인 성공");
+				} else if( "L".equals( status ) ){
+					msg = "leave";
+					System.out.println("리브 상태값"+msg);
+				} else{
+					msg = "stop";
+					System.out.println("정지 상태값"+msg);
+				}
+			} 
+		}catch (Exception e) {
+			System.out.println(adminId+ adminPassword);
 			e.printStackTrace();
 		}
 		model.addAttribute("msg", msg);
-		return forwardURL;
-	
-	}
-/*	@RequestMapping(value="/dupchkid.do", method=RequestMethod.POST)
-	public String dupchkid(String id, Model model) {
-		Admin c = null;
-		String msg = "-1";
-		try {
-			   c = service.findById(id);
-		         if(c!=null){
-		            msg="1";
-			}
-		} catch (ClassNotFoundException e) {
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		model.addAttribute("msg", msg);
-		String forwardURL = "/result.jsp";
+		String forwardURL = "/admin/common/result.jsp"; 
 		return forwardURL;
 	}
-	@RequestMapping(value="/logout.do", method=RequestMethod.POST)
+
+	@GetMapping(value="/admin/common/logout")
 	public String logout(Model model, HttpSession session, HttpServletRequest request) {
 		
 		model.addAttribute("msg", request.getContextPath());  
 		session.removeAttribute("loginInfo");
-		String forwardURL = "/result.jsp";
+		String forwardURL = "/admin";
 		return forwardURL;
 	
-	}*/
+	}
 	
 	
 	

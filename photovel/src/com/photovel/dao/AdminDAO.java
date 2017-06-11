@@ -114,13 +114,8 @@ public class AdminDAO{
 	}
 
 	
-	public Admin login(String id, String pw) throws Exception {
-		Admin ad = this.selectById(id);
-		//String status = c.getStatus(); 다른 메시지를 주기 위해서 customercontroller에서 처리함
-		//if( c == null || !(pw).equals(c.getPassword()) || "d".equals(status)){
-		if( ad == null || !(pw).equals(ad.getAdminUserPassword()) ){
-			throw new Exception("로그인 실패");
-		}
+	public Admin login(String adminId, String adminPassword) throws Exception {
+		Admin ad = this.selectById(adminId);
 		return ad;
 	}
 
