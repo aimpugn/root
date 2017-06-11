@@ -22,7 +22,7 @@ $(function(){
 	 			
 		var adminId = $('#inputId').val();
 		var adminPassword = $('#inputPassword').val();
-		alert("id"+adminId+"pw" + adminPassword);
+		//alert("id"+adminId+"pw" + adminPassword);
 		console.log("id"+adminId+"pw" + adminPassword);
 		/* var saveIdCheck = $('#saveId').prop("checked");	
 		console.log(saveIdCheck); */
