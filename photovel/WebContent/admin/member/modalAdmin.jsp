@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-
     <!-- 어드민 추가  Modal -->
 	<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -95,19 +94,15 @@
 			// 입력된 라디오 버튼의 value 얻기
 			var status = document.getElementsByName('adminStatus');
 			var checkedIndex = -1;
-			var adminStatus = '';
+			var adminStatusFlag = '';
 			for( i=0; i<status.length; i++ ) {
 				if(status[i].checked) {
 					checkedIndex = i;
-					adminStatus = status[i].value;
+					adminStatusFlag = status[i].value;
 				}
 			}
-			
-			var data = {'adminId': adminId, 'adminPassword': adminPassword, 'adminNickName': adminNickName, 'adminStatus': adminStatus};
-			alert( adminId);
-			alert( adminPassword);
-			alert( adminStatus );
-			alert( adminNickName );
+			alert( adminStatusFlag );
+			var data = {'adminId': adminId, 'adminPassword': adminPassword, 'adminNickName': adminNickName, 'adminStatusFlag': adminStatusFlag};
 			$.ajax({
 				url: '/admin/adminAdd',
 				method: 'POST',
@@ -116,23 +111,16 @@
 					var data = responseData.trim();
 					console.log(data);
 					if( data == '1' ){
-						alert("저장되었습니다.");
-						/* location.href= '${pageContext.request.contextPath}';	 */		
-						//location.href='/admin/member/admin.jsp';
-				
+						location.href='/admin/member/admin.jsp';
 					} else{
 						alert("잘못된 정보입니다.");
 					}
 				},
 				error: function(xhr, status, error){
 					
-				}/* ,
-			 	complete: function(){
-            	  self.close();
-              	}  */
+				}
 			});
 			return false;
-	    	alert('저장되었습니다.');
 		});
 	});
     </script>
