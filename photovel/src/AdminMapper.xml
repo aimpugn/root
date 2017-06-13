@@ -3,19 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper"> <!--  네임 스페이스 중복되면 안됨 -->
+<resultMap id="AdminMap" type="Admin">
+    <id column="admin_id" property="adminId" />
+    <result column="admin_password" property="adminPassword"/>
+    <result column="admin_nickname" property="adminNickName"/>
+    <result column="admin_status_flag" property="adminStatusFlag"/>
+    <result column="admin_sign_date" property="adminSignDate"/>
+  </resultMap>
 <insert id="insert" parameterType="Admin">
 	INSERT INTO Admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag})
 </insert>
-<select id="selectById" resultType="Admin" parameterType="string">
-	SELECT * from Admin_user WHERE admin_id= #{adminId}
+<select id="selectById" resultMap="AdminMap" parameterType="string">
+	SELECT * FROM Admin_user WHERE admin_id= #{adminId}
 </select>
- <select id="selectByName" resultType="Admin" parameterType="string">
+ <select id="selectByName" resultMap="AdminMap" parameterType="string">
 	SELECT * FROM Admin_user WHERE admin_nickname LIKE '%${value}%'
 </select>
- <select id="selectAll" resultType="Admin">
-	SELECT admin_id, admin_password, admin_nickname
-	FROM Admin_user
-	ORDER BY admin_id
+ <select id="selectAll" resultMap="AdminMap">
 </select>
 <update id="update" parameterType="Admin">
     update Admin_user set admin_password = #{adminPassword}

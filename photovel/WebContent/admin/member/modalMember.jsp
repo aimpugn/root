@@ -224,7 +224,7 @@
 			alert( '선택된 항목 인덱스: '+checkedIndex+'\n선택된 항목 값: '+ adminStatus );
 			
 			$.ajax({
-				url: '/photovel/admin/adminAdd',
+				url: '/admin/adminAdd',
 				method: 'POST',
 				data: data,
 				success: function(responseData){
@@ -233,7 +233,7 @@
 					if( data == '1' ){
 						alert("저장되었습니다.");
 						/* location.href= '${pageContext.request.contextPath}';	 */		
-						location.href='/photovel/admin/member/admin.jsp';
+						location.href='/admin/member/admin.jsp';
 					} else if ( data == 'leave'){
 						alert('탈퇴한 회원입니다.');						
 					} else if ( data == 'stop'){

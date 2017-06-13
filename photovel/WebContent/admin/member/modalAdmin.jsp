@@ -109,7 +109,7 @@
 			alert( adminStatus );
 			alert( adminNickName );
 			$.ajax({
-				url: '/photovel/admin/adminAdd',
+				url: '/admin/adminAdd',
 				method: 'POST',
 				data: data,
 				success: function(responseData){
@@ -118,7 +118,7 @@
 					if( data == '1' ){
 						alert("저장되었습니다.");
 						/* location.href= '${pageContext.request.contextPath}';	 */		
-						//location.href='/photovel/admin/member/admin.jsp';
+						//location.href='/admin/member/admin.jsp';
 				
 					} else{
 						alert("잘못된 정보입니다.");

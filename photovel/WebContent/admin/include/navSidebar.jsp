@@ -26,23 +26,23 @@ $(function(){
 	var url = location.href;
 	var pageArray = new Array(
 			//통계
-			url.indexOf("/photovel/admin/static/dashboard.jsp"),
-			url.indexOf("/photovel/admin/static/member.jsp"),
-			url.indexOf("/photovel/admin/static/con.jsp"),
-			url.indexOf("/photovel/admin/static/borad.jsp"),
+			url.indexOf("/admin/static/dashboard.jsp"),
+			url.indexOf("/admin/static/member.jsp"),
+			url.indexOf("/admin/static/con.jsp"),
+			url.indexOf("/admin/static/borad.jsp"),
 			
 			//멤버
-			url.indexOf("/photovel/admin/member/member.jsp"),
-			url.indexOf("/photovel/admin/member/admin.jsp"),
+			url.indexOf("/admin/member/member.jsp"),
+			url.indexOf("/admin/member/admin.jsp"),
 			
 			//콘텐츠
-			url.indexOf("/photovel/admin/board/board.jsp"),
+			url.indexOf("/admin/board/board.jsp"),
 			
 			//사이트
-			url.indexOf("/photovel/admin/site/mainCustom.jsp"),
-			url.indexOf("/photovel/admin/site/term.jsp"),
-			url.indexOf("/photovel/admin/site/privacy.jsp"),
-			url.indexOf("/photovel/admin/site/term.jsp")
+			url.indexOf("/admin/site/mainCustom.jsp"),
+			url.indexOf("/admin/site/term.jsp"),
+			url.indexOf("/admin/site/privacy.jsp"),
+			url.indexOf("/admin/site/term.jsp")
 	);
 	if(pageArray[0] != -1){
 	    $(".sidebar li:eq(0)").addClass("active");
@@ -95,28 +95,28 @@ $(function(){
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li>
-						<a href="/photovel/admin/static/dashboard.jsp">대시보드
+						<a href="/admin/static/dashboard.jsp">대시보드
 					<!-- <span class="sr-only">(current)</span-->
 						</a>
 					</li>
-					<li><a href="/photovel/admin/static/member.jsp">회원통계</a></li>
-					<li><a href="/photovel/admin/static/con.jsp">접속통계</a></li>
-					<li><a href="/photovel/admin/static/board.jsp">게시글통계</a></li>
-<!-- 					<li><a href="/photovel/admin/static/advertise.jsp">광고 통계</a></li> -->
+					<li><a href="/admin/static/member.jsp">회원통계</a></li>
+					<li><a href="/admin/static/con.jsp">접속통계</a></li>
+					<li><a href="/admin/static/board.jsp">게시글통계</a></li>
+<!-- 					<li><a href="/admin/static/advertise.jsp">광고 통계</a></li> -->
 				</ul>
 				<ul class="nav nav-sidebar">
-					<li><a href="/photovel/admin/member/member.jsp">회원 목록</a></li>
-					<li><a href="/photovel/admin/member/admin.jsp">관리자 목록</a></li>
+					<li><a href="/admin/member/member.jsp">회원 목록</a></li>
+					<li><a href="/admin/member/admin.jsp">관리자 목록</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
-					<li><a href="/photovel/admin/board/board.jsp">콘텐츠 목록</a></li>
-					<!-- <li><a href="/photovel/admin/board/advertise.jsp">광고 목록</a></li> -->
+					<li><a href="/admin/board/board.jsp">콘텐츠 목록</a></li>
+					<!-- <li><a href="/admin/board/advertise.jsp">광고 목록</a></li> -->
 				</ul>
 
 				<ul class="nav nav-sidebar">
-					<li><a href="/photovel/admin/site/mainCustom.jsp">메인관리</a></li>
-					<li><a href="/photovel/admin/site/term.jsp">이용약관</a></li>
-					<li><a href="/photovel/admin/site/privacy.jsp">개인정보처리방침</a></li>
-					<li><a href="/photovel/admin/site/gpsTerm.jsp">위치정보이용약관</a></li>
+					<li><a href="/admin/site/mainCustom.jsp">메인관리</a></li>
+					<li><a href="/admin/site/term.jsp">이용약관</a></li>
+					<li><a href="/admin/site/privacy.jsp">개인정보처리방침</a></li>
+					<li><a href="/admin/site/gpsTerm.jsp">위치정보이용약관</a></li>
 				</ul>
 			</div>

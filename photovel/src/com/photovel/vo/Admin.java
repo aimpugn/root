@@ -1,5 +1,7 @@
 package com.photovel.vo;
 
+import java.util.Date;
+
 public class Admin {
 
     private String adminId;
@@ -9,8 +11,10 @@ public class Admin {
     private String adminNickName;
 
     private String adminStatusFlag;
+    
+    private Date adminSignDate;
 
-	public Admin(String adminId, String adminPassword, String adminNickName, String adminStatusFlag) {
+	public Admin() {
 	}
 
 	public String getAdminId() {
@@ -37,64 +41,28 @@ public class Admin {
 		this.adminNickName = adminNickName;
 	}
 
-	public String getadminStatusFlag() {
+	public String getAdminStatusFlag() {
 		return adminStatusFlag;
 	}
 
-	public void setadminStatusFlag(String adminStatusFlag) {
+	public void setAdminStatusFlag(String adminStatusFlag) {
 		this.adminStatusFlag = adminStatusFlag;
+	}
+
+	public Date getAdminSignDate() {
+		return adminSignDate;
+	}
+
+	public void setAdminSignDate(Date adminSignDate) {
+		this.adminSignDate = adminSignDate;
 	}
 
 	@Override
 	public String toString() {
-		return "adminId=" + adminId + ", adminPassword=" + adminPassword
-				+ ", adminNickName=" + adminNickName + ", adminStatusFlag=" + adminStatusFlag;
+		return "Admin [adminId=" + adminId + ", adminPassword=" + adminPassword + ", adminNickName=" + adminNickName
+				+ ", adminStatusFlag=" + adminStatusFlag + ", adminSignDate=" + adminSignDate + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((adminId == null) ? 0 : adminId.hashCode());
-		result = prime * result + ((adminNickName == null) ? 0 : adminNickName.hashCode());
-		result = prime * result + ((adminPassword == null) ? 0 : adminPassword.hashCode());
-		result = prime * result + ((adminStatusFlag == null) ? 0 : adminStatusFlag.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Admin other = (Admin) obj;
-		if (adminId == null) {
-			if (other.adminId != null)
-				return false;
-		} else if (!adminId.equals(other.adminId))
-			return false;
-		if (adminNickName == null) {
-			if (other.adminNickName != null)
-				return false;
-		} else if (!adminNickName.equals(other.adminNickName))
-			return false;
-		if (adminPassword == null) {
-			if (other.adminPassword != null)
-				return false;
-		} else if (!adminPassword.equals(other.adminPassword))
-			return false;
-		if (adminStatusFlag == null) {
-			if (other.adminStatusFlag != null)
-				return false;
-		} else if (!adminStatusFlag.equals(other.adminStatusFlag))
-			return false;
-		return true;
-	}
-
-    
+	
 }
 
    
