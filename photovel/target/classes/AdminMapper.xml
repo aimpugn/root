@@ -11,7 +11,7 @@
     <result column="admin_sign_date" property="adminSignDate"/>
   </resultMap>
 <insert id="insert" parameterType="Admin">
-	INSERT INTO Admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag})
+	INSERT INTO Admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag}, SYSDATE())
 </insert>
 <select id="selectById" resultMap="AdminMap" parameterType="string">
 	SELECT * FROM Admin_user WHERE admin_id= #{adminId}

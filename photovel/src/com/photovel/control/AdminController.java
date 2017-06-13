@@ -10,11 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,36 +62,32 @@ public class AdminController {
 		return msg;
 	}
 
-	@GetMapping(value = "/admin/common/logout")
-	public String logout(Model model, HttpSession session, HttpServletRequest request) {
-
-		model.addAttribute("msg", request.getContextPath());
+	@GetMapping("/common/logout")
+	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		session.removeAttribute("loginInfo");
 		String forwardURL = "/admin";
-		return forwardURL;
+		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	/*@PostMapping(value = "/admin/adminAdd")
-	public String adminAdd(String adminId, String adminPassword, String adminNickName, String adminStatus, Model model)
-			throws ServletException, IOException {
+	@PostMapping("/adminAdd")
+	public String adminAdd(Admin admin) {
 		String msg = "-1";
 		try {
-			Admin ad = dao.selectById(adminId);
-			if (ad != null) {
-				Admin adm = new Admin(adminId, adminPassword, adminNickName, adminStatus);
-				dao.regist(new Admin(adminId, adminPassword, adminNickName, adminStatus));
-				System.out.println(adm);
+			if (dao.selectById(admin.getAdminId()) == null) {
+				dao.insert(admin);
 				msg = "1";
+				return msg;
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("msg", msg);
-		String forwardURL = "/admin/common/result.jsp";
-		return forwardURL;
-	}*/
+		return msg;
+	}
 
 	/*
 	 * @RequestMapping(value="/membermanagelist.do") public String
