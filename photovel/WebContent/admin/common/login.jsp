@@ -36,7 +36,7 @@ $(function(){
 		var data = {'adminId': adminId, 'adminPassword': adminPassword };
 		console.log("data" + data);
 		$.ajax({
-			url : '/photovel/admin/adminLogin',
+			url : '/admin/adminLogin',
 			method:'GET', 			
 			data: data,
 			success: function(responseData){
@@ -45,7 +45,7 @@ $(function(){
 				if( data == '1' ){
 					alert("로그인 성공");
 					/* location.href= '${pageContext.request.contextPath}';	 */		
-					location.href='/photovel/admin/member/member.jsp';
+					location.href='/admin/member/member.jsp';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
 				} else if ( data == 'stop'){

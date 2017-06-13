@@ -42,13 +42,13 @@ $(function(){
 	var url = location.href;
 	var folderArray = new Array(
 			//통계
-			url.indexOf("/photovel/admin/static"),
+			url.indexOf("/admin/static"),
 			//멤버
-			url.indexOf("/photovel/admin/member"),
+			url.indexOf("/admin/member"),
 			//콘텐츠
-			url.indexOf("/photovel/admin/board"),
+			url.indexOf("/admin/board"),
 			//사이트
-			url.indexOf("/photovel/admin/site")
+			url.indexOf("/admin/site")
 	);
 
 	if(folderArray[0] != -1){
@@ -76,7 +76,7 @@ Object loginInfo;
 		loginInfo = (Admin) session.getAttribute("loginInfo");
 	}
  if(loginInfo == null) { %>
-response.sendRedirect(/photovel/admin);
+response.sendRedirect(/admin);
 	<% } else { %>
 	 --%>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -96,11 +96,11 @@ response.sendRedirect(/photovel/admin);
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
 				<p class="navbar-text narvar-right">Welcome ${adm.adminNickName}님!</p>
 				<ul class="nav navbar-nav">
-					<li><a href="/photovel/admin/common/logout">로그아웃</a></li>
-					<li><a href="/photovel/admin/static/dashboard.jsp">통계관리</a></li>
-					<li><a href="/photovel/admin/member/member.jsp">회원관리</a></li>
-					<li><a href="/photovel/admin/board/board.jsp">게시글관리</a></li>
-					<li><a href="/photovel/admin/site/mainCustom.jsp">사이트관리</a></li>
+					<li><a href="/admin/common/logout">로그아웃</a></li>
+					<li><a href="/admin/static/dashboard.jsp">통계관리</a></li>
+					<li><a href="/admin/member/member.jsp">회원관리</a></li>
+					<li><a href="/admin/board/board.jsp">게시글관리</a></li>
+					<li><a href="/admin/site/mainCustom.jsp">사이트관리</a></li>
 				</ul>
 			</div>
 		</div>
