@@ -11,26 +11,26 @@
     <result column="admin_sign_date" property="adminSignDate"/>
   </resultMap>
 <insert id="insert" parameterType="Admin">
-	INSERT INTO Admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag}, SYSDATE())
+	INSERT INTO admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag}, SYSDATE())
 </insert>
 <select id="selectById" resultMap="AdminMap" parameterType="string">
-	SELECT * FROM Admin_user WHERE admin_id= #{adminId}
+	SELECT * FROM admin_user WHERE admin_id= #{adminId}
 </select>
  <select id="selectByName" resultMap="AdminMap" parameterType="string">
-	SELECT * FROM Admin_user WHERE admin_nickname LIKE '%${value}%'
+	SELECT * FROM admin_user WHERE admin_nickname LIKE '%${value}%'
 </select>
  <select id="selectAll" resultMap="AdminMap">
 </select>
 <update id="update" parameterType="Admin">
-    update Admin_user set admin_password = #{adminPassword}
+    update admin_user set admin_password = #{adminPassword}
     where admin_id = #{adminId}
 </update>
 <update id="leave" parameterType="Admin">
-    update Admin_user set admin_status_flag = 'L' 
+    update admin_user set admin_status_flag = 'L' 
     where admin_id = #{adminId}
 </update>
 <update id="stop" parameterType="Admin">
-    update Admin_user set admin_status_flag = 'S' 
+    update admin_user set admin_status_flag = 'S' 
     where admin_id = #{adminId}
 </update>
 </mapper>

@@ -39,9 +39,6 @@ public class ContentController {
 	@GetMapping
     public List<Content> selectAllOrderByDate(){
 		List<Content> contents = contentDao.selectAll();
-		for(Content content:contents){
-			System.out.println(content);
-		}
 		return contents;
     }
 	

@@ -18,14 +18,14 @@
   </resultMap>
 
   <insert id="insertDetail" parameterType="ContentDetail">
-    INSERT INTO Content_detail VALUES(#{contentId}, #{contentDetailId}, #{detailContent})
+    INSERT INTO content_detail VALUES(#{contentId}, #{contentDetailId}, #{detailContent})
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="ContentDetailMap">
-	SELECT Content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
-	FROM Content_detail JOIN Content ON Content_detail.content_id = Content.content_id
-	JOIN Photo ON Content_detail.content_detail_id = Photo.content_detail_id
-	WHERE Content.content_id = #{contentId}
+	SELECT content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
+	FROM content_detail JOIN content ON content_detail.content_id = content.content_id
+	JOIN photo ON content_detail.content_detail_id = photo.content_detail_id
+	WHERE content.content_id = #{contentId}
   </select>
    
 </mapper>
