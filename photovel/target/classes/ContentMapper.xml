@@ -39,7 +39,7 @@
   </select>
   
   <select id="selectAll" resultMap="ContentMap">
-	SELECT content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date,
+	SELECT content_id, User.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date,
 		(select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count, 
 		(select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count,
 		(select count(*) from Content JOIN Content_detail ON Content.content_id = Content_detail.content_id) content_detail_count
