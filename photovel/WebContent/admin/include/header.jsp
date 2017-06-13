@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.photovel.vo.Admin" %>
-<c:set var="admin" value="${requestScope.adm}" />
-
+<c:set var="admin" value="${sessionScope.loginInfo}" />
 <script>
 $(function(){
 	var $header = $("header");
@@ -68,17 +67,6 @@ $(function(){
 
 </script>
 
-<%-- <% HttpSession session2 = request.getSession();
-Object loginInfo;
-	if(session.getAttribute("loginInfo") instanceof Admin){
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}else{
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}
- if(loginInfo == null) { %>
-response.sendRedirect(/admin);
-	<% } else { %>
-	 --%>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -94,7 +82,7 @@ response.sendRedirect(/admin);
 			</div>
 			
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
-				<p class="navbar-text narvar-right">Welcome ${adm.adminNickName}님!</p>
+				<p class="navbar-text narvar-right">Welcome ${admin.adminNickName}님!</p>
 				<ul class="nav navbar-nav">
 					<li><a href="/admin/common/logout">로그아웃</a></li>
 					<li><a href="/admin/static/dashboard.jsp">통계관리</a></li>
