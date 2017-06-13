@@ -55,6 +55,7 @@ public class AdminController {
 			if( adminPassword.equals(pw) ){		
 				if ( !"L".equals( status ) && !"S".equals( status ) ) {
 				Admin adm = dao.login(adminId, adminPassword);
+				System.out.println("트라이 안의 아이디 패스워드 "+ adminId + adminPassword);
 	        	session.setAttribute("loginInfo", adm);// 로그인 정보를 지움. 현재 로그인 실패해도 이전의 로그인 성공 작업이 남는 것을 방지 
 	        	session.setMaxInactiveInterval(10000);
 	        	msg = "1";

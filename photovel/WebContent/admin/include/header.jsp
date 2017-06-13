@@ -1,10 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.photovel.vo.Admin" %>
-<c:set var="admin" value="${requestScope.adm}" />
+<c:set var="admin" value="${sessionScope.loginInfo}" />
+<% HttpSession session2 = request.getSession();
+Object loginInfo;
+	loginInfo = (Admin) session.getAttribute("loginInfo");
+	if(loginInfo == null){
+		System.out.println("널널");
+	}else {
+		System.out.println("아님아님");
+	}
+%>
 
 <script>
 $(function(){
+	
+	/* var admin = $('${requestScope.loginInfo.adminNickName}');
+	console.log("test" + admin); */
 	var $header = $("header");
 	var $a = $header.find("a");
 	var today = new Date(); 
@@ -79,6 +91,7 @@ Object loginInfo;
 response.sendRedirect(/photovel/admin);
 	<% } else { %>
 	 --%>
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -94,7 +107,7 @@ response.sendRedirect(/photovel/admin);
 			</div>
 			
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
-				<p class="navbar-text narvar-right">Welcome ${adm.adminNickName}님!</p>
+				<p class="navbar-text narvar-right">Welcome ${admin.adminNickName}님!</p>
 				<ul class="nav navbar-nav">
 					<li><a href="/photovel/admin/common/logout">로그아웃</a></li>
 					<li><a href="/photovel/admin/static/dashboard.jsp">통계관리</a></li>

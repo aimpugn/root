@@ -4,7 +4,6 @@
 <%--  head ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
  </head>
-
 <body>
 <%--  header ------------------------------------------- --%>
 <%@include file="/admin/include/header.jsp" %>
