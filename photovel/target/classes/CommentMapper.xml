@@ -18,7 +18,7 @@
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="CommentMap">
-	SELECT Comment.content_id content_id, comment_id, comment_content, comment_date, Comment.user_id usesr_id, user_nick_name
+	SELECT Comment.content_id content_id, comment_id, comment_content, comment_date, Comment.user_id user_id, user_nick_name
 	FROM Comment JOIN Content ON Comment.content_id = Content.content_id
 	JOIN User ON Comment.user_id = User.user_id
 	WHERE Content.content_id = #{contentId}

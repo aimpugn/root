@@ -22,7 +22,7 @@
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="ContentDetailMap">
-	SELECT content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
+	SELECT Content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
 	FROM Content_detail JOIN Content ON Content_detail.content_id = Content.content_id
 	JOIN Photo ON Content_detail.content_detail_id = Photo.content_detail_id
 	WHERE Content.content_id = #{contentId}
