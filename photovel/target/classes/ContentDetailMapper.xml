@@ -32,5 +32,8 @@
 	JOIN photo ON content_detail.content_detail_id = photo.content_detail_id
 	WHERE content.content_id = #{content_id}
   </select>
+  <select id="selectOne" resultType="int">
+	SELECT IFNULL(MAX(content_id), 0) FROM content
+  </select>
    
 </mapper>

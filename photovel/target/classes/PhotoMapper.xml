@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PhotoMapper">
   <insert id="insertPhoto" parameterType="Photo">
-    <selectKey keyProperty="photo_file_name" resultType="string" order="BEFORE">
-  	  <!-- 주문번호 최대값 반환, 없으면 null대신 0 반환 -->
+    <!-- <selectKey keyProperty="photo_file_name" resultType="string" order="BEFORE">
+  	  주문번호 최대값 반환, 없으면 null대신 0 반환
   	  SELECT concat(a.id, '_', cast(#{content_detail_id} as char), '.jpg') photo_file_name from (select cast(MAX(content_id) as char) id from content) a
-  	</selectKey>
+  	</selectKey> -->
     INSERT INTO photo VALUES(#{content_detail_id}, #{photo_file_name}, #{photo_top_flag}, #{photo_date}, #{photo_latitude}, #{photo_longitude})
   </insert>
   <select id="selectAll" resultType="Photo">

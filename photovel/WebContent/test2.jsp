@@ -6,25 +6,27 @@
 <title>content upload test</title>
 </head>
 <body>
-<input type="file">
-<input type="submit" value="업로드" id="upload">
+	<form method="POST" action="/upload" enctype="multipart/form-data">
+		<input type="file" name="uploadFile">
+		<input type="submit" value="업로드" id="upload">
+	</form>
 </body>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script>
-$(function(){
+$(function() {
 	$('#upload').click(function(){
-		var content = $('#content').val();
-		console.log(content);
+		var formData = new FormData($('form')[0]);
 		$.ajax({
-			url:"/content/photo",
-			method:"POST",
-			data:content,
-			//contentType: "text/plain; charset=UTF-8",
-			contentType: "application/json; charset=UTF-8",
-			success: function(responseData){
+			url : "/upload",
+			method : "POST",
+			data: formData,
+			enctype:"multipart/form-data",
+			processData:false,
+			contentType:false,
+			success : function(responseData) {
 				alert('성공!');
 			},
-			error: function(xhr, status, error){
+			error : function(xhr, status, error) {
 				console.log(xhr);
 				console.log(status);
 				console.log(error);
