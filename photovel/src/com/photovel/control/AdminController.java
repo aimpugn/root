@@ -42,16 +42,16 @@ public class AdminController {
 		String msg = "-1";
 		try {
 			Admin admin = dao.selectById(adminId);
-			if (adminPassword.equals(admin.getAdminPassword())) {
-				if ("N".equals(admin.getAdminStatusFlag())) {
+			if (adminPassword.equals(admin.getAdmin_password())) {
+				if ("N".equals(admin.getAdmin_status_flag())) {
 					session.setAttribute("loginInfo", admin);
 					session.setMaxInactiveInterval(10000);
 					msg = "1";
 					return msg;
-				} else if ("L".equals(admin.getAdminStatusFlag())) {
+				} else if ("L".equals(admin.getAdmin_status_flag())) {
 					msg = "leave";
 					return msg;
-				} else if ("S".equals(admin.getAdminStatusFlag())) {
+				} else if ("S".equals(admin.getAdmin_status_flag())) {
 					msg = "stop";
 					return msg;
 				} 
@@ -78,7 +78,7 @@ public class AdminController {
 	public String adminAdd(Admin admin) {
 		String msg = "-1";
 		try {
-			if (dao.selectById(admin.getAdminId()) == null) {
+			if (dao.selectById(admin.getAdmin_id()) == null) {
 				dao.insert(admin);
 				msg = "1";
 				return msg;

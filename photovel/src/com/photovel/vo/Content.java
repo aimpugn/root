@@ -6,32 +6,34 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class Content {
-	private int contentId;
-	private String contentSubject;
+	private int content_id;
+	private String content_subject;
 	private String content;
-	private Date contentWrittenDate;
-	private String contentPrivateFlag;
-	private String contentDeleteStatus;
-	private int contentWarningStatus;
-	private int contentShareCount;
-	private int goodCount;
-	private int commentCount;
-	private int contentDetailCount;
+	private Date content_written_date;
+	private String content_private_flag;
+	private String content_delete_status;
+	private int content_warning_status;
+	private int content_share_count;
+	private int good_count;
+	private int comment_count;
+	private int content_detail_count;
 	private User user;
-	private Advertisement advertisement;
+	private Advertisement ad;
 	private List<Comment> comments;
 	private List<ContentDetail> details;
-	public int getContentId() {
-		return contentId;
+	
+	
+	public int getContent_id() {
+		return content_id;
 	}
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setContent_id(int content_id) {
+		this.content_id = content_id;
 	}
-	public String getContentSubject() {
-		return contentSubject;
+	public String getContent_subject() {
+		return content_subject;
 	}
-	public void setContentSubject(String contentSubject) {
-		this.contentSubject = contentSubject;
+	public void setContent_subject(String content_subject) {
+		this.content_subject = content_subject;
 	}
 	public String getContent() {
 		return content;
@@ -40,53 +42,53 @@ public class Content {
 		this.content = content;
 	}
 	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
-	public Date getContentWrittenDate() {
-		return contentWrittenDate;
+	public Date getContent_written_date() {
+		return content_written_date;
 	}
-	public void setContentWrittenDate(Date contentWrittenDate) {
-		this.contentWrittenDate = contentWrittenDate;
+	public void setContent_written_date(Date content_written_date) {
+		this.content_written_date = content_written_date;
 	}
-	public String getContentPrivateFlag() {
-		return contentPrivateFlag;
+	public String getContent_private_flag() {
+		return content_private_flag;
 	}
-	public void setContentPrivateFlag(String contentPrivateFlag) {
-		this.contentPrivateFlag = contentPrivateFlag;
+	public void setContent_private_flag(String content_private_flag) {
+		this.content_private_flag = content_private_flag;
 	}
-	public String getContentDeleteStatus() {
-		return contentDeleteStatus;
+	public String getContent_delete_status() {
+		return content_delete_status;
 	}
-	public void setContentDeleteStatus(String contentDeleteStatus) {
-		this.contentDeleteStatus = contentDeleteStatus;
+	public void setContent_delete_status(String content_delete_status) {
+		this.content_delete_status = content_delete_status;
 	}
-	public int getContentWarningStatus() {
-		return contentWarningStatus;
+	public int getContent_warning_status() {
+		return content_warning_status;
 	}
-	public void setContentWarningStatus(int contentWarningStatus) {
-		this.contentWarningStatus = contentWarningStatus;
+	public void setContent_warning_status(int content_warning_status) {
+		this.content_warning_status = content_warning_status;
 	}
-	public int getContentShareCount() {
-		return contentShareCount;
+	public int getContent_share_count() {
+		return content_share_count;
 	}
-	public void setContentShareCount(int contentShareCount) {
-		this.contentShareCount = contentShareCount;
+	public void setContent_share_count(int content_share_count) {
+		this.content_share_count = content_share_count;
 	}
-	public int getGoodCount() {
-		return goodCount;
+	public int getGood_count() {
+		return good_count;
 	}
-	public void setGoodCount(int goodCount) {
-		this.goodCount = goodCount;
+	public void setGood_count(int good_count) {
+		this.good_count = good_count;
 	}
-	public int getCommentCount() {
-		return commentCount;
+	public int getComment_count() {
+		return comment_count;
 	}
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
-	public int getContentDetailCount() {
-		return contentDetailCount;
+	public int getContent_detail_count() {
+		return content_detail_count;
 	}
-	public void setContentDetailCount(int contentDetailCount) {
-		this.contentDetailCount = contentDetailCount;
+	public void setContent_detail_count(int content_detail_count) {
+		this.content_detail_count = content_detail_count;
 	}
 	public User getUser() {
 		return user;
@@ -94,11 +96,11 @@ public class Content {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Advertisement getAdvertisement() {
-		return advertisement;
+	public Advertisement getad() {
+		return ad;
 	}
-	public void setAdvertisement(Advertisement advertisement) {
-		this.advertisement = advertisement;
+	public void setad(Advertisement ad) {
+		this.ad = ad;
 	}
 	public List<Comment> getComments() {
 		return comments;
@@ -114,11 +116,12 @@ public class Content {
 	}
 	@Override
 	public String toString() {
-		return "Content [contentId=" + contentId + ", contentSubject=" + contentSubject + ", content=" + content
-				+ ", contentWrittenDate=" + contentWrittenDate + ", contentPrivateFlag=" + contentPrivateFlag
-				+ ", contentDeleteStatus=" + contentDeleteStatus + ", contentWarningStatus=" + contentWarningStatus
-				+ ", contentShareCount=" + contentShareCount + ", goodCount=" + goodCount + ", commentCount="
-				+ commentCount + ", contentDetailCount=" + contentDetailCount + ", user=" + user + ", advertisement="
-				+ advertisement + ", comments=" + comments + ", details=" + details + "]";
+		return "Content [content_id=" + content_id + ", content_subject=" + content_subject + ", content=" + content
+				+ ", content_written_date=" + content_written_date + ", content_private_flag=" + content_private_flag
+				+ ", content_delete_status=" + content_delete_status + ", content_warning_status="
+				+ content_warning_status + ", content_share_count=" + content_share_count + ", good_count=" + good_count
+				+ ", comment_count=" + comment_count + ", content_detail_count=" + content_detail_count + ", user="
+				+ user + ", ad=" + ad + ", comments=" + comments + ", details=" + details + "]";
 	}
+	
 }

@@ -5,8 +5,8 @@
 <mapper namespace="UserMapper">
   <insert id="insertUser" parameterType="User">
     INSERT INTO user
-	VALUES (#{userId}, #{userPassword}, #{userNickName}, #{userGender}, 
-	#{userPhone1},  #{userPhone2}, #{userProfilePhoto}, SYSDATE(), 'N', 
-	SYSDATE(), #{userSnsStatus}, #{userSnsToken}, #{userPushToken}, #{userFriendCount})
+	VALUES (#{user_id}, #{user_password}, #{user_nick_name}, #{user_gender}, 
+	#{user_phone1},  #{user_phone2}, #{user_profile_photo}, SYSDATE(), 'N', 
+	SYSDATE(), #{user_sns_status}, #{user_sns_token}, #{user_push_token}, #{user_friend_count})
   </insert>
 </mapper>

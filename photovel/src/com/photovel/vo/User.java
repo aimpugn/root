@@ -2,118 +2,119 @@ package com.photovel.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class User {
-	private String userId;
-	private String userPassword;
-	private String userNickName;
-	private String userGender;
-	private int userPhone1;
-	private int userPhone2;
-	private String userProfilePhoto;
-	private Date userSignDate;
-	private String userStateFlag;
-	private Date userLastConnection;
-	private String userSnsStatus;
-	private String userSnsToken;
-	private String userPushToken;
-	private int userFriendCount;
-	
-	public String getUserId() {
-		return userId;
+	@JsonProperty("user_id")
+	private String user_id;
+	private String user_password;
+	private String user_nick_name;
+	private String user_gender;
+	private int user_phone1;
+	private int user_phone2;
+	private String user_profile_photo;
+	private Date user_sign_date;
+	private String user_state_flag;
+	private Date user_last_connection;
+	private String user_sns_status;
+	private String user_sns_token;
+	private String user_push_token;
+	private int user_friend_count;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public String getUserPassword() {
-		return userPassword;
+	public String getUser_password() {
+		return user_password;
 	}
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setUser_password(String user_password) {
+		this.user_password = user_password;
 	}
-	public String getUserNickName() {
-		return userNickName;
+	public String getUser_nick_name() {
+		return user_nick_name;
 	}
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
+	public void setUser_nick_name(String user_nick_name) {
+		this.user_nick_name = user_nick_name;
 	}
-	public String getUserGender() {
-		return userGender;
+	public String getUser_gender() {
+		return user_gender;
 	}
-	public void setUserGender(String userGender) {
-		this.userGender = userGender;
+	public void setUser_gender(String user_gender) {
+		this.user_gender = user_gender;
 	}
-	public int getUserPhone1() {
-		return userPhone1;
+	public int getUser_phone1() {
+		return user_phone1;
 	}
-	public void setUserPhone1(int userPhone1) {
-		this.userPhone1 = userPhone1;
+	public void setUser_phone1(int user_phone1) {
+		this.user_phone1 = user_phone1;
 	}
-	public int getUserPhone2() {
-		return userPhone2;
+	public int getUser_phone2() {
+		return user_phone2;
 	}
-	public void setUserPhone2(int userPhone2) {
-		this.userPhone2 = userPhone2;
+	public void setUser_phone2(int user_phone2) {
+		this.user_phone2 = user_phone2;
 	}
-	public String getUserProfilePhoto() {
-		return userProfilePhoto;
+	public String getUser_profile_photo() {
+		return user_profile_photo;
 	}
-	public void setUserProfilePhoto(String userProfilePhoto) {
-		this.userProfilePhoto = userProfilePhoto;
-	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
-	public Date getUserSignDate() {
-		return userSignDate;
-	}
-	public void setUserSignDate(Date userSignDate) {
-		this.userSignDate = userSignDate;
-	}
-	public String getUserStateFlag() {
-		return userStateFlag;
-	}
-	public void setUserStateFlag(String userStateFlag) {
-		this.userStateFlag = userStateFlag;
+	public void setUser_profile_photo(String user_profile_photo) {
+		this.user_profile_photo = user_profile_photo;
 	}
 	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
-	public Date getUserLastConnection() {
-		return userLastConnection;
+	public Date getUser_sign_date() {
+		return user_sign_date;
 	}
-	public void setUserLastConnection(Date userLastConnection) {
-		this.userLastConnection = userLastConnection;
+	public void setUser_sign_date(Date user_sign_date) {
+		this.user_sign_date = user_sign_date;
 	}
-	public String getUserSnsStatus() {
-		return userSnsStatus;
+	public String getUser_state_flag() {
+		return user_state_flag;
 	}
-	public void setUserSnsStatus(String userSnsStatus) {
-		this.userSnsStatus = userSnsStatus;
+	public void setUser_state_flag(String user_state_flag) {
+		this.user_state_flag = user_state_flag;
 	}
-	public String getUserSnsToken() {
-		return userSnsToken;
+	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+	public Date getUser_last_connection() {
+		return user_last_connection;
 	}
-	public void setUserSnsToken(String userSnsToken) {
-		this.userSnsToken = userSnsToken;
+	public void setUser_last_connection(Date user_last_connection) {
+		this.user_last_connection = user_last_connection;
 	}
-	public String getUserPushToken() {
-		return userPushToken;
+	public String getUser_sns_status() {
+		return user_sns_status;
 	}
-	public void setUserPushToken(String userPushToken) {
-		this.userPushToken = userPushToken;
+	public void setUser_sns_status(String user_sns_status) {
+		this.user_sns_status = user_sns_status;
 	}
-	public int getUserFriendCount() {
-		return userFriendCount;
+	public String getUser_sns_token() {
+		return user_sns_token;
 	}
-	public void setUserFriendCount(int userFriendCount) {
-		this.userFriendCount = userFriendCount;
+	public void setUser_sns_token(String user_sns_token) {
+		this.user_sns_token = user_sns_token;
 	}
-	
+	public String getUser_push_token() {
+		return user_push_token;
+	}
+	public void setUser_push_token(String user_push_token) {
+		this.user_push_token = user_push_token;
+	}
+	public int getUser_friend_count() {
+		return user_friend_count;
+	}
+	public void setUser_friend_count(int user_friend_count) {
+		this.user_friend_count = user_friend_count;
+	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userPassword=" + userPassword + ", userNickName=" + userNickName
-				+ ", userGender=" + userGender + ", userPhone1=" + userPhone1 + ", userPhone2=" + userPhone2
-				+ ", userProfilePhoto=" + userProfilePhoto + ", userSignDate=" + userSignDate + ", userStateFlag="
-				+ userStateFlag + ", userLastConnection=" + userLastConnection + ", userSnsStatus=" + userSnsStatus
-				+ ", userSnsToken=" + userSnsToken + ", userPushToken=" + userPushToken + ", userFriendCount="
-				+ userFriendCount + "]";
+		return "User [user_id=" + user_id + ", user_password=" + user_password + ", user_nick_name=" + user_nick_name
+				+ ", user_gender=" + user_gender + ", user_phone1=" + user_phone1 + ", user_phone2=" + user_phone2
+				+ ", user_profile_photo=" + user_profile_photo + ", user_sign_date=" + user_sign_date
+				+ ", user_state_flag=" + user_state_flag + ", user_last_connection=" + user_last_connection
+				+ ", user_sns_status=" + user_sns_status + ", user_sns_token=" + user_sns_token + ", user_push_token="
+				+ user_push_token + ", user_friend_count=" + user_friend_count + "]";
 	}
+	
 }

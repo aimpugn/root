@@ -1,14 +1,14 @@
 package com.photovel.vo;
 
 public class Good {
-	private int contentId;
+	private int content_id;
 	private User user;
 	
-	public int getContentId() {
-		return contentId;
+	public int getContent_id() {
+		return content_id;
 	}
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setContent_id(int content_id) {
+		this.content_id = content_id;
 	}
 	public User getUser() {
 		return user;
@@ -19,6 +19,6 @@ public class Good {
 	
 	@Override
 	public String toString() {
-		return "Good [contentId=" + contentId + ", user=" + user + "]";
+		return "Good [content_id=" + content_id + ", user=" + user + "]";
 	}
 }

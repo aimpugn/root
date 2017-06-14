@@ -1,28 +1,28 @@
 package com.photovel.vo;
 
 public class ContentDetail {
-    private int contentId;
-	private int contentDetailId;
-	private String detailContent;
+    private int content_id;
+	private int content_detail_id;
+	private String detail_content;
 	private Photo photo;
 	
-	public int getContentId() {
-		return contentId;
+	public int getContent_id() {
+		return content_id;
 	}
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setContent_id(int content_id) {
+		this.content_id = content_id;
 	}
-	public int getContentDetailId() {
-		return contentDetailId;
+	public int getContent_detail_id() {
+		return content_detail_id;
 	}
-	public void setContentDetailId(int contentDetailId) {
-		this.contentDetailId = contentDetailId;
+	public void setContent_detail_id(int content_detail_id) {
+		this.content_detail_id = content_detail_id;
 	}
-	public String getDetailContent() {
-		return detailContent;
+	public String getDetail_content() {
+		return detail_content;
 	}
-	public void setDetailContent(String detailContent) {
-		this.detailContent = detailContent;
+	public void setDetail_content(String detail_content) {
+		this.detail_content = detail_content;
 	}
 	public Photo getPhoto() {
 		return photo;
@@ -30,10 +30,10 @@ public class ContentDetail {
 	public void setPhoto(Photo photo) {
 		this.photo = photo;
 	}
-	
 	@Override
 	public String toString() {
-		return "ContentDetail [contentId=" + contentId + ", contentDetailId=" + contentDetailId + ", detailContent="
-				+ detailContent + ", photo=" + photo + "]";
+		return "ContentDetail [content_id=" + content_id + ", content_detail_id=" + content_detail_id
+				+ ", detail_content=" + detail_content + ", photo=" + photo + "]";
 	}
+	
 }

@@ -4,17 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CommentMapper">
   <resultMap id="CommentMap" type="Comment">
-    <id column="content_id" property="contentId" />
-    <id column="comment_id" property="commentId" />
-    <result column="comment_content" property="commentContent"/>
-    <result column="comment_date" property="commentDate"/>
+    <id column="content_id" property="content_id" />
+    <id column="comment_id" property="comment_id" />
+    <result column="comment_content" property="comment_content"/>
+    <result column="comment_date" property="comment_date"/>
     <association property="user" javaType="User">
-      <id column="user_id" property="userId"/>
-      <result column="user_nick_name" property="userNickName"/>
+      <id column="user_id" property="user_id"/>
+      <result column="user_nick_name" property="user_nick_name"/>
     </association>
   </resultMap>
   <insert id="insertComment" parameterType="Comment">
-    INSERT INTO comment VALUES(#{contentId}, #{commentId}, #{user.getUserId()}, #{commentContent}, #{commentDate})
+    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.getUser_id()}, #{comment_content}, #{comment_date})
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="CommentMap">
