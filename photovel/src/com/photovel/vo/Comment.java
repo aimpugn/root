@@ -5,36 +5,36 @@ import java.util.Date;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class Comment {
-	private int contentId;
-	private int commentId;
-	private String commentContent;
-	private Date commentDate;
+	private int content_id;
+	private int comment_id;
+	private String comment_content;
+	private Date comment_date;
 	private User user;
 	
-	public int getContentId() {
-		return contentId;
+	public int getContent_id() {
+		return content_id;
 	}
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setContent_id(int content_id) {
+		this.content_id = content_id;
 	}
-	public int getCommentId() {
-		return commentId;
+	public int getComment_id() {
+		return comment_id;
 	}
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
 	}
-	public String getCommentContent() {
-		return commentContent;
+	public String getComment_content() {
+		return comment_content;
 	}
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
+	public void setComment_content(String comment_content) {
+		this.comment_content = comment_content;
 	}
 	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
-	public Date getCommentDate() {
-		return commentDate;
+	public Date getComment_date() {
+		return comment_date;
 	}
-	public void setCommentDate(Date commentDate) {
-		this.commentDate = commentDate;
+	public void setComment_date(Date comment_date) {
+		this.comment_date = comment_date;
 	}
 	public User getUser() {
 		return user;
@@ -44,7 +44,8 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [contentId=" + contentId + ", commentId=" + commentId + ", commentContent=" + commentContent
-				+ ", commentDate=" + commentDate + ", user=" + user + "]";
+		return "Comment [content_id=" + content_id + ", comment_id=" + comment_id + ", comment_content="
+				+ comment_content + ", comment_date=" + comment_date + ", user=" + user + "]";
 	}
+	
 }

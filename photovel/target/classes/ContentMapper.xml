@@ -5,46 +5,50 @@
 <mapper namespace="ContentMapper">
   <resultMap type="Content" id="ContentMap">
 	<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
-	<id column="content_id" property="contentId" />
-	<result column="content_subject" property="contentSubject"/>
+	<id column="content_id" property="content_id" />
+	<result column="content_subject" property="content_subject"/>
 	<result column="content" property="content"/>
-	<result column="content_written_date" property="contentWrittenDate"/>
-	<result column="content_private_flag" property="contentPrivateFlag"/>
-	<result column="content_delete_status" property="contentDeleteStatus"/>
-	<result column="content_warning_status" property="contentWarningStatus"/>
-	<result column="content_share_count" property="contentShareCount"/>
-	<result column="good_count" property="goodCount"/>
-	<result column="comment_count" property="commentCount"/>
-	<result column="content_detail_count" property="contentDetailCount"/>
+	<result column="content_written_date" property="content_written_date"/>
+	<result column="content_private_flag" property="content_private_flag"/>
+	<result column="content_delete_status" property="content_delete_status"/>
+	<result column="content_warning_status" property="content_warning_status"/>
+	<result column="content_share_count" property="content_share_count"/>
+	<result column="good_count" property="good_count"/>
+	<result column="comment_count" property="comment_count"/>
+	<result column="content_detail_count" property="content_detail_count"/>
 	<association property="user" javaType="User">
-		<id column="user_id" property="userId"/>
+		<id column="user_id" property="user_id"/>
 	</association>
-	<association property="advertisement" javaType="Advertisement">
-		<id column="ad_id" property="adId"/>
+	<association property="ad" javaType="Advertisement">
+		<id column="ad_id" property="ad_id"/>
 	</association>
   </resultMap>
   
   <insert id="insertContent" parameterType="Content">
-	INSERT INTO Content VALUES('', #{userId}, #{contentSubject}, #{content}, SYSDATE(), 'F', 'F', 0, #{adId}, 0)
+	INSERT INTO content VALUES(null, #{user.user_id}, #{content_subject}, #{content}, SYSDATE(), 'F', 'F', 0, #{ad.ad_id}, 0)
   </insert>
   <select id="selectById" parameterType="int" resultMap="ContentMap">
 	SELECT 
-	  Content.content_id content_id, user_id, content_subject, content, 
+	  content.content_id content_id, user_id, content_subject, content, 
 	  content_written_date, content_private_flag, content_delete_status, 
 	  content_warning_status, ad_id, content_share_count, 
-	  (select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count,
-	  (select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count 
-	FROM Content JOIN Content_detail ON Content.content_id = Content_detail.content_id
-	WHERE Content.content_id = #{contentId}
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count 
+	FROM content JOIN content_detail ON content.content_id = content_detail.content_id
+	WHERE content.content_id = #{content_id} AND content_delete_status = 'F'
   </select>
   
   <select id="selectAll" resultMap="ContentMap">
-	SELECT content_id, User.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date,
-		(select count(*) from Content JOIN Good ON Content.content_id = Good.content_id) good_count, 
-		(select count(*) from Content JOIN Comment ON Content.content_id = Comment.content_id) comment_count,
-		(select count(*) from Content JOIN Content_detail ON Content.content_id = Content_detail.content_id) content_detail_count
-	FROM Content JOIN User ON Content.user_id = User.user_id
+	SELECT content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id
+	WHERE content_delete_status = 'F'
 	ORDER BY content_written_date ASC
   </select>
+  <update id="updateDeleteStatus" parameterType="int">
+    UPDATE FROM content SET content_delete_status = 'T' WHERE content_id = #{content_id};
+  </update>
 
 </mapper>

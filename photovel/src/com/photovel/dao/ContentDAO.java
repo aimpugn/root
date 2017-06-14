@@ -19,8 +19,11 @@ public class ContentDAO {
 	public void update(Content content) {
 		session.update("ContentMapper.insertContent", content);
 	}
-	public Content selectById(int contentId){
-		return session.selectOne("ContentMapper.selectById", contentId); 
+	public void updateDeleteStatus(int content_id){
+		session.update("ContentMapper.updateDeleteStatus", content_id);
+	}
+	public Content selectById(int content_id){
+		return session.selectOne("ContentMapper.selectById", content_id); 
 	}
 	public List<Content> selectAll(){
 		return session.selectList("ContentMapper.selectAll"); 

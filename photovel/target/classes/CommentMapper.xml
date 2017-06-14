@@ -4,23 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CommentMapper">
   <resultMap id="CommentMap" type="Comment">
-    <id column="content_id" property="contentId" />
-    <id column="comment_id" property="commentId" />
-    <result column="comment_content" property="commentContent"/>
-    <result column="comment_date" property="commentDate"/>
+    <id column="content_id" property="content_id" />
+    <id column="comment_id" property="comment_id" />
+    <result column="comment_content" property="comment_content"/>
+    <result column="comment_date" property="comment_date"/>
     <association property="user" javaType="User">
-      <id column="user_id" property="userId"/>
-      <result column="user_nick_name" property="userNickName"/>
+      <id column="user_id" property="user_id"/>
+      <result column="user_nick_name" property="user_nick_name"/>
     </association>
   </resultMap>
   <insert id="insertComment" parameterType="Comment">
-    INSERT INTO Comment VALUES(#{contentId}, #{commentId}, #{user.getUserId()}, #{commentContent}, #{commentDate})
+    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.getUser_id()}, #{comment_content}, #{comment_date})
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="CommentMap">
-	SELECT Comment.content_id content_id, comment_id, comment_content, comment_date, Comment.user_id user_id, user_nick_name
-	FROM Comment JOIN Content ON Comment.content_id = Content.content_id
-	JOIN User ON Comment.user_id = User.user_id
-	WHERE Content.content_id = #{contentId}
+	SELECT comment.content_id content_id, comment_id, comment_content, comment_date, comment.user_id user_id, user_nick_name
+	FROM comment JOIN content ON comment.content_id = content.content_id
+	JOIN user ON comment.user_id = user.user_id
+	WHERE content.content_id = #{contentId}
   </select>
 </mapper>

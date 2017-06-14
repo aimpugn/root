@@ -3,7 +3,7 @@ package com.photovel.vo;
 public class Friend {
 	private User friend1;
 	private User friend2;
-	private int friendStatus;
+	private int friend_status;
 	
 	public User getFriend1() {
 		return friend1;
@@ -17,15 +17,15 @@ public class Friend {
 	public void setFriend2(User friend2) {
 		this.friend2 = friend2;
 	}
-	public int getFriendStatus() {
-		return friendStatus;
+	public int getFriend_status() {
+		return friend_status;
 	}
-	public void setFriendStatus(int friendStatus) {
-		this.friendStatus = friendStatus;
+	public void setFriend_status(int friend_status) {
+		this.friend_status = friend_status;
 	}
-	
 	@Override
 	public String toString() {
-		return "Friend [friend1=" + friend1 + ", friend2=" + friend2 + ", friendStatus=" + friendStatus + "]";
+		return "Friend [friend1=" + friend1 + ", friend2=" + friend2 + ", friend_status=" + friend_status + "]";
 	}
+	
 }
