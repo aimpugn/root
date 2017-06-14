@@ -15,25 +15,15 @@ $(function(){
 	}
 	var admin = '${requestScope.admin}'; // 결과 true 반환
 		
-	var $btnLogin = $('#btnLogin');
-	
-	/*$btnLogin.click(function(){*/
  	$form.submit(function(){ 
 	 			
-		var adminId = $('#inputId').val();
-		var adminPassword = $('#inputPassword').val();
-		//alert("id"+adminId+"pw" + adminPassword);
-		console.log("id"+adminId+"pw" + adminPassword);
-		/* var saveIdCheck = $('#saveId').prop("checked");	
-		console.log(saveIdCheck); */
-		//console.log("아이디" + adminId + adminPassword);
-/* 		if( saveIdCheck == true ){
-			localStorage.setItem("saveId", id);
-		}else{
-			localStorage.removeItem("saveId");
-		} */
+		var admin_id = $('#inputId').val();
+		var admin_password = $('#inputPassword').val();
+		alert("id"+admin_id+"pw" + admin_password);
+
 		
-		var data = {'adminId': adminId, 'adminPassword': adminPassword};
+		var data = {'admin_id': admin_id, 'admin_password': admin_password};
+		console.log(data);
 		$.ajax({
 			url : '/admin/adminLogin',
 			method:'GET',
@@ -97,7 +87,7 @@ $(function(){
 						<div class="form-group">
 							<label for="inputPassword" class="col-sm-3 control-label">Password</label>
 							<div class="col-sm-8">
-								<input type="password" class="form-control" id="inputPassword" 									placeholder="Password">
+								<input type="password" class="form-control" id="inputPassword" placeholder="Password">
 							</div>
 						</div>
 						<div class="form-group">

@@ -33,16 +33,16 @@ $(function(){
 			
 			//멤버
 			url.indexOf("/admin/member/member.jsp"),
-			url.indexOf("/admin/member/admin.jsp"),
+			url.indexOf("/admin/member/admin"),
 			
 			//콘텐츠
 			url.indexOf("/admin/board/board.jsp"),
 			
 			//사이트
-			url.indexOf("/admin/site/mainCustom.jsp"),
+			url.indexOf("/admin/site/mainSlide.jsp"),
 			url.indexOf("/admin/site/term.jsp"),
 			url.indexOf("/admin/site/privacy.jsp"),
-			url.indexOf("/admin/site/term.jsp")
+			url.indexOf("/admin/site/gpsTerm.jsp")
 	);
 	if(pageArray[0] != -1){
 	    $(".sidebar li:eq(0)").addClass("active");
@@ -106,7 +106,7 @@ $(function(){
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li><a href="/admin/member/member.jsp">회원 목록</a></li>
-					<li><a href="/admin/member/admin.jsp">관리자 목록</a></li>
+					<li><a href="/admin/member/admin">관리자 목록</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li><a href="/admin/board/board.jsp">콘텐츠 목록</a></li>
@@ -114,7 +114,7 @@ $(function(){
 				</ul>
 
 				<ul class="nav nav-sidebar">
-					<li><a href="/admin/site/mainCustom.jsp">메인관리</a></li>
+					<li><a href="/admin/site/mainSlide.jsp">메인슬라이드</a></li>
 					<li><a href="/admin/site/term.jsp">이용약관</a></li>
 					<li><a href="/admin/site/privacy.jsp">개인정보처리방침</a></li>
 					<li><a href="/admin/site/gpsTerm.jsp">위치정보이용약관</a></li>

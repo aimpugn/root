@@ -26,8 +26,8 @@ public class AdminDAO{
 	 * @return 저장소의 고객객체를 반환한다.
 	 *         고객을 찾지 못하면 null을 반환한다.
 	 */
-	public Admin selectById(String adminId){
-		return session.selectOne("AdminMapper.selectById", adminId);
+	public Admin selectById(String admin_id){
+		return session.selectOne("AdminMapper.selectById", admin_id);
 	}
 
 	/**
@@ -35,8 +35,17 @@ public class AdminDAO{
 	 * @param name 이름
 	 * @return
 	 */
-	public List<Admin> selectByName(String adminNickName){
-		return session.selectList("AdminMapper.selectByName", adminNickName);//id 값 , parameter로 보낼 값
+	public List<Admin> selectByName(String admin_nickname){
+		return session.selectList("AdminMapper.selectByName", admin_nickname);//id 값 , parameter로 보낼 값
+	}
+	
+	/**
+	 * 상태에 해당하는 고객을 반환한다
+	 * @param admin_status_flag 상태
+	 * @return
+	 */
+	public List<Admin> selectByStatus(String admin_status_flag){
+		return session.selectList("AdminMapper.selectByStatus", admin_status_flag);//id 값 , parameter로 보낼 값
 	}
 	
 	/**
@@ -60,4 +69,6 @@ public class AdminDAO{
 	public void stop(Admin ad) throws Exception{
 		session.update("AdminMapper.stop", ad);
 	}
+
+
 }

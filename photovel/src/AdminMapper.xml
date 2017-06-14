@@ -3,34 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper"> <!--  네임 스페이스 중복되면 안됨 -->
-<resultMap id="AdminMap" type="Admin">
+<!-- <resultMap id="AdminMap" type="Admin">
     <id column="admin_id" property="adminId" />
-    <result column="admin_password" property="adminPassword"/>
-    <result column="admin_nickname" property="adminNickName"/>
-    <result column="admin_status_flag" property="adminStatusFlag"/>
-    <result column="admin_sign_date" property="adminSignDate"/>
-  </resultMap>
+    <result column="admin_password" property="admin_password"/>
+    <result column="admin_nickname" property="admin_nickname"/>
+    <result column="admin_status_flag" property="admin_status_flag"/>
+    <result column="admin_sign_date" property="admin_sign_date"/>
+</resultMap> -->
 <insert id="insert" parameterType="Admin">
-	INSERT INTO Admin_user VALUES (#{adminId}, #{adminPassword}, #{adminNickName}, #{adminStatusFlag}, SYSDATE())
+	INSERT INTO admin_user VALUES (#{admin_id}, #{admin_password}, #{admin_nickname}, #{admin_status_flag}, SYSDATE())
 </insert>
-<select id="selectById" resultMap="AdminMap" parameterType="string">
-	SELECT * FROM Admin_user WHERE admin_id= #{adminId}
+<select id="selectById" resultType="Admin" parameterType="string">
+	SELECT * FROM admin_user WHERE admin_id= #{admin_id}
 </select>
- <select id="selectByName" resultMap="AdminMap" parameterType="string">
-	SELECT * FROM Admin_user WHERE admin_nickname LIKE '%${value}%'
+<select id="selectByName" resultType="Admin" parameterType="string">
+	SELECT * FROM admin_user WHERE admin_nickname LIKE '%${value}%'
+	ORDER By admin_nickname ASC
 </select>
- <select id="selectAll" resultMap="AdminMap">
+<select id="selectByStatus" resultType="Admin" parameterType="string">
+	SELECT * FROM admin_user WHERE admin_status_flag = #{admin_status_flag}
+	ORDER BY admin_sign_date DESC
+</select>
+
+<select id="selectAll" resultType="Admin">
+	SELECT * FROM admin_user 
+	ORDER BY admin_sign_date DESC
 </select>
 <update id="update" parameterType="Admin">
-    update Admin_user set admin_password = #{adminPassword}
-    where admin_id = #{adminId}
+    update admin_user set admin_password = #{admin_password}
+    where admin_id = #{admin_id}
 </update>
 <update id="leave" parameterType="Admin">
-    update Admin_user set admin_status_flag = 'L' 
-    where admin_id = #{adminId}
+    update admin_user set admin_status_flag = 'L' 
+    where admin_id = #{admin_id}
 </update>
 <update id="stop" parameterType="Admin">
-    update Admin_user set admin_status_flag = 'S' 
-    where admin_id = #{adminId}
+    update admin_user set admin_status_flag = 'S' 
+    where admin_id = #{admin_id}
 </update>
 </mapper>

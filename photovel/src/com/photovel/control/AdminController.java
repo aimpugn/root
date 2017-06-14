@@ -1,6 +1,7 @@
 package com.photovel.control;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,21 +39,20 @@ public class AdminController {
 	}
 
 	@GetMapping("/adminLogin")
-	public String login(@Param("adminId")String adminId, 
-						@Param("adminPassword")String adminPassword, HttpSession session) {
+	public String login(String admin_id, String admin_password, HttpSession session) {
 		String msg = "-1";
 		try {
-			Admin admin = dao.selectById(adminId);
-			if (adminPassword.equals(admin.getAdminPassword())) {
-				if ("N".equals(admin.getAdminStatusFlag())) {
+			Admin admin = dao.selectById(admin_id);
+			if (admin_password.equals( admin.getAdmin_password() ) ) {
+				if ("N".equals( admin.getAdmin_status_flag() ) ) {
 					session.setAttribute("loginInfo", admin);
 					session.setMaxInactiveInterval(10000);
 					msg = "1";
 					return msg;
-				} else if ("L".equals(admin.getAdminStatusFlag())) {
+				} else if ("L".equals( admin.getAdmin_status_flag() ) ) {
 					msg = "leave";
 					return msg;
-				} else if ("S".equals(admin.getAdminStatusFlag())) {
+				} else if ("S".equals( admin.getAdmin_status_flag() ) ) {
 					msg = "stop";
 					return msg;
 				} 
@@ -74,11 +75,26 @@ public class AdminController {
 		}
 	}
 
+	@GetMapping("/member/admin")
+	public void adminList(HttpServletRequest request, HttpServletResponse response) {
+		String msg = "-1";
+		try {
+			List<Admin> adminList = dao.selectAll();	
+			String forwardURL = "/admin/member/admin.jsp";
+			request.setAttribute("adminList", adminList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			msg = "1";
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@PostMapping("/adminAdd")
 	public String adminAdd(Admin admin) {
 		String msg = "-1";
 		try {
-			if (dao.selectById(admin.getAdminId()) == null) {
+			if (dao.selectById(admin.getAdmin_id()) == null) {
 				dao.insert(admin);
 				msg = "1";
 				return msg;
@@ -88,7 +104,33 @@ public class AdminController {
 		}
 		return msg;
 	}
-
+	
+	/*******************/
+	@GetMapping("/adminStatus")
+	public void showStatus(String admin_status_flag, HttpServletRequest request, HttpServletResponse response) {
+		String msg = "-1";
+		System.out.println("스테이터스 들어오나" + admin_status_flag);
+		try {
+			List<Admin> adminList = dao.selectByStatus(admin_status_flag);
+			System.out.println(adminList);
+			/*String forwardURL = "/admin/member/admin.jsp";
+			request.setAttribute("adminList", adminList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			msg = "1";
+			dispatcher.forward(request, response);*/
+			String forwardURL = "/admin/member/admin.jsp";
+			request.setAttribute("adminList", adminList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			msg = "1";
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@PutMapping("/member/adminLeave")
+	public void adminLeave(){
+		System.out.println("fff");
+	}
 	/*
 	 * @RequestMapping(value="/membermanagelist.do") public String
 	 * membermanagelist(HttpSession session, Model model){ List<Customer>

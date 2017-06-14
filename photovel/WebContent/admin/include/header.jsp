@@ -82,7 +82,7 @@ $(function(){
 			</div>
 			
 			<div id="navbar" class="navbar-collapse collapse navbar-right">
-				<p class="navbar-text narvar-right">Welcome ${admin.adminNickName}님!</p>
+				<p class="navbar-text narvar-right">Welcome ${admin.admin_nickname}님!</p>
 				<ul class="nav navbar-nav">
 					<li><a href="/admin/common/logout">로그아웃</a></li>
 					<li><a href="/admin/static/dashboard.jsp">통계관리</a></li>

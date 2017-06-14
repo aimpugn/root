@@ -88,21 +88,21 @@
 		$('#adminConfirm').click(function () {
 			
 			// 입력된 Id, Password, NickName 얻기
-			var adminId = $('#inputAdminId').val();
-			var adminPassword = $('#inputAdminPassword1').val();
-			var adminNickName = $('#inputAdminNickName').val();
+			var admin_id = $('#inputAdminId').val();
+			var admin_password = $('#inputAdminPassword1').val();
+			var admin_nickname = $('#inputAdminNickName').val();
 			// 입력된 라디오 버튼의 value 얻기
 			var status = document.getElementsByName('adminStatus');
 			var checkedIndex = -1;
-			var adminStatusFlag = '';
+			var admin_status_flag = '';
 			for( i=0; i<status.length; i++ ) {
 				if(status[i].checked) {
 					checkedIndex = i;
-					adminStatusFlag = status[i].value;
+					admin_status_flag = status[i].value;
 				}
 			}
-			alert( adminStatusFlag );
-			var data = {'adminId': adminId, 'adminPassword': adminPassword, 'adminNickName': adminNickName, 'adminStatusFlag': adminStatusFlag};
+
+			var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_status_flag': admin_status_flag};
 			$.ajax({
 				url: '/admin/adminAdd',
 				method: 'POST',
@@ -111,7 +111,7 @@
 					var data = responseData.trim();
 					console.log(data);
 					if( data == '1' ){
-						location.href='/admin/member/admin.jsp';
+						location.href='/admin/member/admin';
 					} else{
 						alert("잘못된 정보입니다.");
 					}
