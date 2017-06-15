@@ -1,6 +1,7 @@
 package com.photovel.control;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,16 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.photovel.vo.Admin;
 import com.photovel.dao.AdminDAO;
+import com.photovel.vo.Admin;
 
 @RestController
 @RequestMapping("/admin")
@@ -38,7 +40,7 @@ public class AdminController {
 		}
 	}
 
-	@GetMapping("/adminLogin")
+	@GetMapping("/{admin_id}")
 	public String login(String admin_id, String admin_password, HttpSession session) {
 		String msg = "-1";
 		try {
@@ -105,19 +107,12 @@ public class AdminController {
 		return msg;
 	}
 	
-	/*******************/
 	@GetMapping("/adminStatus")
 	public void showStatus(String admin_status_flag, HttpServletRequest request, HttpServletResponse response) {
 		String msg = "-1";
-		System.out.println("스테이터스 들어오나" + admin_status_flag);
 		try {
 			List<Admin> adminList = dao.selectByStatus(admin_status_flag);
 			System.out.println(adminList);
-			/*String forwardURL = "/admin/member/admin.jsp";
-			request.setAttribute("adminList", adminList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			msg = "1";
-			dispatcher.forward(request, response);*/
 			String forwardURL = "/admin/member/admin.jsp";
 			request.setAttribute("adminList", adminList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
@@ -127,19 +122,94 @@ public class AdminController {
 			e.printStackTrace();
 		}
 	}
-	@PutMapping("/member/adminLeave")
-	public void adminLeave(){
-		System.out.println("fff");
+	@PutMapping("/adminNormal")
+	public String normal(@RequestParam("chkList") String[] chkList, Model model) {
+		String msg = "-1";
+		try {
+			for( int i = 0 ; i < chkList.length; i++ ){	
+				String admin_id = chkList[i];
+				System.out.println(admin_id);
+				dao.normal(admin_id);
+				System.out.println(admin_id + "normal: 성공");
+			};
+			msg = "1";
+			model.addAttribute("msg", msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
-	/*
-	 * @RequestMapping(value="/membermanagelist.do") public String
-	 * membermanagelist(HttpSession session, Model model){ List<Customer>
-	 * memlist = new ArrayList<>(); try { memlist=cDao.selectAll(); } catch
-	 * (Exception e) { e.printStackTrace(); }
-	 * 
-	 * model.addAttribute("memlist", memlist); String forwardURL =
-	 * "admin/membermanagelist.jsp"; return forwardURL; }
-	 */
+	@PutMapping("/adminStop")
+	public String stop(@RequestParam("chkList") String[] chkList, Model model) {
+		String msg = "-1";
+		try {
+			for( int i = 0 ; i < chkList.length; i++ ){	
+				String admin_id = chkList[i];
+				System.out.println(admin_id);
+				dao.stop(admin_id);
+				System.out.println(admin_id + "stop: 성공");
+				};
+			msg = "1";
+			model.addAttribute("msg", msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	@PutMapping("/adminLeave")
+	public String leave(@RequestParam("chkList") String[] chkList, Model model) {
+		String msg = "-1";
+		try {
+			for( int i = 0 ; i < chkList.length; i++ ){	
+				String admin_id = chkList[i];
+				System.out.println(admin_id);
+				dao.leave(admin_id);
+				System.out.println(admin_id + "leave: 성공");
+				};
+			msg = "1";
+			model.addAttribute("msg", msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	@GetMapping("/adminSearchValue")
+	public void searchValue(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("데이트 검색 들어오나 ");
+		String msg = "-1";
+		try {
+			List<Admin> adminList = dao.selectByDate(from_date, to_date);
+			System.out.println(adminList + "셀렉트바이데이트 실횅");
+			String forwardURL = "/admin/member/admin.jsp";
+			request.setAttribute("adminList", adminList);
+			request.setAttribute("to_date", to_date);
+			request.setAttribute("from_date", from_date);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			msg = "1";
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@GetMapping("/adminSearchDate")
+	public void searchDate(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("데이트 검색 들어오나 ");
+		String msg = "-1";
+		try {
+			List<Admin> adminList = dao.selectByDate(from_date, to_date);
+			System.out.println(adminList + "셀렉트바이데이트 실횅");
+			String forwardURL = "/admin/member/admin.jsp";
+			request.setAttribute("adminList", adminList);
+			request.setAttribute("to_date", to_date);
+			request.setAttribute("from_date", from_date);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			msg = "1";
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/*
 	 * @RequestMapping(value="/memberstatussearch.do") public String

@@ -1,4 +1,7 @@
 package com.photovel.dao;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,6 +52,18 @@ public class AdminDAO{
 	}
 	
 	/**
+	 * 상태에 해당하는 고객을 반환한다
+	 * @param admin_status_flag 상태
+	 * @return
+	 */
+	public List<Admin> selectByDate(Date from_date, Date to_date){
+		HashMap<String, Object> list = new HashMap<>();
+		list.put("from_date", from_date);
+		list.put("to_date", to_date);
+		return session.selectList("AdminMapper.selectByDate", list);//id 값 , parameter로 보낼 값
+	}
+	
+	/**
 	 *  * 저장하려는 객체의 id가 저장소에 이미 존재하는 경우
 	 * "이미 존재하는 아이디입니다"msg를 출력하고 저장안함.
 	 * @param c
@@ -62,12 +77,15 @@ public class AdminDAO{
 		session.update("AdminMapper.update", ad);
 	}
 
-	public void leave(Admin ad) throws Exception {
-		session.update("AdminMapper.leave", ad);
+	public void leave(String admin_id) throws Exception {
+		session.update("AdminMapper.leave", admin_id);
 	}
 	
-	public void stop(Admin ad) throws Exception{
-		session.update("AdminMapper.stop", ad);
+	public void stop(String admin_id) throws Exception{
+		session.update("AdminMapper.stop", admin_id);
+	}
+	public void normal(String admin_id) throws Exception{
+		session.update("AdminMapper.normal", admin_id);
 	}
 
 
