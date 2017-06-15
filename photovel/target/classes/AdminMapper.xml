@@ -10,12 +10,16 @@
     <result column="admin_status_flag" property="admin_status_flag"/>
     <result column="admin_sign_date" property="admin_sign_date"/>
 </resultMap> -->
+<!-- <statement id="selectByIdDate" parameterclass="com.photovel.vo.Admin">
+	SELECT * FROM admin_user WHERE admin_id= #{admin_id} and admin_sign_date = #{sign_date}
+</statement> -->
 <insert id="insert" parameterType="Admin">
 	INSERT INTO admin_user VALUES (#{admin_id}, #{admin_password}, #{admin_nickname}, #{admin_status_flag}, SYSDATE())
 </insert>
 <select id="selectById" resultType="Admin" parameterType="string">
 	SELECT * FROM admin_user WHERE admin_id= #{admin_id}
 </select>
+
 <select id="selectByName" resultType="Admin" parameterType="string">
 	SELECT * FROM admin_user WHERE admin_nickname LIKE '%${value}%'
 	ORDER By admin_nickname ASC
@@ -24,21 +28,33 @@
 	SELECT * FROM admin_user WHERE admin_status_flag = #{admin_status_flag}
 	ORDER BY admin_sign_date DESC
 </select>
-
+<select id="selectByDate" resultType="Admin" parameterType="hashmap">
+	SELECT * FROM admin_user WHERE
+	<![CDATA[ (admin_sign_date <= #{to_date} ) and
+ 	 		  ( admin_sign_date >= #{from_date} ) ]]>
+  	ORDER BY admin_sign_date 
+</select>
 <select id="selectAll" resultType="Admin">
 	SELECT * FROM admin_user 
 	ORDER BY admin_sign_date DESC
 </select>
-<update id="update" parameterType="Admin">
-    update admin_user set admin_password = #{admin_password}
-    where admin_id = #{admin_id}
+<update id="update" parameterType="string">
+    update admin_user set admin_password = #{admin_password, jdbcType=VARCHAR}
+    where admin_id = #{admin_id, jdbcType=VARCHAR}
 </update>
-<update id="leave" parameterType="Admin">
-    update admin_user set admin_status_flag = 'L' 
-    where admin_id = #{admin_id}
+<update id="leave" parameterType="string">
+    update admin_user
+    set admin_status_flag = 'L' 
+    where admin_id = #{admin_id, jdbcType=VARCHAR}
 </update>
-<update id="stop" parameterType="Admin">
-    update admin_user set admin_status_flag = 'S' 
-    where admin_id = #{admin_id}
+<update id="stop" parameterType="string">
+    update admin_user 
+    set admin_status_flag = 'S' 
+    where admin_id = #{admin_id, jdbcType=VARCHAR}
+</update>
+<update id="normal" parameterType="string">
+    update admin_user 
+    set admin_status_flag = 'N' 
+    where admin_id = #{admin_id, jdbcType=VARCHAR}
 </update>
 </mapper>

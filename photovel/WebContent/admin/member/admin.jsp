@@ -3,15 +3,44 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<jsp:useBean id="to_date" class="java.util.Date" />
+<fmt:formatDate value="${requestScope.to_date}" pattern="yyyy-MM-dd" var="to_date"/>
+<jsp:useBean id="fromfrom_date" class="java.util.Date" />
+<fmt:formatDate value="${requestScope.from_date}" pattern="yyyy-MM-dd" var="from_date"/>
+
 <jsp:useBean id="adminSignDate" class="java.util.Date" />
 <c:set var="adminList" value="${requestScope.adminList}" />
+<%-- <c:set var="from_date" value="${requestScope.from_date}" />
+<c:set var="to_date" value="${requestScope.to_Date}" /> --%>
 <c:set var="len" value="${fn:length(adminList)}"/>
 <%--  head
 ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
 <script>
 $(function() {
-	
+
+<%-- 라디오 상태별 검색 --%>
+	$('input[name=showStatus]').click(function(){
+		var admin_status_flag = $(this).val();
+		var data = {'admin_status_flag' : admin_status_flag};
+		console.log(admin_status_flag);
+		$.ajax({
+			url:'/admin/adminStatus',
+			method: 'GET',
+			data: data,
+			success: function(responseData){
+				var data = responseData.trim();
+				var $parentObj=$("body");
+	           	var data = responseData.trim();
+	            $parentObj.empty();
+	           	$parentObj.html(data);
+			}
+			//error: function(xhr, status, error){
+			//	alert("조회가 되지 않았습니다. 관리자에게 문의");
+			//}
+		});
+	});
+		
 <%-- 체크박스 --%>
 	function allCheckFunc( obj ) {
 		//낱개 체크박스의 프라퍼티가 체크드이면 obj에 체크드 속성을 표시한다. 
@@ -48,133 +77,192 @@ $(function() {
 			});
 		});
 	});
-
-		
-	/* 탈퇴 */
-/* 	var $btnLeave = $('input[name=btnLeave]');
-	$btnLeave.click(function(){
-		var flag = confirm('선택된 아이디가 탈퇴로 변경됩니다. 진행하시겠습니까?');
 	
+<%-- 체크박스 : 사용 상태로 변경  --%>
+ 	var $btnNormal = $('button[name=btnNormal]');
+	$btnNormal.click(function(){
+		
+		var flag = confirm('사용으로 변경하시겠습니까?');
         if(flag==true){
 			var chkList = new Array();
 			var cnt = 0;
-			var checkbox = $('.check');
+			var checkbox = $('input[name=chk]:checked');
 
-			for(var i = 0 ; i <checkbox.length; i++){ //체크된 회원의 아이디 얻기
-			  	if(checkbox[i].checked == true){
-					chkList[cnt]=checkbox[i].value;
-	                cnt++;
-	            }
-			}
+  			chkList = $(checkbox).map(function(i){
+					return $(this).val();
+			}).get();		
 
+			var data = {'chkList': chkList};
 			
-       	};
-    	return false;	
-	}); */
-	
-	/* 중지 */
-/* 	var $btnStop = $('input[name=btnStop]');
-	$btnStop.click(function(){
-		// 어드민 아이디 구하기	
-		var ans = confirm("선택된 아이디의 사용을 중지하시겠습니까?");
-		if(ans == true){
-			$('input[type=checkbox]:checked').each(function(){
-				var adminIdList = new Array();
-				var adminStatusFlagList = new Array();
+			jQuery.ajaxSettings.traditional = true;
 			
-		   		adminIdList = $(this).parent().siblings('.tdAdminID').children('a').text();
-		   		adminStatusFlagList = $(this).parent().siblings('.tdAdminStatusFlag').children('span').text();
-		   		
-		   		
-		   		jQuery.ajaxSettings.traditional = true;
-		   		
-				$.ajax({
-					url: '/member/adminStop',
-					method: 'PUT',
-					data: {'adminIdList': adminIdList, 'adminStatusFlagList': adminStatusFlagList, '': },
-					success: function(responseData){
-						 if( (responseData) != "-1" ){
-								alert("전송완료");
-								var $parentObj=$("article");
-				            	var data = responseData.trim();
-				            	$parentObj.empty();
-				            	$parentObj.html(data);								
-						} else{
-							alert("실패");
-						}
-					},
-					error: function(xhr, status, error){
-						alert("실패. 관리자에 문의하세요.");
-						console.log(status, error);
-					}
-				});
-				return false;
-			});
-		} else{
-			alert('삭제취소');
+	        $.ajax({
+	        	url:'/admin/adminNormal',
+                 method:'put',
+                 data: data,
+                 success:function(responseData){
+                	 console.log("응답결과:" +responseData);
+                     if(responseData.trim() =='1'){
+                       alert("사용 성공");
+                       location.href="/admin/member/admin";
+                    }else{
+                       alert("사용 실패" + responseData);
+                    } 
+                 },
+		        error: function(xhr, status, error){
+					return false;
+				}
+           	});
+           	return false;	
 		};
-		return false;
-    	
-	});
-	return false; */
-	
-	
-	
-	/* // 입력된 라디오 버튼의 value 얻기
-	
-	var status = document.getElementsByName('showStatus');
-	var checkedIndex = -1;
-	var admin_status_flag = '';
-	for( i=0; i<status.length; i++ ) {
-		if(status[i].checked) {
-			checkedIndex = i;
-			admin_status_flag = status[i].value;
-		}
-	}
-	
-	var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_status_flag': admin_status_flag};
-	$.ajax({
-		url: '/admin/adminAdd',
-		method: 'POST',
-		data: data,
-		success: function(responseData){
-			var data = responseData.trim();
-			console.log(data);
-			if( data == '1' ){
-				location.href='/admin/member/admin';
-			} else{
-				alert("잘못된 정보입니다.");
-			}
-		},
-		error: function(xhr, status, error){
+		
+     });	
+		
+<%-- 체크박스 : 중지 상태로 변경 --%>
+ 	var $btnStop = $('button[name=btnStop]');
+	$btnStop.click(function(){
+		var flag = confirm('중지로 변경하시겠습니까?');
+        if(flag==true){
+			var chkList = new Array();
+			var cnt = 0;
+			var checkbox = $('input[name=chk]:checked');
+
+  			chkList = $(checkbox).map(function(i){
+					return $(this).val();
+			}).get();		
+
+			var data = {'chkList': chkList};
 			
-		}
-	});
-	return false; */
+			jQuery.ajaxSettings.traditional = true;
+			
+	        $.ajax({
+	        	url:'/admin/adminStop',
+                 method:'put',
+                 data: data,
+                 success:function(responseData){
+                	 console.log("응답결과:" +responseData);
+                     if(responseData.trim() =='1'){
+                       alert("중지 성공");
+                       location.href="/admin/member/admin";
+                    }else{
+                       alert("중지 실패" + responseData);
+                    } 
+                 },
+		        error: function(xhr, status, error){
+					return false;
+				}
+           	});
+           	return false;	
+		};
+		
+     });
 	
-	/* 라디오 상태별 검색 */
-	$('input[name=showStatus]').click(function(){
-		var admin_status_flag = $(this).val();
-		var data = {'admin_status_flag' : admin_status_flag};
-		console.log(admin_status_flag);
-		$.ajax({
-			url:'/admin/adminStatus',
-			method: 'GET',
-			data: data,
-			success: function(responseData){
-				var data = responseData.trim();
-				var $parentObj=$("body");
-	           	var data = responseData.trim();
-	            $parentObj.empty();
-	           	$parentObj.html(data);
-	           
-			},
-			error: function(xhr, status, error){
-				alert("조회가 되지 않았습니다. 관리자에게 문의");
-			}
-		});
+	
+<%-- 체크박스 : 탈퇴 상태로 변경 --%>
+ 	var $btnLeave = $('button[name=btnLeave]');
+	$btnLeave.click(function(){
+		
+		var flag = confirm('탈퇴로 변경하시겠습니까?');
+        if(flag==true){
+			var chkList = new Array();
+			var cnt = 0;
+			var checkbox = $('input[name=chk]:checked');
+
+  			chkList = $(checkbox).map(function(i){
+					return $(this).val();
+			}).get();		
+
+			var data = {'chkList': chkList};
+			
+			jQuery.ajaxSettings.traditional = true;
+			
+	        $.ajax({
+	        	url:'/admin/adminLeave',
+                 method:'put',
+                 data: data,
+                 success:function(responseData){
+                	 console.log("응답결과:" +responseData);
+                     if(responseData.trim() =='1'){
+                       alert("탈퇴 성공");
+                       location.href="/admin/member/admin";
+                    }else{
+                       alert("탈퇴 실패" + responseData);
+                    } 
+                 },
+		        error: function(xhr, status, error){
+					return false;
+				}
+           	});
+           	return false;	
+		};
+		
+     });
+	
+
+<%-- 검색창 --%>
+	var $btnSearch = $('button[name=btnSearch]');
+	$btnSearch.click(function(){
+		var to_date = new Date($('input[name=toDate]').val());
+		var from_date = new Date($('input[name=fromDate]').val());
+		
+		var $searchValue = $('input[name=searchValue]').val();
+		var $searchItem= $('#searchItem option:selected').val();
+		
+		<%-- 기간 검색 --%>
+		if('' != to_date && '' != from_date ){
+			var data = {'from_date': from_date, 'to_date' : to_date};
+			console.log(data);
+	        $.ajax({
+	        	url:'/admin/adminSearch',
+	             method:'get',
+	             data: data,
+	           	 success: function(responseData){
+	    				var data = responseData.trim();
+	    				var $parentObj=$("body");
+	    	           	var data = responseData.trim();
+	    	            $parentObj.empty();
+	    	           	$parentObj.html(data);
+	             },
+		        error: function(xhr, status, error){
+					return false;
+				}
+	       	});
+	       	return false;	
+		} else if ('' == to_date || '' == from_date  &&  '' != $searchValue){
+			var data={"searchValue": $searchValue, "searchItem": $searchItem};
+			$.ajax({
+				url:'/admin/adminSearchValue',
+				method: 'post',
+				data: data,
+				success:function(responseData){
+					 var $parentObj=$("article");
+		           	 var data = responseData.trim();
+		           	 $parentObj.empty();
+		           	 $parentObj.html(data);
+				}
+			});
+			return false;
+			console.log(data);
+	        $.ajax({
+	        	url:'/admin/adminSearchDate',
+	             method:'get',
+	             data: data,
+	           	 success: function(responseData){
+	    				var data = responseData.trim();
+	    				var $parentObj=$("body");
+	    	           	var data = responseData.trim();
+	    	            $parentObj.empty();
+	    	           	$parentObj.html(data);
+	             },
+		        error: function(xhr, status, error){
+					return false;
+				}
+	       	});
+	       	return false;	
+		};
+		
 	});
-}); 
+});
 	
 </script>
 </head>
@@ -195,18 +283,27 @@ $(function() {
 				<%--  navSidebar
 				------------------------------------------- --%>
 				<%@include file="/admin/include/breadcrumb.jsp" %>
-				
-				
 				<%-- search --%>
-				<form class="navbar-form" role="search">
-					<div class="col-lg-6">
+				<form id="search" class="form-inline" role="search">
+					<div class="form-group">
+						
 						<div class="input-group">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" disabled
 									style="cursor: pointer">
 									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</button>
-							</span> <input type="date" class="form-control">
+							</span> 
+							
+							<input type="date" class="form-control" name="fromDate" 
+								<c:choose>
+									<c:when test="${!empty from_date}">
+										value="${to_date}"
+									</c:when> 
+									<c:otherwise></c:otherwise> 
+								</c:choose>  
+							>
+							
 						</div>
 						&nbsp;-&nbsp;
 						<div class="input-group">
@@ -215,25 +312,71 @@ $(function() {
 									style="cursor: pointer">
 									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</button>
-							</span> <input type="date" class="form-control">
+							</span> 
+							<input type="date" class="form-control"  name="toDate" 
+								<c:choose>
+									<c:when test="${!empty to_date}">
+										value="${to_date}"
+									</c:when> 
+									<c:otherwise></c:otherwise> 
+								</c:choose>  
+							>
 						</div>
 					</div>
-
-					<div class="col-lg-6">
+					<div class="form-group ">
 						<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button"
-								id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-								검색어 선택 <span class="caret"></span>
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+								검색어 선택 
+								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">전체</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아아디</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">닉네임</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">상태</a></li>
 							</ul>
 							<input type="text" class="form-control" placeholder="Search">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" name="btnSearch" >Submit</button>
 						</div>
+					</div>
+					<%-- 상태별 보기 라디오 버튼 --%>
+					<div class="btn-group radio">
+					<c:choose>
+
+						<c:when test="${param.admin_status_flag == 'S'}">
+							<label for="showStatus1" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus1" value="N">사용
+							</label>
+							<label for="showStatus2" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus2" value="S" checked>중지
+							</label>
+							<label for="showStatus3" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus3" value="L">탈퇴
+							</label>
+						</c:when>
+						<c:when test="${param.admin_status_flag == 'L'}">
+							<label for="showStatus1" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus1" value="N">사용
+							</label>
+							<label for="showStatus2" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus2" value="S">중지
+							</label>
+							<label for="showStatus3" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus3" value="L" checked>탈퇴
+							</label>
+						</c:when>
+						<c:otherwise>
+							<label for="showStatus1" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus1" value="N" checked>사용
+							</label>
+							<label for="showStatus2" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus2" value="S">중지
+							</label>
+							<label for="showStatus3" class="checkbox-inline"> 
+								<input type="radio" name="showStatus" id="showStatus3" value="L">탈퇴
+							</label>
+						</c:otherwise>
+					</c:choose>
 					</div>
 				</form>
 			</div>
@@ -249,48 +392,10 @@ $(function() {
 					<div class="btn-group" role="group">
 						<button type="button" name="btnLeave" 	class="btn btn-default">탈퇴</button>
 						<button type="button" name="btnStop" 	class="btn btn-default">중지</button>
-						<button type="button" name="btnNormal"	class="btn btn-default">정상</button>
+						<button type="button" name="btnNormal"	class="btn btn-default">사용</button>
 					</div>
 					
-					<%-- 상태별 보기 라디오 버튼 --%>
-					<div class="radio">
-					<c:choose>
-
-						<c:when test="${param.admin_status_flag == 'S'}">
-							<label for="showStatus1" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus1" value="N">정상
-							</label>
-							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="S" checked>중지
-							</label>
-							<label for="showStatus3" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus3" value="L">탈퇴
-							</label>
-						</c:when>
-						<c:when test="${param.admin_status_flag == 'L'}">
-							<label for="showStatus1" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus1" value="N">정상
-							</label>
-							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="S">중지
-							</label>
-							<label for="showStatus3" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus3" value="L" checked>탈퇴
-							</label>
-						</c:when>
-						<c:otherwise>
-							<label for="showStatus1" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus1" value="N" checked>정상
-							</label>
-							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="S">중지
-							</label>
-							<label for="showStatus3" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus3" value="L">탈퇴
-							</label>
-						</c:otherwise>
-					</c:choose>
-					</div>
+					
 					<%-- 어드민 추가 버튼 --%>
 					<div class="btn-group" role="group" style="float: right">
 						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminModal">어드민 추가</button>
@@ -326,7 +431,7 @@ $(function() {
 							<c:otherwise>
 							<c:forEach var="admin" items="${adminList}" varStatus="status">
 							<tr>
-								<td><input class="chk${status.index + 1}" name="chk" type="checkbox"></td>
+								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${admin.admin_id}"></td>
 								<td>${len - status.index}</td>
 								<td class="tdAdminId"><a href="#">${admin.admin_id}</a></td>
 								<td>${admin.admin_password}</td>

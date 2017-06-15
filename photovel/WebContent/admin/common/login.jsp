@@ -25,13 +25,12 @@ $(function(){
 		var data = {'admin_id': admin_id, 'admin_password': admin_password};
 		console.log(data);
 		$.ajax({
-			url : '/admin/adminLogin',
+			url : '/admin/'+ admin_id,
 			method:'GET',
 			data: data,
 			success: function(responseData){
 				var data = responseData.trim();
 				if( data == '1' ){
-					alert("로그인 성공");
 					location.href='/admin/member/member.jsp';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
