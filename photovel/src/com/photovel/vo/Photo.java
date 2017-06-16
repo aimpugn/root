@@ -5,13 +5,20 @@ import java.util.Date;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class Photo {
+	private int content_id;
 	private int content_detail_id;
 	private String photo_file_name;
 	private int photo_top_flag;
 	private Date photo_date;
 	private double photo_latitude;
 	private double photo_longitude;
-	
+
+	public int getContent_id() {
+		return content_id;
+	}
+	public void setContent_id(int content_id) {
+		this.content_id = content_id;
+	}
 	public int getContent_detail_id() {
 		return content_detail_id;
 	}
@@ -51,9 +58,8 @@ public class Photo {
 	}
 	@Override
 	public String toString() {
-		return "Photo [content_detail_id=" + content_detail_id + ", photo_file_name=" + photo_file_name
-				+ ", photo_top_flag=" + photo_top_flag + ", photo_date=" + photo_date + ", photo_latitude="
-				+ photo_latitude + ", photo_longitude=" + photo_longitude + "]";
+		return "Photo [content_id=" + content_id + ", content_detail_id=" + content_detail_id + ", photo_file_name="
+				+ photo_file_name + ", photo_top_flag=" + photo_top_flag + ", photo_date=" + photo_date
+				+ ", photo_latitude=" + photo_latitude + ", photo_longitude=" + photo_longitude + "]";
 	}
-	
 }

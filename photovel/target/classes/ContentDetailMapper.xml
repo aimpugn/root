@@ -20,7 +20,7 @@
   <insert id="insertDetail" parameterType="ContentDetail">
   <!-- order="BEFORE" insert구문을 수행하기 전에 select작업을 수행하라 -->
   	<selectKey keyProperty="content_id" resultType="int" order="BEFORE">
-  	  <!-- 주문번호 최대값 반환, 없으면 null대신 0 반환 -->
+  	  <!-- content번호 최대값 반환, 없으면 null대신 0 반환 -->
   	  SELECT IFNULL(MAX(content_id), 0) FROM content
   	</selectKey>
     INSERT INTO content_detail VALUES(#{content_id}, #{content_detail_id}, #{detail_content})
@@ -31,9 +31,12 @@
 	FROM content_detail JOIN content ON content_detail.content_id = content.content_id
 	JOIN photo ON content_detail.content_detail_id = photo.content_detail_id
 	WHERE content.content_id = #{content_id}
-  </select>
-  <select id="selectOne" resultType="int">
-	SELECT IFNULL(MAX(content_id), 0) FROM content
-  </select>
-   
+  </select> 
+  <update id="updateContentDetail" parameterType="ContentDetail">
+    UPDATE content_detail SET 
+	<set>
+		<if test="detail_content != null">detail_content=#{detail_content}</if>
+	</set>
+	WHERE content_id = {#content_id} AND content_detail_id = #{content_detail_id}
+  </update>
 </mapper>

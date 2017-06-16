@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.photovel.vo.Content;
 import com.photovel.vo.ContentDetail;
 
 @Repository
@@ -15,13 +16,6 @@ public class ContentDetailDAO {
 	
 	public void insert(ContentDetail detail) {
 		session.insert("ContentDetailMapper.insertDetail", detail);
-		detail.getPhoto().setContent_detail_id(detail.getContent_detail_id());
-		/*int content_id = session.selectOne("ContentDetailMapper.selectOne");
-		StringBuilder builder = new StringBuilder();
-		builder.append(content_id).append("_").append(detail.getContent_detail_id()).append(".jpg");
-		String photo_file_name = builder.toString();
-		System.out.println(photo_file_name);
-		detail.getPhoto().setPhoto_file_name(photo_file_name);*/
 		session.insert("PhotoMapper.insertPhoto", detail.getPhoto());
 	}
 	public List<ContentDetail> selectById(int content_id){
@@ -29,6 +23,10 @@ public class ContentDetailDAO {
 	}
 	public List<ContentDetail> selectAll(){
 		return session.selectList("ContentDetailMapper.selectAll"); 
+	}
+	public void update(ContentDetail detail) {
+		session.update("ContentDetailMapper.updateContentDetail", detail);
+		session.update("PhotoMapper.updatePhoto", detail.getPhoto());
 	}
 
 }
