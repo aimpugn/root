@@ -10,9 +10,10 @@
 
 <jsp:useBean id="adminSignDate" class="java.util.Date" />
 <c:set var="adminList" value="${requestScope.adminList}" />
-<%-- <c:set var="from_date" value="${requestScope.from_date}" />
-<c:set var="to_date" value="${requestScope.to_Date}" /> --%>
+<c:set var="searchCategory" value="${requestScope.searchCategory}" />
+<c:set var="searchItem" value="${requestScope.searchItem}" />
 <c:set var="len" value="${fn:length(adminList)}"/>
+
 <%--  head
 ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
@@ -23,7 +24,6 @@ $(function() {
 	$('input[name=showStatus]').click(function(){
 		var admin_status_flag = $(this).val();
 		var data = {'admin_status_flag' : admin_status_flag};
-		console.log(admin_status_flag);
 		$.ajax({
 			url:'/admin/adminStatus',
 			method: 'GET',
@@ -101,7 +101,6 @@ $(function() {
                  method:'put',
                  data: data,
                  success:function(responseData){
-                	 console.log("응답결과:" +responseData);
                      if(responseData.trim() =='1'){
                        alert("사용 성공");
                        location.href="/admin/member/admin";
@@ -140,7 +139,6 @@ $(function() {
                  method:'put',
                  data: data,
                  success:function(responseData){
-                	 console.log("응답결과:" +responseData);
                      if(responseData.trim() =='1'){
                        alert("중지 성공");
                        location.href="/admin/member/admin";
@@ -181,7 +179,6 @@ $(function() {
                  method:'put',
                  data: data,
                  success:function(responseData){
-                	 console.log("응답결과:" +responseData);
                      if(responseData.trim() =='1'){
                        alert("탈퇴 성공");
                        location.href="/admin/member/admin";
@@ -195,53 +192,47 @@ $(function() {
            	});
            	return false;	
 		};
-		
      });
-	
 
 <%-- 검색창 --%>
+	$('.dropdown-menu').on('click', 'li a', function(){
+	    $('.searchBtn:first-child').html($(this).html() + '<span class="caret"></span>');
+	    $('.searchBtn:first-child').val($(this).text() );
+	 }); 
+	
+	<%-- 검색창 --%>
 	var $btnSearch = $('button[name=btnSearch]');
 	$btnSearch.click(function(){
-		var to_date = new Date($('input[name=toDate]').val());
-		var from_date = new Date($('input[name=fromDate]').val());
+		var to_dateObj = $('input[name=to_date]');
+		var from_dateObj = $('input[name=from_date]');
+		var to_date = new Date($('input[name=to_date]').val());
+		var from_date = new Date($('input[name=from_date]').val());
+		var searchCategory= $('.searchBtn:first-child').val();
+		var searchItem= $('input[name=searchItem]').val();
 		
-		var $searchValue = $('input[name=searchValue]').val();
-		var $searchItem= $('#searchItem option:selected').val();
+		console.log("인밸리드데이트 값" + to_date);
+		//var $searchValue = $('input[name=searchValue]').val();
+		//var $searchItem= $('#searchItem option:selected').val();
 		
 		<%-- 기간 검색 --%>
-		if('' != to_date && '' != from_date ){
-			var data = {'from_date': from_date, 'to_date' : to_date};
-			console.log(data);
-	        $.ajax({
-	        	url:'/admin/adminSearch',
-	             method:'get',
-	             data: data,
-	           	 success: function(responseData){
-	    				var data = responseData.trim();
-	    				var $parentObj=$("body");
-	    	           	var data = responseData.trim();
-	    	            $parentObj.empty();
-	    	           	$parentObj.html(data);
-	             },
-		        error: function(xhr, status, error){
-					return false;
-				}
-	       	});
-	       	return false;	
-		} else if ('' == to_date || '' == from_date  &&  '' != $searchValue){
-			var data={"searchValue": $searchValue, "searchItem": $searchItem};
+		 if ( ( ("" != (searchCategory) ) && ("" != (searchItem) ) ) && ( ( typeof(to_date) != Date ) || ( typeof(from_date) != Date  ) ) ){
+			var data={'searchCategory': searchCategory, 'searchItem': searchItem};
+			console.log("검색어" + searchCategory + "아이디" + searchItem );
 			$.ajax({
-				url:'/admin/adminSearchValue',
-				method: 'post',
+				url:'/admin/adminSearchItem',
+				method: 'get',
 				data: data,
 				success:function(responseData){
-					 var $parentObj=$("article");
-		           	 var data = responseData.trim();
-		           	 $parentObj.empty();
-		           	 $parentObj.html(data);
+					var data = responseData.trim();
+    				var $parentObj=$("body");
+    	           	var data = responseData.trim();
+    	            $parentObj.empty();
+    	           	$parentObj.html(data);
 				}
 			});
-			return false;
+		return false;
+		} else if( ("" != (from_date)) && ("" != (to_date)) ){
+			var data = {'from_date': from_date, 'to_date' : to_date};
 			console.log(data);
 	        $.ajax({
 	        	url:'/admin/adminSearchDate',
@@ -259,8 +250,7 @@ $(function() {
 				}
 	       	});
 	       	return false;	
-		};
-		
+		}
 	});
 });
 	
@@ -295,10 +285,10 @@ $(function() {
 								</button>
 							</span> 
 							
-							<input type="date" class="form-control" name="fromDate" 
+							<input type="date" class="form-control" name="from_date" 
 								<c:choose>
 									<c:when test="${!empty from_date}">
-										value="${to_date}"
+										value="${from_date}"
 									</c:when> 
 									<c:otherwise></c:otherwise> 
 								</c:choose>  
@@ -313,7 +303,7 @@ $(function() {
 									<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</button>
 							</span> 
-							<input type="date" class="form-control"  name="toDate" 
+							<input type="date" class="form-control"  name="to_date" 
 								<c:choose>
 									<c:when test="${!empty to_date}">
 										value="${to_date}"
@@ -325,17 +315,27 @@ $(function() {
 					</div>
 					<div class="form-group ">
 						<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-								검색어 선택 
+							<button class="searchBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+								<c:choose>
+									<c:when test="${!empty searchCategory}">
+										${searchCategory}
+									</c:when> 
+									<c:otherwise>검색어</c:otherwise> 
+								</c:choose>  
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">전체</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아아디</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아이디</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">닉네임</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">상태</a></li>
 							</ul>
-							<input type="text" class="form-control" placeholder="Search">
+							<input type="text" class="form-control" name="searchItem"  
+								<c:choose>
+									<c:when test="${!empty searchItem}">
+										value=${searchItem}
+									</c:when> 
+									<c:otherwise>placeholder="Search"</c:otherwise> 
+								</c:choose>  
+							>
 							<button type="submit" class="btn btn-primary" name="btnSearch" >Submit</button>
 						</div>
 					</div>
@@ -384,7 +384,6 @@ $(function() {
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<hr style="border: 1px solid #eee">
 			</div>
-			
 			<%--  버튼 --%>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<div class="btn-toolbar" aria-label="...">
@@ -394,8 +393,6 @@ $(function() {
 						<button type="button" name="btnStop" 	class="btn btn-default">중지</button>
 						<button type="button" name="btnNormal"	class="btn btn-default">사용</button>
 					</div>
-					
-					
 					<%-- 어드민 추가 버튼 --%>
 					<div class="btn-group" role="group" style="float: right">
 						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#adminModal">어드민 추가</button>
@@ -417,10 +414,6 @@ $(function() {
 							</tr>
 						</thead>
 						<tbody>
-						
-				
-						
-							
 							<c:choose>
 							<c:when test="${len==0}">
 							<tr>

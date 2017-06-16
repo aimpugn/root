@@ -3,26 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper"> <!--  네임 스페이스 중복되면 안됨 -->
-<!-- <resultMap id="AdminMap" type="Admin">
-    <id column="admin_id" property="adminId" />
-    <result column="admin_password" property="admin_password"/>
-    <result column="admin_nickname" property="admin_nickname"/>
-    <result column="admin_status_flag" property="admin_status_flag"/>
-    <result column="admin_sign_date" property="admin_sign_date"/>
-</resultMap> -->
-<!-- <statement id="selectByIdDate" parameterclass="com.photovel.vo.Admin">
-	SELECT * FROM admin_user WHERE admin_id= #{admin_id} and admin_sign_date = #{sign_date}
-</statement> -->
 <insert id="insert" parameterType="Admin">
 	INSERT INTO admin_user VALUES (#{admin_id}, #{admin_password}, #{admin_nickname}, #{admin_status_flag}, SYSDATE())
 </insert>
 <select id="selectById" resultType="Admin" parameterType="string">
-	SELECT * FROM admin_user WHERE admin_id= #{admin_id}
+	SELECT * FROM admin_user WHERE admin_id = #{admin_id}
+	ORDER BY admin_id ASC
 </select>
-
+<select id="selectByIds" resultType="Admin" parameterType="string">
+	SELECT * FROM admin_user WHERE admin_id LIKE '%${value}%'
+	ORDER BY admin_id ASC
+</select>
 <select id="selectByName" resultType="Admin" parameterType="string">
 	SELECT * FROM admin_user WHERE admin_nickname LIKE '%${value}%'
-	ORDER By admin_nickname ASC
+	ORDER BY admin_nickname ASC
 </select>
 <select id="selectByStatus" resultType="Admin" parameterType="string">
 	SELECT * FROM admin_user WHERE admin_status_flag = #{admin_status_flag}
@@ -31,7 +25,7 @@
 <select id="selectByDate" resultType="Admin" parameterType="hashmap">
 	SELECT * FROM admin_user WHERE
 	<![CDATA[ (admin_sign_date <= #{to_date} ) and
- 	 		  ( admin_sign_date >= #{from_date} ) ]]>
+ 	 		  (admin_sign_date >= #{from_date} ) ]]>
   	ORDER BY admin_sign_date 
 </select>
 <select id="selectAll" resultType="Admin">

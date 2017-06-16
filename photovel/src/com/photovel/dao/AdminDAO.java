@@ -1,5 +1,4 @@
 package com.photovel.dao;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +30,15 @@ public class AdminDAO{
 	 */
 	public Admin selectById(String admin_id){
 		return session.selectOne("AdminMapper.selectById", admin_id);
+	}
+	/**
+	 * 아이디에 해당하는 관리자를 반환한다
+	 * @param adminId 아이디
+	 * @return 저장소의 고객객체를 반환한다.
+	 *         고객을 찾지 못하면 null을 반환한다.
+	 */
+	public List<Admin> selectByIds(String admin_id){
+		return session.selectList("AdminMapper.selectByIds", admin_id);
 	}
 
 	/**

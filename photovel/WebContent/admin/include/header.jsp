@@ -86,7 +86,7 @@ $(function(){
 				<ul class="nav navbar-nav">
 					<li><a href="/admin/common/logout">로그아웃</a></li>
 					<li><a href="/admin/static/dashboard.jsp">통계관리</a></li>
-					<li><a href="/admin/member/member.jsp">회원관리</a></li>
+					<li><a href="/admin/member/admin">회원관리</a></li>
 					<li><a href="/admin/board/board.jsp">게시글관리</a></li>
 					<li><a href="/admin/site/mainCustom.jsp">사이트관리</a></li>
 				</ul>

@@ -1,7 +1,9 @@
 package com.photovel.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.photovel.dao.AdminDAO;
@@ -147,7 +150,6 @@ public class AdminController {
 				String admin_id = chkList[i];
 				System.out.println(admin_id);
 				dao.stop(admin_id);
-				System.out.println(admin_id + "stop: 성공");
 				};
 			msg = "1";
 			model.addAttribute("msg", msg);
@@ -173,188 +175,100 @@ public class AdminController {
 		}
 		return msg;
 	}
-	@GetMapping("/adminSearchValue")
-	public void searchValue(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("데이트 검색 들어오나 ");
-		String msg = "-1";
-		try {
-			List<Admin> adminList = dao.selectByDate(from_date, to_date);
-			System.out.println(adminList + "셀렉트바이데이트 실횅");
-			String forwardURL = "/admin/member/admin.jsp";
-			request.setAttribute("adminList", adminList);
-			request.setAttribute("to_date", to_date);
-			request.setAttribute("from_date", from_date);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			msg = "1";
-			dispatcher.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	@GetMapping("/adminSearchDate")
+
+/*	샘
+ * @GetMapping("/adminSearchDate")
+	//public String searchDate(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
+	//public  @ResponseBody List<Admin> searchDate(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
 	public void searchDate(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("데이트 검색 들어오나 ");
+		HashMap<String, Object>map = new HashMap<>();
+		List<Admin> adminList=null;
 		String msg = "-1";
 		try {
-			List<Admin> adminList = dao.selectByDate(from_date, to_date);
-			System.out.println(adminList + "셀렉트바이데이트 실횅");
-			String forwardURL = "/admin/member/admin.jsp";
-			request.setAttribute("adminList", adminList);
-			request.setAttribute("to_date", to_date);
-			request.setAttribute("from_date", from_date);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			msg = "1";
-			dispatcher.forward(request, response);
+			adminList = dao.selectByDate(from_date, to_date);
+			if(adminList != null){
+				request.setAttribute("adminLsit", adminList);
+				request.setAttribute("from_date", from_date);
+				request.setAttribute("to_date", to_date);
+				System.out.println(adminList);
+				msg = "1";
+				//return msg;
+				//map.put("result", adminList);
+				request.setAttribute("adminList", adminList);
+				RequestDispatcher rd =
+						request.getRequestDispatcher("/admin/adminResult.jsp");
+						
+				rd.forward(request, response);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
-
-	/*
-	 * @RequestMapping(value="/memberstatussearch.do") public String
-	 * memberstatussearch(@RequestParam("statusD") boolean
-	 * statusD, @RequestParam("statusB") boolean statusB,
-	 * 
-	 * @RequestParam("statusNormal") boolean
-	 * statusNormal, @RequestParam("statusAll") boolean statusAll, HttpSession
-	 * session, Model model){ public String
-	 * memberstatussearch(@RequestParam("status") List<String> statuses,
-	 * HttpSession session, Model model){ List<Customer> memlist = new
-	 * ArrayList<>(); String forwardURL = "admin/membermanagelist.jsp"; try {
-	 * if(statuses.contains("normal")){ //if(statusNormal == true && statusD ==
-	 * false && statusB == false && statusAll == false){
-	 * memlist=cDao.selectByStatus(null); model.addAttribute("memlist",
-	 * memlist); return forwardURL; }else if(statuses.contains("d")){ // }else
-	 * if(statusNormal == false && statusD == true && statusB == false &&
-	 * statusAll == false){ memlist=cDao.selectByStatus("d");
-	 * model.addAttribute("memlist", memlist); // model.addAttribute("status",
-	 * 'd'); return forwardURL; }else if(statuses.contains("b")){ // }else
-	 * if(statusNormal == false && statusD == false && statusB == true &&
-	 * statusAll == false){ memlist=cDao.selectByStatus("b"); //
-	 * model.addAttribute("status", 'b'); model.addAttribute("memlist",
-	 * memlist); return forwardURL; }else{ memlist=cDao.selectAll();
-	 * model.addAttribute("memlist", memlist); return forwardURL; } } catch
-	 * (Exception e) { e.printStackTrace(); }
-	 * 
-	 * return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/membersearch.do") public String
-	 * membersearch(@RequestParam(required=false, defaultValue="schId")String
-	 * searchItem,
-	 * 
-	 * @RequestParam(required=false, defaultValue="")String searchValue,
-	 * HttpSession session, Model model){ System.out.println("확인");
-	 * List<Customer> memlist = new ArrayList<>(); try {
-	 * if(searchValue.equals("")){ memlist=cDao.selectAll(); }else
-	 * if("schD".equals(searchItem) || "schB".equals(searchItem) ||
-	 * "schNormal".equals(searchItem)){
-	 * memlist=daoC.selectByStatus(searchValue); }else
-	 * if("schName".equals(searchItem)){ memlist=cDao.selectByName(searchValue);
-	 * }else if("schId".equals(searchItem)){ Customer c =
-	 * cDao.selectById(searchValue); if(c!=null){ memlist.add(c); } } } catch
-	 * (Exception e) { e.printStackTrace(); }
-	 * 
-	 * model.addAttribute("memlist", memlist); String forwardURL =
-	 * "admin/membermanagelist.jsp"; return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/memberadd.do", method=RequestMethod.POST) public
-	 * String memberadd(String id, String password, String name, Date joindate,
-	 * Model model) throws ServletException, IOException{ String msg="-1"; try {
-	 * cDao.insert(new Customer(id, password, name, joindate)); msg="1"; } catch
-	 * (ClassNotFoundException e) { e.printStackTrace(); } catch (Exception e) {
-	 * e.printStackTrace(); } model.addAttribute("msg", msg); String forwardURL
-	 * = "/result.jsp"; return forwardURL; }
-	 */
-	/*
-	 * @RequestMapping(value="/memberupdate.do", method=RequestMethod.POST)
-	 * public String memberupdate(@RequestParam(required=false, defaultValue="")
-	 * String status, String id, String password, String name, Date joindate,
-	 * Model model) throws ServletException, IOException{ String msg="-1";
-	 * System.out.println("update 확인");
-	 * System.out.println(id+password+name+joindate+"status"+status); String
-	 * forwardURL = "/result.jsp"; try { Customer memlist = new Customer(id,
-	 * password, name, status, joindate); cDao.adminUpdate(memlist);
-	 * System.out.println(memlist); System.out.println("성공"); msg="1";
-	 * model.addAttribute("msg", msg); model.addAttribute(memlist); forwardURL =
-	 * "/membermanagelist.do";; } catch (Exception e) { e.printStackTrace(); }
-	 * model.addAttribute("msg", msg); return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/memberdata.do") public String memberupdate(String
-	 * id, String password, String name,
-	 * 
-	 * @RequestParam(required=false,defaultValue="")String status, Date
-	 * joindate, HttpSession session, Model model){ List<OrderInfo> info_list;
-	 * String msg ="-1"; String forwardURL = "/result.jsp"; try { if(id != null
-	 * && password != null && name != null){ 주문정보 info_list =
-	 * oDao.selectById(id); model.addAttribute("info_list",info_list); 회원정보
-	 * Customer cs = new Customer(id, password, name, status, joindate);
-	 * model.addAttribute("cs", cs); msg = "1"; forwardURL =
-	 * "admin/memberupdate.jsp"; } } catch (Exception e) { e.printStackTrace();
-	 * } model.addAttribute("msg", msg); return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/memberremove.do") public String
-	 * memberremove(String[] chkList, HttpSession session, Model model){ String
-	 * msg ="-1"; String forwardURL = "/result.jsp"; try { for( int i = 0 ; i <
-	 * chkList.length; i++ ){ String id = chkList[i]; cService.remove(id); };
-	 * msg="1"; forwardURL = "/membermanagelist.do";
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } model.addAttribute("msg",
-	 * msg); return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/signup.do", method=RequestMethod.POST) public
-	 * String signup(String id, String pw, String memName, Model model) { String
-	 * msg="-1"; try { //1. service.regist(new Admin(id, pw, memName)); msg="1";
-	 * } catch (ClassNotFoundException e) { e.printStackTrace(); } catch
-	 * (Exception e) { e.printStackTrace(); } model.addAttribute("msg", msg);
-	 * String forwardURL = "/result.jsp"; return forwardURL;
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @RequestMapping(value="/admindetail.do") public String
-	 * admindetail(HttpSession session, Model model){
-	 * 
-	 * Admin ad = (Admin)session.getAttribute("loginInfo");
-	 * model.addAttribute("id", ad.getId()); model.addAttribute("password",
-	 * ad.getPassword()); model.addAttribute("name", ad.getName());
-	 * 
-	 * 
-	 * String forwardURL = "/admindetailresult.jsp"; return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/admindetailmodify.do", method=RequestMethod.POST)
-	 * public String admindetailmodify(String id, String name, String password,
-	 * String passwordchk, HttpSession session, Model model){ String msg ="-1";
-	 * String forwardURL = "/result.jsp"; try {
-	 * if(password.equals(passwordchk)){ Admin ad = new Admin(id, password,
-	 * name); service.modify(ad); forwardURL = "/admindetail.do"; msg="1";
-	 * session.removeAttribute("loginInfo"); session.setAttribute("loginInfo",
-	 * ad); } } catch (Exception e) { e.printStackTrace(); }
-	 * model.addAttribute("msg", msg); return forwardURL; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/adminleave.do") public String
-	 * memberlevae(String[] chkList, HttpSession session, Model model){ String
-	 * msg ="-1"; String forwardURL = "/result.jsp"; try { for( int i = 0 ; i <
-	 * chkList.length; i++ ){ String id = chkList[i]; cService.leave(id); };
-	 * msg="1"; forwardURL = "/membermanagelist.do";
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } model.addAttribute("msg",
-	 * msg); return forwardURL; }
-	 */
+	*/
+	
+	@GetMapping("/adminSearchDate")
+	 public void searchDate(Date to_date, Date from_date, HttpServletRequest request, HttpServletResponse response) {
+ 		System.out.println("데이트 검색 들어오나 ");
+ 		String msg = "-1";
+ 		try {
+ 			List<Admin> adminList = dao.selectByDate(from_date, to_date);
+ 			System.out.println(adminList + "셀렉트바이데이트 실횅");
+ 			String forwardURL = "/admin/member/admin.jsp";
+ 			request.setAttribute("adminList", adminList);
+ 			request.setAttribute("to_date", to_date);
+ 			request.setAttribute("from_date", from_date);
+ 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+ 			msg = "1";
+ 			dispatcher.forward(request, response);
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
+	}
+	@GetMapping("/adminSearchItem")
+	public void searchItem(String searchCategory, String searchItem, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("서치아이템이 되나???");
+		System.out.println(searchCategory + " : 카테고리 오나 들어오나 ");
+		System.out.println(searchItem + " : 아이템들어오나 ");
+		String msg = "-1";
+		String forwardURL = "/admin/member/admin.jsp";
+		List<Admin> adminList = new ArrayList();
+		try {
+			
+			if( searchCategory.equals("아이디") ){
+				adminList = dao.selectByIds(searchItem);
+				if(adminList != null){
+					System.out.println("아이디: "+ adminList);
+					forwardURL = "/admin/member/admin.jsp";
+					request.setAttribute("adminList", adminList);
+		 			request.setAttribute("searchCategory", searchCategory);
+		 			request.setAttribute("searchItem", searchItem);
+		 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+		 			msg = "1";
+		 			dispatcher.forward(request, response);
+				}
+				
+			} else if(searchCategory.equals("닉네임")){
+				adminList = dao.selectByName(searchItem);
+				if(adminList != null){
+					System.out.println("닉네임: "+ adminList);
+					forwardURL = "/admin/member/admin.jsp";
+					request.setAttribute("adminList", adminList);
+		 			request.setAttribute("searchCategory", searchCategory);
+		 			request.setAttribute("searchItem", searchItem);
+		 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+		 			msg = "1";
+		 			dispatcher.forward(request, response);
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 
 }
