@@ -4,28 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ContentDetailMapper">
   <resultMap id="ContentDetailMap" type="ContentDetail">
-    <id column="content_detail_id" property="contentDetailId" />
-    <result column="content_id" property="contentId"/>
-    <result column="detail_content" property="detailContent"/>
+    <id column="content_detail_id" property="content_detail_id" />
+    <result column="content_id" property="content_id"/>
+    <result column="detail_content" property="detail_content"/>
     <association property="photo" javaType="Photo">
-      <id column="content_detail_id" property="contentDetailId"/>
-      <id column="photo_file_name" property="photoFileName"/>
-      <result column="photo_date" property="photoDate"/>
-      <result column="photo_latitude" property="photoLatitude"/>
-      <result column="photo_longitude" property="photoLongitude"/>
-      <result column="photo_top_flag" property="photoTopFlag"/>
+      <id column="content_detail_id" property="content_detail_id"/>
+      <id column="photo_file_name" property="photo_file_name"/>
+      <result column="photo_date" property="photo_date"/>
+      <result column="photo_latitude" property="photo_latitude"/>
+      <result column="photo_longitude" property="photo_longitude"/>
+      <result column="photo_top_flag" property="photo_top_flag"/>
     </association>
   </resultMap>
 
   <insert id="insertDetail" parameterType="ContentDetail">
-    INSERT INTO Content_detail VALUES(#{contentId}, #{contentDetailId}, #{detailContent})
+  <!-- order="BEFORE" insert구문을 수행하기 전에 select작업을 수행하라 -->
+  	<selectKey keyProperty="content_id" resultType="int" order="BEFORE">
+  	  <!-- 주문번호 최대값 반환, 없으면 null대신 0 반환 -->
+  	  SELECT IFNULL(MAX(content_id), 0) FROM content
+  	</selectKey>
+    INSERT INTO content_detail VALUES(#{content_id}, #{content_detail_id}, #{detail_content})
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="ContentDetailMap">
-	SELECT Content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
-	FROM Content_detail JOIN Content ON Content_detail.content_id = Content.content_id
-	JOIN Photo ON Content_detail.content_detail_id = Photo.content_detail_id
-	WHERE Content.content_id = #{contentId}
+	SELECT content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
+	FROM content_detail JOIN content ON content_detail.content_id = content.content_id
+	JOIN photo ON content_detail.content_detail_id = photo.content_detail_id
+	WHERE content.content_id = #{content_id}
   </select>
    
 </mapper>

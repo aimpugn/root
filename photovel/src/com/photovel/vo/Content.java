@@ -130,6 +130,4 @@ public class Content {
 				+ ", photo_file_name=" + photo_file_name + ", user=" + user + ", ad=" + ad + ", comments=" + comments
 				+ ", details=" + details + "]";
 	}
-	
-	
 }

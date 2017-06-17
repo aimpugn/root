@@ -12,7 +12,6 @@ public class ContentDetail {
 	public void setContent_id(int content_id) {
 		this.content_id = content_id;
 	}
-
 	public String getContent_detail_id() {
 		return content_detail_id;
 	}

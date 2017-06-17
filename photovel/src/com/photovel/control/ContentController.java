@@ -3,20 +3,22 @@ package com.photovel.control;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.photovel.dao.CommentDAO;
 import com.photovel.dao.ContentDAO;
 import com.photovel.dao.ContentDetailDAO;
-import com.photovel.vo.Comment;
 import com.photovel.vo.Content;
 import com.photovel.vo.ContentDetail;
-import com.photovel.vo.Photo;
 
 @RestController
 @RequestMapping("/content/photo")
@@ -39,14 +41,12 @@ public class ContentController {
 	@GetMapping
     public List<Content> selectAllOrderByDate(){
 		List<Content> contents = contentDao.selectAll();
-		for(Content content:contents){
-			System.out.println(content);
-		}
 		return contents;
     }
 	
 	@PostMapping
-	public void insert(@PathVariable Content content){
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void insert(@RequestBody Content content){
 		contentDao.insert(content);
 		List<ContentDetail> details = content.getDetails();
 		for(ContentDetail detail: details){
@@ -61,5 +61,10 @@ public class ContentController {
 		for(ContentDetail detail: details){
 			contentDetailDao.insert(detail);
 		}
+	}
+	
+	@DeleteMapping("/{content_id}")
+	public void delete(@PathVariable int content_id){
+		contentDao.updateDeleteStatus(content_id);
 	}
 }

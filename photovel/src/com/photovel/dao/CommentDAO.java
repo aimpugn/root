@@ -17,8 +17,8 @@ public class CommentDAO {
 		session.insert("CommentMapper.insertComment", comment);
 	}
 	
-	public List<Comment> selectById(int contentId){
-		return session.selectList("CommentMapper.selectById", contentId); 
+	public List<Comment> selectById(int content_id){
+		return session.selectList("CommentMapper.selectById", content_id); 
 	}
 
 }

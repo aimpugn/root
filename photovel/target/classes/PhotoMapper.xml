@@ -4,14 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PhotoMapper">
   <insert id="insertPhoto" parameterType="Photo">
-    INSERT INTO Photo VALUES(#{contentDetailId}, #{photoFileName}, #{photoTopFlag}, #{photoDate}, #{photoLatitude}, #{photoLongitude})
+    <selectKey keyProperty="photo_file_name" resultType="string" order="BEFORE">
+  	  <!-- 주문번호 최대값 반환, 없으면 null대신 0 반환 -->
+  	  SELECT concat(a.id, '_', cast(#{content_detail_id} as char), '.jpg') photo_file_name from (select cast(MAX(content_id) as char) id from content) a
+  	</selectKey>
+    INSERT INTO photo VALUES(#{content_detail_id}, #{photo_file_name}, #{photo_top_flag}, #{photo_date}, #{photo_latitude}, #{photo_longitude})
   </insert>
   <select id="selectAll" resultType="Photo">
-    SELECT photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude FROM Photo
+    SELECT photo_file_name, photo_date, photo_latitude, photo_longitude FROM photo
   </select>
   <select id="selectByContentId" parameterType="int" resultType="Photo">
-   SELECT <!-- content_detail_id ContenDetailId, --> photo_file_name photoFileName, photo_date photoDate, photo_latitude photoLatitude, photo_longitude photoLongitude
-   FROM Photo p JOIN Content_detail cd ON p.content_detail_id = cd.content_detail_id 
+   SELECT photo_file_name, photo_date, photo_latitude, photo_longitude
+   FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id 
    WHERE content_id = #{content_id}
   </select>
 </mapper>

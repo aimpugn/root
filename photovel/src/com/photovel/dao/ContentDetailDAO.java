@@ -15,10 +15,11 @@ public class ContentDetailDAO {
 	
 	public void insert(ContentDetail detail) {
 		session.insert("ContentDetailMapper.insertDetail", detail);
+		detail.getPhoto().setContent_detail_id(detail.getContent_detail_id());
 		session.insert("PhotoMapper.insertPhoto", detail.getPhoto());
 	}
-	public List<ContentDetail> selectById(int contentId){
-		return session.selectList("ContentDetailMapper.selectById", contentId); 
+	public List<ContentDetail> selectById(int content_id){
+		return session.selectList("ContentDetailMapper.selectById", content_id); 
 	}
 	public List<ContentDetail> selectAll(){
 		return session.selectList("ContentDetailMapper.selectAll"); 
