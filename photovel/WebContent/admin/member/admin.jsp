@@ -200,7 +200,7 @@ $(function() {
 	    $('.searchBtn:first-child').val($(this).text() );
 	 }); 
 	
-	<%-- 검색창 0616 --%>
+	<%-- 검색창 --%>
 	var $btnSearch = $('button[name=btnSearch]');
 	$btnSearch.click(function(){
 		var to_dateObj = $('input[name=to_date]');
