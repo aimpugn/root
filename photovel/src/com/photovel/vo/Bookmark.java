@@ -4,7 +4,6 @@ public class Bookmark {
 	private int content_id;
 	private User user;
 	
-	
 	public int getContent_id() {
 		return content_id;
 	}

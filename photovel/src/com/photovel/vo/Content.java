@@ -3,8 +3,6 @@ package com.photovel.vo;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Content {
 	private int content_id;
 	private String content_subject;
@@ -53,7 +51,6 @@ public class Content {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
 	public Date getContent_written_date() {
 		return content_written_date;
 	}

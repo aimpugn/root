@@ -2,8 +2,6 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Admin {
 
     private String admin_id;
@@ -50,7 +48,6 @@ public class Admin {
 	public void setAdmin_status_flag(String admin_status_flag) {
 		this.admin_status_flag = admin_status_flag;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
 	public Date getAdmin_sign_date() {
 		return admin_sign_date;
 	}

@@ -2,11 +2,9 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Photo {
 	private int content_id;
-	private int content_detail_id;
+	private String content_detail_id;
 	private String photo_file_name;
 	private int photo_top_flag;
 	private Date photo_date;
@@ -19,10 +17,11 @@ public class Photo {
 	public void setContent_id(int content_id) {
 		this.content_id = content_id;
 	}
-	public int getContent_detail_id() {
+
+	public String getContent_detail_id() {
 		return content_detail_id;
 	}
-	public void setContent_detail_id(int content_detail_id) {
+	public void setContent_detail_id(String content_detail_id) {
 		this.content_detail_id = content_detail_id;
 	}
 	public String getPhoto_file_name() {
@@ -37,7 +36,6 @@ public class Photo {
 	public void setPhoto_top_flag(int photo_top_flag) {
 		this.photo_top_flag = photo_top_flag;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
 	public Date getPhoto_date() {
 		return photo_date;
 	}

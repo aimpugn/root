@@ -19,10 +19,10 @@
 
   <insert id="insertDetail" parameterType="ContentDetail">
   <!-- order="BEFORE" insert구문을 수행하기 전에 select작업을 수행하라 -->
-  	<selectKey keyProperty="content_id" resultType="int" order="BEFORE">
-  	  <!-- content번호 최대값 반환, 없으면 null대신 0 반환 -->
+<!--   	<selectKey keyProperty="content_id" resultType="int" order="BEFORE">
+  	  content번호 최대값 반환, 없으면 null대신 0 반환
   	  SELECT IFNULL(MAX(content_id), 0) FROM content
-  	</selectKey>
+  	</selectKey> -->
     INSERT INTO content_detail VALUES(#{content_id}, #{content_detail_id}, #{detail_content})
   </insert>
 

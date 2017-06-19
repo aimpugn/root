@@ -6,9 +6,9 @@
 <title>content upload test</title>
 </head>
 <body>
-	<form method="POST" action="/content/photo" enctype="multipart/form-data">
-		<textarea name="content"></textarea><br>
-		<input name="uploadFile" class="file" type='file' multiple/>
+	<form action="/upload" method="post" enctype="multipart/form-data">
+		<textarea name="content" rows="30" cols="50"></textarea><br>
+		<input name="img" type='file' multiple/>
 		<input type="submit" value="업로드" id="upload">
 	</form>
 </body>
