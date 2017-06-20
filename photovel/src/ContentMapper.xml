@@ -26,7 +26,7 @@
   </resultMap>
   
   <insert id="insertContent" parameterType="Content">
-	INSERT INTO content VALUES(null, #{user.user_id}, #{content_subject}, #{content}, SYSDATE(), #{content_private_flag}, 'F', 0, #{ad.ad_id}, 0)
+	INSERT INTO content VALUES(null, 'leeej9201@gmail.com', #{content_subject}, #{content}, SYSDATE(), #{content_private_flag}, 'F', 0, #{ad.ad_id}, 0)
   </insert>
   <select id="selectById" parameterType="int" resultMap="ContentMap">
 	SELECT 

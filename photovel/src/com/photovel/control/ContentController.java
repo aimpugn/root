@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -56,20 +58,26 @@ public class ContentController {
 
 	@PostMapping(consumes = "multipart/form-data")
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void insert(@RequestParam("content") String json, 
+	public void insert(@RequestParam("content") String json,
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
-		Content content = JSON.parseObject(json, Content.class);
-		System.out.println(content);
 		
-		contentDao.insert(content);
-		int content_id = contentDao.selectCurId();
-		List<ContentDetail> details = content.getDetails();
-		for(int i = 0; i < details.size(); i++){
-			ContentDetail detail = details.get(i);
-			insertDetail(content_id, detail);
-			uploadPicture(uploadFile[i], detail, request);
+		Content content;
+		try {
+			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
+			
+			contentDao.insert(content);
+			int content_id = contentDao.selectCurId();
+			List<ContentDetail> details = content.getDetails();
+			for(int i = 0; i < details.size(); i++){
+				ContentDetail detail = details.get(i);
+				insertDetail(content_id, detail, i);
+				uploadPicture(uploadFile[i], detail, request);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
 	@PutMapping
@@ -77,25 +85,29 @@ public class ContentController {
 	public String update(@RequestParam("content") String json, 
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
-		
-		Content content = JSON.parseObject(json, Content.class);
-		System.out.println(content);
+		Content content;
+		try {
+			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
 
-		contentDao.update(content);
-		int content_id = content.getContent_id();
-		List<ContentDetail> details = content.getDetails();		
-		for(int i = 0; i < details.size(); i++){
-			ContentDetail detail = details.get(i);
-			
-			//전에있던 detail인지 새로 추가된 detail인지 확인
-			if("".equals(detail.getContent_detail_id())){
-				insertDetail(content_id, detail);
-			}else{
-				contentDetailDao.update(detail);
+			contentDao.update(content);
+			int content_id = content.getContent_id();
+			List<ContentDetail> details = content.getDetails();		
+			for(int i = 0; i < details.size(); i++){
+				ContentDetail detail = details.get(i);
+				
+				//전에있던 detail인지 새로 추가된 detail인지 확인
+				if("".equals(detail.getContent_detail_id())){
+					insertDetail(content_id, detail, i);
+				}else{
+					contentDetailDao.update(detail);
+				}
+				uploadPicture(uploadFile[i], detail, request);
 			}
-			uploadPicture(uploadFile[i], detail, request);
-		}
-		return "1";
+			return "1";
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return "-1";
+		}		
 	}
 	
 	@DeleteMapping("/{content_id}")
@@ -104,10 +116,10 @@ public class ContentController {
 		return "1";
 	}
 	
-	public void insertDetail(int content_id, ContentDetail detail){
-		String photo_date = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss").format(detail.getPhoto().getPhoto_date());
+	public void insertDetail(int content_id, ContentDetail detail, int i){
+		String photo_date = new SimpleDateFormat("yyyy-MM-dd-hh24-mm-ss").format(detail.getPhoto().getPhoto_date());
 		StringBuilder content_detail_id = new StringBuilder();
-		content_detail_id.append(content_id).append("_").append(photo_date);
+		content_detail_id.append(content_id).append("_").append(photo_date).append("_"+i);
 		detail.setContent_detail_id(content_detail_id.toString());
 		StringBuilder photo_file_name = new StringBuilder();
 		photo_file_name.append(detail.getContent_detail_id()).append(".jpg");

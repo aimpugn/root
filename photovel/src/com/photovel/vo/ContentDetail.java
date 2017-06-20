@@ -5,7 +5,15 @@ public class ContentDetail {
 	private String content_detail_id;
 	private String detail_content;
 	private Photo photo;
+	private String detail_delete_status;
 	
+	
+	public String getDetail_delete_status() {
+		return detail_delete_status;
+	}
+	public void setDetail_delete_status(String detail_delete_status) {
+		this.detail_delete_status = detail_delete_status;
+	}
 	public int getContent_id() {
 		return content_id;
 	}
@@ -34,7 +42,8 @@ public class ContentDetail {
 	@Override
 	public String toString() {
 		return "ContentDetail [content_id=" + content_id + ", content_detail_id=" + content_detail_id
-				+ ", detail_content=" + detail_content + ", photo=" + photo + "]";
+				+ ", detail_content=" + detail_content + ", photo=" + photo + ", detail_delete_status="
+				+ detail_delete_status + "]";
 	}
 	
 }
