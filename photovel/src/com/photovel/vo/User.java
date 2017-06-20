@@ -2,17 +2,13 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class User {
-	@JsonProperty("user_id")
 	private String user_id;
 	private String user_password;
 	private String user_nick_name;
 	private String user_gender;
 	private int user_phone1;
-	private int user_phone2;
+	private String user_phone2;
 	private String user_profile_photo;
 	private Date user_sign_date;
 	private String user_state_flag;
@@ -51,10 +47,10 @@ public class User {
 	public void setUser_phone1(int user_phone1) {
 		this.user_phone1 = user_phone1;
 	}
-	public int getUser_phone2() {
+	public String getUser_phone2() {
 		return user_phone2;
 	}
-	public void setUser_phone2(int user_phone2) {
+	public void setUser_phone2(String user_phone2) {
 		this.user_phone2 = user_phone2;
 	}
 	public String getUser_profile_photo() {
@@ -63,7 +59,6 @@ public class User {
 	public void setUser_profile_photo(String user_profile_photo) {
 		this.user_profile_photo = user_profile_photo;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
 	public Date getUser_sign_date() {
 		return user_sign_date;
 	}
@@ -76,7 +71,6 @@ public class User {
 	public void setUser_state_flag(String user_state_flag) {
 		this.user_state_flag = user_state_flag;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
 	public Date getUser_last_connection() {
 		return user_last_connection;
 	}
