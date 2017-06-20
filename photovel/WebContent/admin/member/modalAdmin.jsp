@@ -40,22 +40,22 @@
 								<label class="col-sm-2 control-label">상태</label>
 								<div class="col-sm-10 form-inline">
 									<div class="radio">
-										<label for="adminStatus1"> 
-											<input type="radio" name="adminStatus" id="adminStatus1" value="N" checked> 
+										<label for="adminState1"> 
+											<input type="radio" name="adminState" id="adminState1" value="N" checked> 
 											정상
 										</label>
 									</div>
 
 									<div class="radio">
-										<label for="adminStatus2"> 
-											<input type="radio" name="adminStatus" id="adminStatus2" value="S"> 
+										<label for="adminState2"> 
+											<input type="radio" name="adminState" id="adminState2" value="S"> 
 											중지
 										</label>
 									</div>
 									
 									<div class="radio">
-										<label for="adminStatus3"> 
-											<input type="radio" name="adminStatus" id="adminStatus3" value="L"> 
+										<label for="adminState3"> 
+											<input type="radio" name="adminState" id="adminState3" value="L"> 
 											탈퇴
 										</label>
 									</div>
@@ -81,10 +81,12 @@
     </script>
 	<script>
 	$(function () { 
-		var $formAdmin= $('#formAdminAdd');
+		//var $formAdmin= $('#formAdminAdd');
 		$('#adminModal').on('hide.bs.modal', function () {
 	    	//alert('saved change..');
 		});
+		
+		//추가하기
 		$('#adminConfirm').click(function () {
 			
 			// 입력된 Id, Password, NickName 얻기
@@ -92,29 +94,29 @@
 			var admin_password = $('#inputAdminPassword1').val();
 			var admin_nickname = $('#inputAdminNickName').val();
 			// 입력된 라디오 버튼의 value 얻기
-			var status = document.getElementsByName('adminStatus');
+			var state = document.getElementsByName('adminState');
 			var checkedIndex = -1;
-			var admin_status_flag = '';
-			for( i=0; i<status.length; i++ ) {
-				if(status[i].checked) {
+			var admin_state_flag = '';
+			for( i=0; i<state.length; i++ ) {
+				if(state[i].checked) {
 					checkedIndex = i;
-					admin_status_flag = status[i].value;
+					admin_state_flag = state[i].value;
 				}
 			}
-
-			var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_status_flag': admin_status_flag};
+			var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_state_flag': admin_state_flag};
+			console.log(data);
 			$.ajax({
-				url: '/admin/adminAdd',
+				url: '/admin',
 				method: 'POST',
 				data: data,
 				success: function(responseData){
 					var data = responseData.trim();
-					console.log(data);
-					if( data == '1' ){
+					//console.log(data);
+					//if( data == '1' ){
 						location.href='/admin/member/admin';
-					} else{
-						alert("잘못된 정보입니다.");
-					}
+					//} else{
+					//	alert("잘못된 정보입니다.");
+					//}
 				},
 				error: function(xhr, status, error){
 					

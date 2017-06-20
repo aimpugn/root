@@ -18,6 +18,8 @@ nav.wrap-pagination{text-align: center;}
 .breadcrumb > li.active > a{color: #263238;}
 .breadcrumb > li > a:hover{color: #20a8d8;}
 
+span.added{position: absolute; right: 30px; top: 7px; display:none;}
+
 footer{/* background: #0C1A1E; color: #fff; */
     position: absolute;
     right: 0;

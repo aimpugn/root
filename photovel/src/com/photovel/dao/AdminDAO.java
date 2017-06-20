@@ -52,16 +52,16 @@ public class AdminDAO{
 	
 	/**
 	 * 상태에 해당하는 고객을 반환한다
-	 * @param admin_status_flag 상태
+	 * @param admin_state_flag 상태
 	 * @return
 	 */
-	public List<Admin> selectByStatus(String admin_status_flag){
-		return session.selectList("AdminMapper.selectByStatus", admin_status_flag);//id 값 , parameter로 보낼 값
+	public List<Admin> selectByState(String admin_state_flag){
+		return session.selectList("AdminMapper.selectByState", admin_state_flag);//id 값 , parameter로 보낼 값
 	}
 	
 	/**
 	 * 상태에 해당하는 고객을 반환한다
-	 * @param admin_status_flag 상태
+	 * @param admin_state_flag 상태
 	 * @return
 	 */
 	public List<Admin> selectByDate(Date from_date, Date to_date){
