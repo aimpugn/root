@@ -54,7 +54,6 @@
 		WHERE user_id LIKE '%${value}%'
 		ORDER BY user_id ASC
 	</select>
- 	
 	<select id="selectByName" resultType="User" parameterType="string">
 		SELECT * FROM user 
 		WHERE user_nickname LIKE '%${value}%'
