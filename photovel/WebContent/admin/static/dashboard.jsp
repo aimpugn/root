@@ -190,7 +190,5 @@
 ------------------------------------------- --%>
 <%@include file="/admin/include/footer.jsp" %>
 
-<%-- Modal --%>  
-<%@include file="/admin/member/modalMember.jsp" %>
 </body>
 </html>

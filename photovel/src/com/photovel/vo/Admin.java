@@ -10,7 +10,7 @@ public class Admin {
 
     private String admin_nickname;
 
-    private String admin_status_flag;
+    private String admin_state_flag;
     
     private Date admin_sign_date;
 
@@ -41,12 +41,12 @@ public class Admin {
 		this.admin_nickname = admin_nickname;
 	}
 
-	public String getAdmin_status_flag() {
-		return admin_status_flag;
+	public String getAdmin_state_flag() {
+		return admin_state_flag;
 	}
 
-	public void setAdmin_status_flag(String admin_status_flag) {
-		this.admin_status_flag = admin_status_flag;
+	public void setAdmin_state_flag(String admin_state_flag) {
+		this.admin_state_flag = admin_state_flag;
 	}
 
 	public Date getAdmin_sign_date() {
@@ -60,7 +60,7 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "admin_id" + admin_id + ", admin_password" + admin_password + ", admin_nickname"
-				+ admin_nickname + ", admin_status_flag" + admin_status_flag + ", admin_sign_date" + admin_sign_date
+				+ admin_nickname + ", admin_state_flag" + admin_state_flag + ", admin_sign_date" + admin_sign_date
 				;
 	}
 
@@ -72,7 +72,7 @@ public class Admin {
 		result = prime * result + ((admin_nickname == null) ? 0 : admin_nickname.hashCode());
 		result = prime * result + ((admin_password == null) ? 0 : admin_password.hashCode());
 		result = prime * result + ((admin_sign_date == null) ? 0 : admin_sign_date.hashCode());
-		result = prime * result + ((admin_status_flag == null) ? 0 : admin_status_flag.hashCode());
+		result = prime * result + ((admin_state_flag == null) ? 0 : admin_state_flag.hashCode());
 		return result;
 	}
 
@@ -105,10 +105,10 @@ public class Admin {
 				return false;
 		} else if (!admin_sign_date.equals(other.admin_sign_date))
 			return false;
-		if (admin_status_flag == null) {
-			if (other.admin_status_flag != null)
+		if (admin_state_flag == null) {
+			if (other.admin_state_flag != null)
 				return false;
-		} else if (!admin_status_flag.equals(other.admin_status_flag))
+		} else if (!admin_state_flag.equals(other.admin_state_flag))
 			return false;
 		return true;
 	}

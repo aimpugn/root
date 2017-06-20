@@ -20,7 +20,6 @@ $(function(){
 		var admin_id = $('#inputId').val();
 		var admin_password = $('#inputPassword').val();
 		alert("id"+admin_id+"pw" + admin_password);
-
 		
 		var data = {'admin_id': admin_id, 'admin_password': admin_password};
 		console.log(data);
@@ -31,7 +30,7 @@ $(function(){
 			success: function(responseData){
 				var data = responseData.trim();
 				if( data == '1' ){
-					location.href='/admin/member/member.jsp';
+					location.href='/admin/member/admin.jsp';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
 				} else if ( data == 'stop'){
@@ -56,14 +55,6 @@ $(function(){
 
 <body>
 
-<%-- <% HttpSession session2 = request.getSession();
-	Object loginInfo;
-	if(session.getAttribute("loginInfo") instanceof Admin){
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}else{
-		loginInfo = (Admin) session.getAttribute("loginInfo");
-	}
-%> --%>
 <div class="container-fluid">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">

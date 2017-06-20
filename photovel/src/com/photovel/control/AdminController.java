@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.photovel.dao.AdminDAO;
@@ -49,15 +48,15 @@ public class AdminController {
 		try {
 			Admin admin = dao.selectById(admin_id);
 			if (admin_password.equals( admin.getAdmin_password() ) ) {
-				if ("N".equals( admin.getAdmin_status_flag() ) ) {
+				if ("N".equals( admin.getAdmin_state_flag() ) ) {
 					session.setAttribute("loginInfo", admin);
 					session.setMaxInactiveInterval(10000);
 					msg = "1";
 					return msg;
-				} else if ("L".equals( admin.getAdmin_status_flag() ) ) {
+				} else if ("L".equals( admin.getAdmin_state_flag() ) ) {
 					msg = "leave";
 					return msg;
-				} else if ("S".equals( admin.getAdmin_status_flag() ) ) {
+				} else if ("S".equals( admin.getAdmin_state_flag() ) ) {
 					msg = "stop";
 					return msg;
 				} 
@@ -110,11 +109,11 @@ public class AdminController {
 		return msg;
 	}
 	
-	@GetMapping("/adminStatus")
-	public void showStatus(String admin_status_flag, HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/adminState")
+	public void showState(String admin_state_flag, HttpServletRequest request, HttpServletResponse response) {
 		String msg = "-1";
 		try {
-			List<Admin> adminList = dao.selectByStatus(admin_status_flag);
+			List<Admin> adminList = dao.selectByState(admin_state_flag);
 			System.out.println(adminList);
 			String forwardURL = "/admin/member/admin.jsp";
 			request.setAttribute("adminList", adminList);
@@ -207,7 +206,6 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 	*/
 	
