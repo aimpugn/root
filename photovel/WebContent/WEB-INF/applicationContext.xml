@@ -11,10 +11,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/photovel?useSSL=false" />
-		<property name="username" value="photovel" />
-		<property name="password" value="photovel1717" />
+		<property name="url" value="jdbc:mysql://localhost:3306/photovel?useSSL=false" />
+		<property name="username" value="root" />
+		<property name="password" value="zmzm1004@" />
 	</bean>
 
 	<!-- 마이바티스설정연결 -->

@@ -117,5 +117,4 @@ public class UserDAO {
 	public void normal(String user_id) throws Exception{
 		session.update("UserMapper.normal", user_id);
 	}
-
 }
