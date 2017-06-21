@@ -29,7 +29,7 @@ public class Comment {
 	public void setComment_content(String comment_content) {
 		this.comment_content = comment_content;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+	
 	public Date getComment_date() {
 		return comment_date;
 	}

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class User {
-	@JsonProperty("user_id")
+
 	private String user_id;
 	private String user_password;
 	private String user_nick_name;
@@ -63,7 +63,7 @@ public class User {
 	public void setUser_profile_photo(String user_profile_photo) {
 		this.user_profile_photo = user_profile_photo;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+
 	public Date getUser_sign_date() {
 		return user_sign_date;
 	}
@@ -76,7 +76,7 @@ public class User {
 	public void setUser_state_flag(String user_state_flag) {
 		this.user_state_flag = user_state_flag;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+
 	public Date getUser_last_connection() {
 		return user_last_connection;
 	}

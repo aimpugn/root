@@ -4,21 +4,21 @@
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<c:set var="userList" value="${requestScope.userList}" />
-<c:set var="len" value="${fn:length(userList)}"/>
+<c:set var="boardList" value="${requestScope.boardList}" />
+<c:set var="len" value="${fn:length(boardList)}"/>
 
 <jsp:useBean id="to_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.to_date}" pattern="yyyy-MM-dd" var="to_date"/>
 <jsp:useBean id="fromfrom_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.from_date}" pattern="yyyy-MM-dd" var="from_date"/>
 
-<jsp:useBean id="userSignDate" class="java.util.Date" />
+<jsp:useBean id="boardWirteDate" class="java.util.Date" />
 <c:set var="searchCategory" value="${requestScope.searchCategory}" />
 <c:set var="searchItem" value="${requestScope.searchItem}" />
 
 <%--  head ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
-<%@include file="/admin/member/scriptUser.jsp" %>
+<%@include file="/admin/board/scriptBoard.jsp" %>
 
 </head>
 <body>
@@ -80,7 +80,9 @@
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아이디</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">닉네임</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">제목</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">공개상태</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">신고상태</a></li>
 							</ul>
 							<input type="text" class="form-control" name="searchItem"  
 								<c:choose>
@@ -96,46 +98,47 @@
 					<%-- 상태별 보기 라디오 버튼 --%>
 					<div class="form-group form-inline">
 					<c:choose>
-						<c:when test="${param.user_state_flag == 'N'}">
+						<c:when test="${param.content_delete_status == 'F'}">
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
+							<label for="showState3" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState3" value="F" checked>정상
+							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N" checked>일반
+								<input type="radio" name="showState" id="showState2" value="T">삭제
+							</label>
+							<label for="showState4" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="sshowState4" value="M">관리자 삭제
+							</label>
+						</c:when>
+						<c:when test="${param.content_delete_status== 'T'}">
+							<label for="showState1" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
 							<label for="showState23" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+								<input type="radio" name="showState" id="showState3" value="F">정상
+							</label>
+							<label for="showState2" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState2" value="T" checked>삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState4" value="L">탈퇴
+								<input type="radio" name="showState" id="showState4" value="M">관리자 삭제
 							</label>
 						</c:when>
-						<c:when test="${param.user_state_flag == 'B'}">
+						
+						<c:when test="${param.content_delete_status == 'M'}">
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
-							</label>
 							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B" checked>블랙
-							</label>
-							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="sshowState4" value="L">탈퇴
-							</label>
-						</c:when>
-						<c:when test="${param.user_state_flag == 'L'}">
-							<label for="showState1" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState1" value="A">전체
+								<input type="radio" name="showState" id="showState3" value="F">정상
 							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
-							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+								<input type="radio" name="showState" id="showState2" value="T">삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="sshowState4" value="L" checked>탈퇴
+								<input type="radio" name="showState" id="sshowState4" value="M" checked>관리자 삭제
 							</label>
 							
 						</c:when>
@@ -143,14 +146,14 @@
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A" checked>전체
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
-							</label>
 							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+								<input type="radio" name="showState" id="showState3" value="F">정상
+							</label>
+							<label for="showState2" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState2" value="T">삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState4" value="L">탈퇴
+								<input type="radio" name="showState" id="showState4" value="M">관리자 삭제
 							</label>
 						</c:otherwise>
 					</c:choose>
@@ -163,20 +166,20 @@
 			</div>
 			<%--  버튼 --%>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-				<div class="btn-toolbar" aria-label="...">
-				<%-- 탈퇴, 블랙, 사용 --%>
+				<div class="btn-toolbar" aria-label="StatusButton">
+				<%-- 삭제, 관리자 삭제, 정상 --%>
 					<div class="btn-group" role="group">
-						<button type="button" name="btnLeave" 	class="btn btn-warning">탈퇴</button>
-						<button type="button" name="btnBlack" 	class="btn btn-warning">블랙</button>
-						<button type="button" name="btnNormal"	class="btn btn-warning">일반</button>
+						<button type="button" name="btnDelete" 	class="btn btn-warning">삭제</button>
+						<button type="button" name="btnAdminDelte"	class="btn btn-warning">관리자 삭제</button>
+						<button type="button" name="btnNormal" 	class="btn btn-warning">정상</button>
 					</div>
 					<div class="btn-group radio">
-						<span class="checkbox-inline text-default">조회 인원:</span> <span class="text-primary">${len}명</span>
+						<span class="checkbox-inline text-default">조회 게시글:</span> <span class="text-primary">${len}건</span>
 					</div>
 					
-					<%-- 회원 추가 버튼 --%>
+					<%-- 게시글 추가 버튼 --%>
 					<div class="btn-group pull-right" role="group">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalUser">회원 추가</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalContent">게시글 추가</button>
 					</div>
 				</div>
 				<hr style="border: 1px solid #eee">
@@ -186,70 +189,58 @@
 							<tr>
 								<th><input type="checkbox" aria-label="check-member"></th>
 								<th>NO</th>
-								<th>가입구분</th>
-								<th>아이디</th>
-								<th>비밀번호</th>
-								<th>닉네임</th>
-								<th>성별</th>
-								<th>국가번호</th>
-								<th>핸드폰번호</th>
-								<th>최근접속일</th>
-								<th>가입일</th>
-								<th>상태</th>
+								<th>콘텐츠아이디</th>
+								<th>콘텐츠제목</th>
+								<th>공유수</th>
+								<th>게시자</th>
+								<th>게시일</th>
+								<th>공개여부</th>
+								<th>신고</th>
+								<th>게시상태</th>
 							</tr>
 						</thead>
 						<tbody>
 						<c:choose>
 							<c:when test="${len==0}">
 							<tr>
-								<td colspan="12" class="text-center">해당 정보가 없습니다.</td>
+								<td colspan="10" class="text-center">게시글 정보가 없습니다.</td>
 							</tr>
 							</c:when>
 							
 							<c:otherwise>
-							<c:forEach var="user" items="${userList}" varStatus="status">
+							<c:forEach var="board" items="${boardList}" varStatus="status">
 							<tr>
-								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${user.user_id}"></td>
+								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${content.content_id}"></td>
 								<td>${len - status.index}</td>
-								<td class="tdUserSnS">
-								<c:choose>
-									<c:when test="${user.user_sns_status == 'K'}">
-										<span class="text-warning">카카오</span>
-									</c:when>
-									<c:when test="${user.user_sns_status == 'F'}">
-										<span class="text-primary">페이스북</span>
-									</c:when>
-									<c:when test="${user.user_sns_status == 'N'}">
-										<span class="text-success">네이버</span>
-									</c:when>
-									<c:when test="${user.user_sns_status == 'G'}">
-										<span class="text-danger">구글</span>
-									</c:when>
-									<c:otherwise><span class="text-default">일반</span></c:otherwise>
-								</c:choose>
-								</td>
-								<td class="tdUserId"><a class="modalUserId" data-toggle="modalUserId" data-remote="modalUserId" href="#modalUserId">${user.user_id}</a></td>
-								<td>${user.user_password}</td>
-								<td>${user.user_nick_name}</td>
+								<td>${content.content_id}</td>
+								<td><a href="/admin/board/content/view">${content.content_subject}</a></td>
+								<td>${content.share_count}</td>
+								<td>${user.user_id}</td>
+								<td>${content_written_date}</td>
 								<td>
+									<%-- 비공개(T)/공개(F) --%>
 									<c:choose>
-										<c:when test='${"M" == user.user_gender}'>남</c:when>
-										<c:otherwise>여</c:otherwise>
+										<c:when test='${"T" == content_private_flag}'>
+											<span class="text-warning">비공개</span>
+										</c:when>
+										<c:otherwise><span></span></c:otherwise>
 									</c:choose>
 								</td>
-								<td>${user.user_phone1}</td>
-								<td>${user.user_phone2}</td>
-								<td><fmt:formatDate value="${user.user_last_connection}" pattern="yyyy.MM.dd"/></td>
-								<td><fmt:formatDate value="${user.user_sign_date}" pattern="yyyy.MM.dd"/></td>
-								<td class="tdUserStateFlag">
+								<td>
+									<%-- 신고 --%>
 									<c:choose>
-										<c:when test="${user.user_state_flag == 'L'}">
-											<span class="text-danger">탈퇴</span>
+										<c:when test='${content_warning_status = 6}'><span class="text-warning">${content_warning_status}</span></c:when>
+										<c:when test='${"M" == user.user_gender}'><span class="text-danger">정지</span></c:when>
+										<c:otherwise><span></span></c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<%-- 삭제(T)/정상(F)/어드민삭제(A:신고 6 점시 ) --%>
+									<c:choose>
+										<c:when test='${"T" == content_delete_status}'>
+											<span class="text-warning">삭제</span>
 										</c:when>
-										<c:when test="${user.user_state_flag == 'B'}">
-											<span class="text-warning">블랙</span>
-										</c:when>
-										<c:otherwise><span>일반</span></c:otherwise>
+										<c:otherwise><span></span></c:otherwise>
 									</c:choose>
 								</td>
 							</tr>
@@ -271,8 +262,8 @@
 <%@include file="/admin/include/footer.jsp" %>
 
 <%-- Modal --%>  
-<%@include file="/admin/member/modalUser.jsp" %>
-<%@include file="/admin/member/modalUserUpdate.jsp"%>
+<%@include file="/admin/board/modalBoard.jsp" %>
+<%@include file="/admin/board/modalBoardUpdate.jsp"%>
 
 </body>
 </html>
