@@ -53,7 +53,7 @@ public class Content {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+
 	public Date getContent_written_date() {
 		return content_written_date;
 	}

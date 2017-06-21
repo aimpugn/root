@@ -37,7 +37,7 @@ public class Photo {
 	public void setPhoto_top_flag(int photo_top_flag) {
 		this.photo_top_flag = photo_top_flag;
 	}
-	@JsonSerialize(using = com.photovel.common.DateJsonSerializer.class)
+	
 	public Date getPhoto_date() {
 		return photo_date;
 	}
