@@ -4,12 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ContentDetailMapper">
   <resultMap id="ContentDetailMap" type="ContentDetail">
+    <id column="content_id" property="content_id"/>
     <id column="content_detail_id" property="content_detail_id" />
-    <result column="content_id" property="content_id"/>
     <result column="detail_content" property="detail_content"/>
+    <result column="detail_delete_status" property="detail_delete_status"/>
     <association property="photo" javaType="Photo">
+      <id column="content_id" property="content_id"/>
       <id column="content_detail_id" property="content_detail_id"/>
-      <id column="photo_file_name" property="photo_file_name"/>
+      <result column="photo_file_name" property="photo_file_name"/>
       <result column="photo_date" property="photo_date"/>
       <result column="photo_latitude" property="photo_latitude"/>
       <result column="photo_longitude" property="photo_longitude"/>
@@ -27,13 +29,14 @@
   </insert>
 
   <select id="selectById" parameterType="int" resultMap="ContentDetailMap">
-	SELECT content_detail.content_detail_id content_detail_id, detail_content, photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
+	SELECT content.content_id content_id, content_detail.content_detail_id content_detail_id, detail_content, detail_delete_status,
+	photo_file_name, photo_date, photo_latitude, photo_longitude, photo_top_flag
 	FROM content_detail JOIN content ON content_detail.content_id = content.content_id
 	JOIN photo ON content_detail.content_detail_id = photo.content_detail_id
-	WHERE content.content_id = #{content_id}
+	WHERE content.content_id = #{content_id} AND detail_delete_status = 'F'
   </select> 
   <update id="updateContentDetail" parameterType="ContentDetail">
-    UPDATE content_detail SET 
+    UPDATE content_detail
 	<set>
 		<if test="detail_content != null">detail_content=#{detail_content},</if>
 		<if test="detail_delete_status != null">detail_delete_status=#{detail_delete_status}</if>
