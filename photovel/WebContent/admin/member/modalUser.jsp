@@ -131,37 +131,37 @@
 		 }); 
  
 		// 이메일, 핸드폰 오브젝트
-		var u_email = $('input[name=user_id]');
-	    var u_phone = $('input[name=user_phone2]');
+		var user_add_email = $('#formUserAdd input[name=user_id]');
+	    var user_add_phone = $('#formUserAdd input[name=user_phone2]');
 
     	 // 1. 정규식 - 이메일 우효성 검사
-	    $(u_email).change(function(){
+	    $(user_add_email).change(function(){
 	        var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-	        if( !u_email.val() ){
+	        if( !user_add_email.val() ){
 	            alert('이메일주소를 입력해 주세요');
-	            u_email.focus();
+	            user_add_email.focus();
 	            return false;
-	        } else if(!regEmail.test(u_email.val())) {
+	        } else if(!regEmail.test(user_add_email.val())) {
                 alert('이메일 주소가 유효하지 않습니다');
-                u_email.focus();
+                user_add_email.focus();
                 return false;
         	}
 	        $(this).children('.added').addClass('show');
 	    });
 	    
         // 2. 정규식 -전화번호유효성 검사
-	    $(u_phone).change(function(){
+	    $(user_add_phone).change(function(){
         var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
         //var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-	        if( !u_phone.val() ){
+	        if( !user_add_phone.val() ){
 	            alert('핸드폰 번호를 입력해 주세요');
-	            u_phone.focus();
+	            user_add_phone.focus();
 	            return false;
-	        } else if(!regPhone.test(u_phone.val())) {
+	        } else if(!regPhone.test(user_add_phone.val())) {
 	            alert('핸드폰 번호가 유효하지 않습니다');
-	            u_phone.focus();
+	            user_add_phone.focus();
 	            return false;
 	    	}
 	        $(this).children('.added').css('display', 'inline-block');
@@ -170,13 +170,13 @@
 		$('#userConfirm').click(function () {
 			var now = new Date();  
 			// 입력된 Id, Password, NickName 얻기
-			var user_id = $('input[name=user_id]').val();
-			var user_password = $('input[name=user_password]').val();
-			var user_nick_name = $('input[name=user_nick_name]').val();
-			var user_phone1= $('button[name=user_phone1]').val();
+			var user_id = $('#formUserAdd input[name=user_id]').val();
+			var user_password = $('#formUserAdd input[name=user_password]').val();
+			var user_nick_name = $('#formUserAdd input[name=user_nick_name]').val();
+			var user_phone1= $('#formUserAdd button[name=user_phone1]').val();
 			console.log(user_phone1);
-			var user_phone2= $('input[name=user_phone2]').val();
-			var user_profile_photo= $('input[name=user_profile_photo]').val();
+			var user_phone2= $('#formUserAdd input[name=user_phone2]').val();
+			var user_profile_photo= $('#formUserAdd input[name=user_profile_photo]').val();
 			var user_sign_date = now;
 			//user_state_flag 아래 
 			var user_last_connection = now;
@@ -185,7 +185,7 @@
 			var user_push_token = "push_token_origin";
 			var user_friend_count = 0;
 			// 입력된 라디오 버튼의 성별 value 얻기
-			var user_gender_obj = document.getElementsByName('userGender');
+			var user_gender_obj = $('#formUserAdd input[name=userGender]');
 			var checkedGenderIndex = -1;
 			var user_gender = '';
 			for( i=0; i<user_gender_obj.length; i++ ) {
@@ -196,7 +196,7 @@
 			}
 			alert(user_gender);
 			// 입력된 라디오 버튼의 상태 value 얻기
-			var user_state_obj = document.getElementsByName('userState');
+			var user_state_obj = $('#formUserAdd input[name=userState]');
 			var checkedIndex = -1;
 			var user_state_flag = '';
 			for( i=0; i<user_state_obj.length; i++ ) {

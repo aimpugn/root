@@ -12,11 +12,11 @@ $(function() {
 			method: 'GET',
 			data: data,
 			success: function(responseData){
-				var data = responseData.trim();
-				var $parentObj=$("body");
-	           	var data = responseData.trim();
-	            $parentObj.empty();
-	           	$parentObj.html(data);
+					var data = responseData.trim();
+					var $parentObj=$("body");
+		           	var data = responseData.trim();
+		            $parentObj.empty();
+		           	$parentObj.html(data);
 			}
 			//error: function(xhr, status, error){
 			//	alert("조회가 되지 않았습니다. 관리자에게 문의");
@@ -48,7 +48,6 @@ $(function() {
 			allObj.prop("checked", false);
 		}
 	}
-	
 	//전체체크박스클릭시 
 	$(function(){
 		$("input[name=chkAll]").click(function(){
@@ -81,10 +80,10 @@ $(function() {
 			
 	        $.ajax({
 	        	url:'/admin/member/user/normal/'+chkList,
-                 method:'put',
-                 data: data,
-                 success:function(responseData){
-                     if(responseData.trim() =='1'){
+	        	method:'put',
+                data: data,
+                success:function(responseData){
+                	if(responseData.trim() =='1'){
                        alert("일반 회원으로 변경 성공");
                        location.href="/admin/member/user";
                     }else{

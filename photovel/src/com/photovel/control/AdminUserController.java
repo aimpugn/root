@@ -14,8 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,23 +39,36 @@ public class AdminUserController {
 	
 	@GetMapping
 	public void userList(HttpServletRequest request, HttpServletResponse response) {
-		String msg = "-1";
-		System.out.println("user in 체크");
 		try {
 			List<User> userList = dao.selectAll();	
 			String forwardURL = "/admin/member/user.jsp";
 			request.setAttribute("userList", userList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			msg = "1";
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * remoteModalUserId 에 정보 전달
+	 * @param user_id
+	 * @param request
+	 * @param response
+	 */
+	@GetMapping("/{user_id:.+}")
+	public void userData(@PathVariable String user_id, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			User userOne= dao.selectById(user_id);	
+			String forwardURL = "/admin/member/remoteModalUserId.jsp";
+			request.setAttribute("userOne", userOne);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@PostMapping("/add")
 	public String userAdd(User user) {
-		System.out.println("USERADD 체크" + user);
 		String msg = "-1";
 		try {
 			if (dao.selectById(user.getUser_id()) == null) {
@@ -66,28 +82,16 @@ public class AdminUserController {
 		}
 		return msg;
 	}
-
-	@GetMapping("/state")
-	public void showState(String user_state_flag, HttpServletRequest request, HttpServletResponse response) {
-		String msg = "-1";
-		System.out.println("user state in");
-		try {
-			List<User> userList = dao.selectByState(user_state_flag);
-			System.out.println(userList);
-			String forwardURL = "/admin/member/user.jsp";
-			request.setAttribute("userList", userList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			msg = "1";
-			dispatcher.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@PutMapping("/update")
-	public String update(User user, Model model) {
+	public String update(@ModelAttribute User user, Model model) {
 		String msg = "-1";
-		System.out.println("user update in");
+		System.out.println("user update in" + user);
+		//int user_phone1 = model.addAttribute(arg0, arg1)();
+		//user.setUser_phone1(Integer.parseInt(((Integer)user.getUser_phone1()).toString()));
+		//System.out.println((Integer.parseInt(((Integer)user.getUser_phone1()).toString())).class);
+		System.out.println((user.getUser_phone1())+1);
+		//User userUpdate = new User();
+		
 		try {
 			System.out.println("유저 상태" + user);
 			dao.update(user);
@@ -99,6 +103,22 @@ public class AdminUserController {
 		}
 		return msg;
 	}
+	@GetMapping("/state")
+	public void showState(String user_state_flag, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("user state in");
+		try {
+			List<User> userList = dao.selectByState(user_state_flag);
+			System.out.println(userList);
+			String forwardURL = "/admin/member/user.jsp";
+			request.setAttribute("userList", userList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	@PutMapping("/normal/{chkList}")
 	public String normal(@RequestParam("chkList") String[] chkList, Model model) {

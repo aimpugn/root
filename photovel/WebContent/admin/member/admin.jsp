@@ -5,7 +5,7 @@
 
 <jsp:useBean id="to_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.to_date}" pattern="yyyy-MM-dd" var="to_date"/>
-<jsp:useBean id="fromfrom_date" class="java.util.Date" />
+<jsp:useBean id="from_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.from_date}" pattern="yyyy-MM-dd" var="from_date"/>
 
 <jsp:useBean id="adminSignDate" class="java.util.Date" />
@@ -17,7 +17,7 @@
 <%--  head
 ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
-<%@include file="/admin/include/scriptMemberAdmin.jsp" %>
+<%@include file="/admin/member/scriptAdmin.jsp" %>
 </head>
 
 <body>
@@ -206,7 +206,7 @@
 											<span class="text-danger">탈퇴</span>
 										</c:when>
 										<c:when test="${admin.admin_state_flag == 'S'}">
-											<span class="text-primary">중지</span>
+											<span class="text-warning">중지</span>
 										</c:when>
 										<c:otherwise><span></span></c:otherwise>
 									</c:choose>
