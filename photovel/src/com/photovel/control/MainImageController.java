@@ -11,7 +11,7 @@ import com.photovel.dao.MainImageDAO;
 import com.photovel.vo.MainImage;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/main_image")
 public class MainImageController {
 	@Autowired
 	private MainImageDAO imgDAO;

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,11 +60,9 @@ public class ContentController {
 	public void insert(@RequestParam("content") String json,
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
-		
 		Content content;
 		try {
 			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
-			
 			contentDao.insert(content);
 			int content_id = contentDao.selectCurId();
 			List<ContentDetail> details = content.getDetails();
@@ -80,20 +77,22 @@ public class ContentController {
 		
 	}
 	
-	@PutMapping
+	@PostMapping("/{content_id}")
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public String update(@RequestParam("content") String json, 
+	public String update(@PathVariable int content_id, @RequestParam("content") String json, 
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
 		Content content;
 		try {
 			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
-
+			content.setContent_id(content_id);
 			contentDao.update(content);
-			int content_id = content.getContent_id();
+			
 			List<ContentDetail> details = content.getDetails();		
 			for(int i = 0; i < details.size(); i++){
 				ContentDetail detail = details.get(i);
+				detail.setContent_id(content_id);
+				detail.getPhoto().setContent_id(content_id);
 				
 				//전에있던 detail인지 새로 추가된 detail인지 확인
 				if("".equals(detail.getContent_detail_id())){

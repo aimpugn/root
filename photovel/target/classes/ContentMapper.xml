@@ -50,13 +50,13 @@
 	ORDER BY content.content_id ASC
   </select>
   <update id="updateContent" parameterType="Content">
-    UPDATE content SET 
+    UPDATE content
 	<set>
 		<if test="content_subject != null">content_subject=#{content_subject},</if>
 		<if test="content != null">content=#{content},</if>
 		<if test="content_private_flag != null">content_private_flag=#{content_private_flag}</if>
 	</set>
-	WHERE content_id = {#content_id}
+	WHERE content_id = #{content_id}
   </update>
   
   <update id="updateDeleteStatus" parameterType="int">

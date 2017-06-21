@@ -10,17 +10,17 @@
     SELECT * FROM photo
   </select>
   <select id="selectByContentId" parameterType="int" resultType="Photo">
-   SELECT photo_file_name, photo_date, photo_latitude, photo_longitude
+   SELECT p.content_id content_id, p.content_detail_id content_detail_id, photo_file_name, photo_date, photo_latitude, photo_longitude
    FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id 
    WHERE content_id = #{content_id}
   </select>
   <update id="updatePhoto" parameterType="Photo">
-    UPDATE photo SET 
+    UPDATE photo
 	<set>
 		<if test="photo_top_flag != null">photo_top_flag=#{photo_top_flag},</if>
 		<if test="photo_date != null">photo_date=#{photo_date},</if>
 		<if test="photo_latitude != null">photo_latitude=#{photo_latitude},</if>
-		<if test="photo_logitude != null">photo_logitude=#{photo_logitude}</if>
+		<if test="photo_longitude != null">photo_longitude=#{photo_longitude}</if>
 	</set>
 	WHERE content_detail_id = #{content_detail_id}
   </update>
