@@ -1,68 +1,83 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 
 	<!--회원 추가  Modal -->
-	<div class="modal fade" id="modalUser" tabindex="-1" role="dialog" aria-labelledby="modalUserLabel" aria-hidden="true">
+	<div class="modal fade" id="modalContentAdd" tabindex="-1" role="dialog" aria-labelledby="modalContentAddLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="formUserAdd">
+				<form id="formContentAdd">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title" id="modalUserLabel">게시글  추가</h4>
+						<h4 class="modal-title" id="modalContentAddLabel">콘텐츠  추가</h4>
 					</div>
 					<div class="modal-body">
 						<div class="form-horizontal">
 							<div class="form-group">
-								<label for="inputId" class="col-sm-3 control-label" placeholder="아이디: 영문, 숫자. 40자 이내" >아이디</label> 
+								<label for="inputId" class="col-sm-3 control-label">아이디</label> 
 								<div class="col-sm-9">
-									<input type="email" class="form-control" id="inputId" name="user_id">
+									<input type="email" class="form-control" id="inputId" name="user_id" placeholder="아이디: 영문, 숫자. 40자 이내">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-3 control-label">패스워드</label> 
+								<label for="inputId" class="col-sm-3 control-label">콘텐츠</label> 
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword" name="user_password" placeholder="패스워드: 영문, 숫자. 20자 이내">
+									<input type="email" class="form-control" id="inputId" name="user_id" placeholder="아이디: 영문, 숫자. 40자 이내">
+								</div>
+							</div>
+							<div class="form-group" id="photoInputWrap">
+								<div>
+									<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label> 
+									<div class="col-sm-6 form-inline">
+										<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">
+									</div>
+									<div class="col-sm-2 form-inline">
+										<button type="button" name="photoInputAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 사진 추가</button>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputNickName" class="col-sm-3 control-label">닉네임</label> 
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputNickName" name="user_nick_name" placeholder="닉네임 : 영문, 숫자. 20자 이내">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputProfilePhoto" class="col-sm-3 control-label">프로필 사진</label> 
-								<div class="col-sm-9">
-									<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">
-								</div>
-								<p class="help-block blockquote-reverse">jpg, png, gif. 500KB 이내</p>
-							</div>
-							<div class="form-group">
-								<label for="dropdownMenu1" class="col-sm-3 control-label">전화번호</label> 
+								<label for="dropdownMenu1" class="col-sm-3 control-label">상태설정</label> 
 								<div class="col-sm-2 form-inline">
 									<div class="dropdown">
 									  <button class="nationBtn btn btn-default dropdown-toggle" name="user_phone1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-									    	국가번호
+									    	공개여부
 									    <span class="caret"></span>
 									  </button>
 									  <ul class="dropdown-menu user" role="menu" aria-labelledby="dropdownMenu1">
-									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">82</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">33</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">44</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">49</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">60</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">61</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">62</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">63</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">81</a></li>								    
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">86</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">공개</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">비공개</a></li>
 									  </ul>
 								  	</div>
 								</div>
-								<div class="col-sm-6">	
-				               		<input type="phone" name="user_phone2" class="form-control phone-number-check" value="" size="37" maxlength="50" required="required" title="">
-				              	</div>
-								
+								<div class="col-sm-2 form-inline">
+									<div class="dropdown">
+									  <button class="nationBtn btn btn-default dropdown-toggle" name="user_phone1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+									    	신고상태
+									    <span class="caret"></span>
+									  </button>
+									  <ul class="dropdown-menu user" role="menu" aria-labelledby="dropdownMenu1">
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">0</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">5</a></li>
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">6</a></li>
+									  </ul>
+								  	</div>
+								</div>
+								<div class="col-sm-2 form-inline">
+									<div class="dropdown">
+									  <button class="nationBtn btn btn-default dropdown-toggle" name="content_" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+									    	게시상태
+									    <span class="caret"></span>
+									  </button>
+									  <ul class="dropdown-menu user" role="menu" aria-labelledby="dropdownMenu1">
+									  	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">게시</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">사용자 삭제</a></li>
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">관리자 삭제</a></li>
+									  </ul>
+								  	</div>
+								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">성별</label>
@@ -116,14 +131,76 @@
 
 	<!-- 회원 추가 모달윈도우 스크립트  -->
 	<script>
-    $(function () { $('#modalUser').modal('hide') });
+    $(function () { $('#modalContentAdd').modal('hide') });
     </script>
 	<script>
 	$(function () { 
 		$('.added').addClass('hidden');
-		$('#modalUser').on('hide.bs.modal', function () {
+		$('#modalContentAdd').on('hide.bs.modal', function () {
 	    	//alert('saved change..');
 		});
+		
+		// 사진 인풋박스 추가하기
+		
+								<div class="form-group photoInputWrap">
+								<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label> 
+								<div class="col-sm-6 form-inline">
+								<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">
+								</div>
+								<div class="col-sm-2 form-inline">
+								<button type="button" name="photoInputAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 사진 추가</button>
+								</div>
+								</div>
+								
+var oTbl;
+//Row 추가
+function addFrom() {
+  oTbl = document.getElementById("addTable");
+  var oForm = oTbl.addForm();
+  oForm.onmouseover=function(){oTbl.clickedFormIndex=this.FormIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
+  var oCell = oForm.insertCell();
+
+  //삽입될 Form Tag
+
+	var formTag =  '<div class="form-group photoInputWrap">';
+		formTag  += '<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label>'; 
+		formTag  +=		'<div class="col-sm-6 form-inline">'
+		formTag  +=			'<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">'
+		formTag  +=		'</div>'
+		formTag  +=		'<div class="col-sm-2 form-inline">'
+		formTag  +=			'<button type="button" name="photoInputAdd" class="btn btn-primary">''
+		formTag  +=					'<span class="glyphicon glyphicon-plus"></span> 사진 추가'
+		formTag  +=			'</button>'
+		formTag  +=		'</div>'
+		formTag  += '</div>';
+		formTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+  oCell.innerHTML = formTag;
+}
+//Row 삭제
+function removeForm() {
+  oTbl.deleteForm(oTbl.clickedFormIndex);
+}
+
+function frmCheck()
+{
+  var frm = document.form;
+  
+  for( var i = 0; i <= frm.elements.length - 1; i++ ){
+     if( frm.elements[i].name == "addText" )
+     {
+         if( !frm.elements[i].value ){
+             alert("텍스트박스에 값을 입력하세요!");
+                 frm.elements[i].focus();
+	 return;
+          }
+      }
+   }
+ }								
+		var $photoInputAdd = $('button[name=photoInputAd]');
+		$photoInputAdd.click(function(){
+			
+		});
+								
 		// 국가번호 선택창 고정하기
 		$('.dropdown-menu.user').on('click', 'li a', function(){
 		    $('.nationBtn:first-child').html($(this).html() + ' <span class="caret"></span>');
@@ -131,8 +208,8 @@
 		 }); 
  
 		// 이메일, 핸드폰 오브젝트
-		var user_add_email = $('#formUserAdd input[name=user_id]');
-	    var user_add_phone = $('#formUserAdd input[name=user_phone2]');
+		var user_add_email = $('#formContentAdd input[name=user_id]');
+	    var user_add_phone = $('#formContentAdd input[name=user_phone2]');
 
     	 // 1. 정규식 - 이메일 우효성 검사
 	    $(user_add_email).change(function(){
@@ -170,13 +247,13 @@
 		$('#userConfirm').click(function () {
 			var now = new Date();  
 			// 입력된 Id, Password, NickName 얻기
-			var user_id = $('#formUserAdd input[name=user_id]').val();
-			var user_password = $('#formUserAdd input[name=user_password]').val();
-			var user_nick_name = $('#formUserAdd input[name=user_nick_name]').val();
-			var user_phone1= $('#formUserAdd button[name=user_phone1]').val();
+			var user_id = $('#formContentAdd input[name=user_id]').val();
+			var user_password = $('#formContentAdd input[name=user_password]').val();
+			var user_nick_name = $('#formContentAdd input[name=user_nick_name]').val();
+			var user_phone1= $('#formContentAdd button[name=user_phone1]').val();
 			console.log(user_phone1);
-			var user_phone2= $('#formUserAdd input[name=user_phone2]').val();
-			var user_profile_photo= $('#formUserAdd input[name=user_profile_photo]').val();
+			var user_phone2= $('#formContentAdd input[name=user_phone2]').val();
+			var user_profile_photo= $('#formContentAdd input[name=user_profile_photo]').val();
 			var user_sign_date = now;
 			//user_state_flag 아래 
 			var user_last_connection = now;
@@ -185,7 +262,7 @@
 			var user_push_token = "push_token_origin";
 			var user_friend_count = 0;
 			// 입력된 라디오 버튼의 성별 value 얻기
-			var user_gender_obj = $('#formUserAdd input[name=userGender]');
+			var user_gender_obj = $('#formContentAdd input[name=userGender]');
 			var checkedGenderIndex = -1;
 			var user_gender = '';
 			for( i=0; i<user_gender_obj.length; i++ ) {
@@ -196,7 +273,7 @@
 			}
 			alert(user_gender);
 			// 입력된 라디오 버튼의 상태 value 얻기
-			var user_state_obj = $('#formUserAdd input[name=userState]');
+			var user_state_obj = $('#formContentAdd input[name=userState]');
 			var checkedIndex = -1;
 			var user_state_flag = '';
 			for( i=0; i<user_state_obj.length; i++ ) {

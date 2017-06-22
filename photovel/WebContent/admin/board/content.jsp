@@ -3,9 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<!-- content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	GROUP by photo_file_name
+	ORDER BY content_written_date ASC
 
-<c:set var="boardList" value="${requestScope.boardList}" />
-<c:set var="len" value="${fn:length(boardList)}"/>
+contentList -->
+
+<c:set var="contentList" value="${requestScope.contentList}" />
+<c:set var="len" value="${fn:length(contentList)}"/>
 
 <jsp:useBean id="to_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.to_date}" pattern="yyyy-MM-dd" var="to_date"/>
@@ -18,7 +27,7 @@
 
 <%--  head ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
-<%@include file="/admin/board/scriptBoard.jsp" %>
+<%@include file="/admin/board/scriptContent.jsp" %>
 
 </head>
 <body>
@@ -79,10 +88,11 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아이디</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">제목</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">공개상태</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">신고상태</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">회원 아이디</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">콘텐츠 아이디</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">콘텐츠 제목</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">공개 상태</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">신고 상태</a></li>
 							</ul>
 							<input type="text" class="form-control" name="searchItem"  
 								<c:choose>
@@ -103,7 +113,7 @@
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
 							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F" checked>정상
+								<input type="radio" name="showState" id="showState3" value="F" checked>게시
 							</label>
 							<label for="showState2" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState2" value="T">삭제
@@ -117,7 +127,7 @@
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
 							<label for="showState23" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">정상
+								<input type="radio" name="showState" id="showState3" value="F">게시
 							</label>
 							<label for="showState2" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState2" value="T" checked>삭제
@@ -132,7 +142,7 @@
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
 							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">정상
+								<input type="radio" name="showState" id="showState3" value="F">게시
 							</label>
 							<label for="showState2" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState2" value="T">삭제
@@ -147,7 +157,7 @@
 								<input type="radio" name="showState" id="showState1" value="A" checked>전체
 							</label>
 							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">정상
+								<input type="radio" name="showState" id="showState3" value="F">게시
 							</label>
 							<label for="showState2" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState2" value="T">삭제
@@ -167,19 +177,19 @@
 			<%--  버튼 --%>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<div class="btn-toolbar" aria-label="StatusButton">
-				<%-- 삭제, 관리자 삭제, 정상 --%>
+				<%-- 삭제, 관리자 삭제, 게시 --%>
 					<div class="btn-group" role="group">
-						<button type="button" name="btnDelete" 	class="btn btn-warning">삭제</button>
+						<button type="button" name="btnDelete" 	class="btn btn-warning">사용자 삭제</button>
 						<button type="button" name="btnAdminDelte"	class="btn btn-warning">관리자 삭제</button>
-						<button type="button" name="btnNormal" 	class="btn btn-warning">정상</button>
+						<button type="button" name="btnNormal" 	class="btn btn-warning">게시</button>
 					</div>
 					<div class="btn-group radio">
 						<span class="checkbox-inline text-default">조회 게시글:</span> <span class="text-primary">${len}건</span>
 					</div>
 					
-					<%-- 게시글 추가 버튼 --%>
+					<%-- 콘텐츠 추가 버튼 --%>
 					<div class="btn-group pull-right" role="group">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalContent">게시글 추가</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalContentAdd">콘텐츠 추가</button>
 					</div>
 				</div>
 				<hr style="border: 1px solid #eee">
@@ -189,13 +199,13 @@
 							<tr>
 								<th><input type="checkbox" aria-label="check-member"></th>
 								<th>NO</th>
-								<th>콘텐츠아이디</th>
+								<th>콘텐츠 아이디</th>
 								<th>콘텐츠제목</th>
-								<th>공유수</th>
-								<th>게시자</th>
+								<th>회원 아이디</th>
 								<th>게시일</th>
+								<th>공유수</th>
 								<th>공개여부</th>
-								<th>신고</th>
+								<th>신고상태</th>
 								<th>게시상태</th>
 							</tr>
 						</thead>
@@ -208,39 +218,42 @@
 							</c:when>
 							
 							<c:otherwise>
-							<c:forEach var="board" items="${boardList}" varStatus="status">
+							<c:forEach var="content" items="${contentList}" varStatus="status">
 							<tr>
 								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${content.content_id}"></td>
 								<td>${len - status.index}</td>
 								<td>${content.content_id}</td>
 								<td><a href="/admin/board/content/view">${content.content_subject}</a></td>
-								<td>${content.share_count}</td>
-								<td>${user.user_id}</td>
-								<td>${content_written_date}</td>
+								<td>${content.user.user_id}</td>
+								<td>${content.content_written_date}</td>
+								<td>${content.content_share_count}</td>
 								<td>
 									<%-- 비공개(T)/공개(F) --%>
 									<c:choose>
 										<c:when test='${"T" == content_private_flag}'>
 											<span class="text-warning">비공개</span>
 										</c:when>
-										<c:otherwise><span></span></c:otherwise>
+										<c:otherwise><span class="text-default">공개</span></c:otherwise>
 									</c:choose>
 								</td>
 								<td>
 									<%-- 신고 --%>
 									<c:choose>
-										<c:when test='${content_warning_status = 6}'><span class="text-warning">${content_warning_status}</span></c:when>
-										<c:when test='${"M" == user.user_gender}'><span class="text-danger">정지</span></c:when>
-										<c:otherwise><span></span></c:otherwise>
+										<c:when test='${ 5 >= content.content_warning_status  &&  1 <= content.content_warning_status}'><span class="text-warning">${content.content_warning_status}</span></c:when>
+										<c:when test='${ 6 <= content.content_warning_status}'><span class="text-danger">정지</span></c:when>
+										<c:otherwise><span>0</span></c:otherwise>
 									</c:choose>
 								</td>
 								<td>
-									<%-- 삭제(T)/정상(F)/어드민삭제(A:신고 6 점시 ) --%>
+									<%-- 삭제(T)/게시(F)/어드민삭제(A:신고 6 점시 ) --%>
 									<c:choose>
 										<c:when test='${"T" == content_delete_status}'>
 											<span class="text-warning">삭제</span>
 										</c:when>
-										<c:otherwise><span></span></c:otherwise>
+										<c:when test='${"A" == content_delete_status}'>
+											<span class="text-warning">어드민 삭제</span>
+										</c:when>
+										<c:otherwise><span class="text-default">게시</span></c:otherwise>
 									</c:choose>
 								</td>
 							</tr>
@@ -262,8 +275,8 @@
 <%@include file="/admin/include/footer.jsp" %>
 
 <%-- Modal --%>  
-<%@include file="/admin/board/modalBoard.jsp" %>
-<%@include file="/admin/board/modalBoardUpdate.jsp"%>
+<%@include file="/admin/board/modalContentAdd.jsp" %>
+<%@include file="/admin/board/modalContentUpdate.jsp"%>
 
 </body>
 </html>

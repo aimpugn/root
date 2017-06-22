@@ -18,9 +18,6 @@ $(function() {
 		            $parentObj.empty();
 		           	$parentObj.html(data);
 			}
-			//error: function(xhr, status, error){
-			//	alert("조회가 되지 않았습니다. 관리자에게 문의");
-			//}
 		});
 	});
 		

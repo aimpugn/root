@@ -31,4 +31,10 @@ public class ContentDAO {
 	public int selectCurId(){
 		return session.selectOne("ContentMapper.selectOne");
 	}
+/*	public Content selectByAdminUserId(String user_id){
+		return session.selectOne("ContentMapper.selectByAdminUserId", user_id); 
+	}*/
+	public List<Content> selectAllAdmin(){
+		return session.selectList("ContentMapper.selectAllAdmin"); 
+	}
 }
