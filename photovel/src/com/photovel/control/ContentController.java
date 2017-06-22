@@ -49,9 +49,15 @@ public class ContentController {
 		return content;
     }
 	
-	@GetMapping
+	@GetMapping("/new")
     public List<Content> selectAllOrderByDate(){
-		List<Content> contents = contentDao.selectAll();
+		List<Content> contents = contentDao.selectAllOrderByDate();
+		return contents;
+    }
+	
+	@GetMapping("/recommend")
+    public List<Content> selectAllOrderByGood(){
+		List<Content> contents = contentDao.selectAllOrderByGood();
 		return contents;
     }
 

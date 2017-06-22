@@ -25,8 +25,11 @@ public class ContentDAO {
 	public Content selectById(int content_id){
 		return session.selectOne("ContentMapper.selectById", content_id); 
 	}
-	public List<Content> selectAll(){
-		return session.selectList("ContentMapper.selectAll"); 
+	public List<Content> selectAllOrderByDate(){
+		return session.selectList("ContentMapper.selectAllOrderByDate"); 
+	}
+	public List<Content> selectAllOrderByGood(){
+		return session.selectList("ContentMapper.selectAllOrderByGood"); 
 	}
 	public int selectCurId(){
 		return session.selectOne("ContentMapper.selectOne");
