@@ -2,15 +2,9 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Advertisement {
-
 	private int ad_id;
-
 	private String ad_image;
-	
 	private String ad_content;
 	private String ad_link;
 	private Date ad_frdate;
@@ -42,14 +36,12 @@ public class Advertisement {
 	public void setAd_link(String ad_link) {
 		this.ad_link = ad_link;
 	}
-
 	public Date getAd_frdate() {
 		return ad_frdate;
 	}
 	public void setAd_frdate(Date ad_frdate) {
 		this.ad_frdate = ad_frdate;
 	}
-
 	public Date getAd_todate() {
 		return ad_todate;
 	}

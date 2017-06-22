@@ -16,6 +16,7 @@
     <typeAlias alias="Photo" type="com.photovel.vo.Photo"/>
     <typeAlias alias="User" type="com.photovel.vo.User"/>
     <typeAlias alias="Admin" type="com.photovel.vo.Admin"/>
+
   </typeAliases>
 
   <mappers>
@@ -26,5 +27,6 @@
   	<mapper resource="CommentMapper.xml"/>
   	<mapper resource="PhotoMapper.xml"/>
   	<mapper resource="AdminMapper.xml"/>
+  	<mapper resource="MainImageMapper.xml"/>
   </mappers>
 </configuration>

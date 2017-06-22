@@ -2,8 +2,6 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Photo {
 	private int content_id;
 	private String content_detail_id;

@@ -15,7 +15,6 @@ public class ContentDetailDAO {
 	
 	public void insert(ContentDetail detail) {
 		session.insert("ContentDetailMapper.insertDetail", detail);
-		detail.getPhoto().setContent_detail_id(detail.getContent_detail_id());
 		session.insert("PhotoMapper.insertPhoto", detail.getPhoto());
 	}
 	public List<ContentDetail> selectById(int content_id){
@@ -23,6 +22,10 @@ public class ContentDetailDAO {
 	}
 	public List<ContentDetail> selectAll(){
 		return session.selectList("ContentDetailMapper.selectAll"); 
+	}
+	public void update(ContentDetail detail) {
+		session.update("ContentDetailMapper.updateContentDetail", detail);
+		session.update("PhotoMapper.updatePhoto", detail.getPhoto());
 	}
 
 }

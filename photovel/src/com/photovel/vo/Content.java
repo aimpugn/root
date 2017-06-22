@@ -3,8 +3,6 @@ package com.photovel.vo;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class Content {
 	private int content_id;
 	private String content_subject;

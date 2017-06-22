@@ -2,11 +2,7 @@ package com.photovel.vo;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class User {
-
 	private String user_id;
 	private String user_password;
 	private String user_nick_name;
@@ -63,7 +59,6 @@ public class User {
 	public void setUser_profile_photo(String user_profile_photo) {
 		this.user_profile_photo = user_profile_photo;
 	}
-
 	public Date getUser_sign_date() {
 		return user_sign_date;
 	}
@@ -76,7 +71,6 @@ public class User {
 	public void setUser_state_flag(String user_state_flag) {
 		this.user_state_flag = user_state_flag;
 	}
-
 	public Date getUser_last_connection() {
 		return user_last_connection;
 	}
