@@ -20,6 +20,7 @@
 	<association property="user" javaType="User">
 		<id column="user_id" property="user_id"/>
 		<result column="user_nick_name" property="user_nick_name"/>
+		<result column="user_profile_photo" property="user_profile_photo"/>
 	</association>
 	<association property="ad" javaType="Advertisement">
 		<id column="ad_id" property="ad_id"/>
@@ -31,7 +32,7 @@
   </insert>
   <select id="selectById" parameterType="int" resultMap="ContentMap">
 	SELECT 
-	  content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content, 
+	  content.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content, 
 	  content_written_date, content_private_flag, content_delete_status, 
 	  content_warning_status, ad_id, content_share_count, 
 	  (select count(*) from content JOIN good ON content.content_id = good.content_id) good_count,
@@ -40,15 +41,23 @@
 	WHERE content.content_id = #{content_id} AND content_delete_status = 'F'
   </select>
   
-  <select id="selectAll" resultMap="ContentMap">
+  <select id="selectAllOrderByDate" resultMap="ContentMap">
+	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	ORDER BY content_written_date DESC
+  </select>
+  <select id="selectAllOrderByGood" resultMap="ContentMap">
 	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
 		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
 		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
 	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
 	WHERE content_delete_status = 'F' AND photo_top_flag = 1
-	group by photo_file_name
-	ORDER BY content.content_id ASC
+	ORDER BY good_count DESC
   </select>
   <update id="updateContent" parameterType="Content">
     UPDATE content
