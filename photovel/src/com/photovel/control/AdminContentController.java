@@ -8,9 +8,12 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,72 +31,106 @@ import com.alibaba.fastjson.JSON;
 import com.photovel.dao.CommentDAO;
 import com.photovel.dao.ContentDAO;
 import com.photovel.dao.ContentDetailDAO;
+import com.photovel.dao.UserDAO;
 import com.photovel.vo.Content;
 import com.photovel.vo.ContentDetail;
+import com.photovel.vo.User;
 
 @RestController
-@RequestMapping("/content/photo")
-public class ContentController {
+@RequestMapping("/admin/board/content")
+public class AdminContentController {
 	@Autowired
 	private ContentDAO contentDao;
 	@Autowired
 	private ContentDetailDAO contentDetailDao;
 	@Autowired
+	private UserDAO userDao;
+	@Autowired
 	private CommentDAO commentDao;
 	
+	@GetMapping
+	public void contentList(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			List<Content> contentList = contentDao.selectAllAdmin();	
+			String forwardURL = "/admin/board/content.jsp";
+			request.setAttribute("contentList", contentList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@GetMapping("/{content_id}")
-    public Content selectByContentId(@PathVariable int content_id){
+    public Content selectById(@PathVariable int content_id){
 		Content content = contentDao.selectByContentId(content_id);
 		content.setDetails(contentDetailDao.selectById(content_id));
 		content.setComments(commentDao.selectByContentId(content_id));
 		return content;
     }
 	
-	@GetMapping("/new")
+	/*@GetMapping("/{user_id:.+}")
+	public Content selectByAdminUserId(@PathVariable String user_id){
+		List<User> userList = userDao.selectByIds(user_id);
+		//HashMap<String, Object> list = new HashMap<>();
+		//list.put("from_date", from_date);
+		//list.put("to_date", to_date);
+		
+		try {
+			if( searchCategory.equals("아이디") ){
+				userList = dao.selectByIds(searchItem);
+				if(userList != null){
+					System.out.println("아이디: "+ userList);
+					forwardURL = "/admin/content/content.jsp";
+					request.setAttribute("contentList", contentList);
+					request.setAttribute("searchCategory", searchCategory);
+					request.setAttribute("searchItem", searchItem);
+					RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+					msg = "1";
+					dispatcher.forward(request, response);
+				}
+			}
+		}
+		= ((Object) userList).getUserId();	
+		//List<User> userList = dao.selectByState(user_state_flag);
+		//List<User> userList = dao.selectByState(user_state_flag);
+		//content.setContent_id(contentDao.seletBy);
+		//content.setDetails(contentDetailDao.selectById(user_id));
+		//content.setComments(commentDao.selectById(user_id));
+		return content;
+	}*/
+	
+/*	@GetMapping
     public List<Content> selectAllOrderByDate(){
-		List<Content> contents = contentDao.selectAllOrderByDate();
+		List<Content> contents = contentDao.selectAll();
 		return contents;
     }
-	
-	@GetMapping("/user/{user_id}")
-    public List<Content> selectByUserId(@PathVariable String user_id){
-		List<Content> contents = contentDao.selectByUserId(user_id);
-		return contents;
-    }
-	
-	@GetMapping("/recommend")
-    public List<Content> selectAllOrderByGood(){
-		List<Content> contents = contentDao.selectAllOrderByGood();
-		return contents;
-    }
-
-	@PostMapping(consumes = "multipart/form-data")
+*/
+/*	@PostMapping(consumes = "multipart/form-data")
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public int insert(@RequestParam("content") String json,
+	public void insert(@RequestParam("content") String json,
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
 		Content content;
-		int content_id;
 		try {
 			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
 			contentDao.insert(content);
-			content_id = contentDao.selectCurId();
+			int content_id = contentDao.selectCurId();
 			List<ContentDetail> details = content.getDetails();
 			for(int i = 0; i < details.size(); i++){
 				ContentDetail detail = details.get(i);
 				insertDetail(content_id, detail, i);
 				uploadPicture(uploadFile[i], detail, request);
 			}
-			return content_id;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return -1;
-	}
+		
+	}*/
 	
-	@PostMapping("/{content_id}")
+/*	@PostMapping("/{content_id}")
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public int update(@PathVariable int content_id, @RequestParam("content") String json, 
+	public String update(@PathVariable int content_id, @RequestParam("content") String json, 
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
 		Content content;
@@ -116,29 +153,20 @@ public class ContentController {
 				}
 				uploadPicture(uploadFile[i], detail, request);
 			}
-			return content_id;
+			return "1";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			return content_id;
+			return "-1";
 		}		
-	}
+	}*/
 	
-	@DeleteMapping("/{content_id}")
-	public void delete(@PathVariable int content_id){
+/*	@DeleteMapping("/{content_id}")
+	public String delete(@PathVariable int content_id){
 		contentDao.updateDeleteStatus(content_id);
-	}
+		return "1";
+	}*/
 	
-	@PostMapping("/{content_id}/warning")
-	public void warning(@PathVariable int content_id){
-		Content content = contentDao.selectByContentId(content_id);
-		if(content.getContent_warning_status()<6){
-			contentDao.updateWarningStatus(content_id);
-		}else{
-			contentDao.updateDeleteStatusByWarning(content_id);
-		}
-	}
-	
-	public void insertDetail(int content_id, ContentDetail detail, int i){
+/*	public void insertDetail(int content_id, ContentDetail detail, int i){
 		String photo_date = new SimpleDateFormat("yyyy-MM-dd-hh24-mm-ss").format(detail.getPhoto().getPhoto_date());
 		StringBuilder content_detail_id = new StringBuilder();
 		content_detail_id.append(content_id).append("_").append(photo_date).append("_"+i);
@@ -155,8 +183,8 @@ public class ContentController {
 		detail.getPhoto().setContent_detail_id(content_detail_id.toString());
 		detail.getPhoto().setPhoto_file_name(photo_file_name.toString());
 		contentDetailDao.insert(detail);
-	}
-	public void uploadPicture(MultipartFile uploadFile, ContentDetail detail, HttpServletRequest request){
+	}*/
+/*	public void uploadPicture(MultipartFile uploadFile, ContentDetail detail, HttpServletRequest request){
 		OutputStream out = null;
 		PrintWriter printWriter = null;
 		try {
@@ -186,5 +214,5 @@ public class ContentController {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 }

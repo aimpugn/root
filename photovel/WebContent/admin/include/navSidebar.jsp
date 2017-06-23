@@ -36,7 +36,7 @@ $(function(){
 			url.indexOf("/admin/member/admin"),
 			
 			//콘텐츠
-			url.indexOf("/admin/board/board.jsp"),
+			url.indexOf("/admin/board/content"),
 			
 			//사이트
 			url.indexOf("/admin/site/mainSlide.jsp"),
@@ -109,7 +109,7 @@ $(function(){
 					<li><a href="/admin/member/admin">관리자 목록</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
-					<li><a href="/admin/board/board.jsp">콘텐츠 목록</a></li>
+					<li><a href="/admin/board/content">콘텐츠 목록</a></li>
 					<!-- <li><a href="/admin/board/advertise.jsp">광고 목록</a></li> -->
 				</ul>
 				<ul class="nav nav-sidebar">

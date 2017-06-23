@@ -37,4 +37,16 @@ public class ContentDAO {
 	public int selectCurId(){
 		return session.selectOne("ContentMapper.selectOne");
 	}
+	public void updateDeleteStatusByWarning(int content_id){
+		session.update("ContentMapper.updateDeleteStatusByWarning", content_id);
+	}
+	public void updateWarningStatus(int content_id){
+		session.update("ContentMapper.updateWarningStatus", content_id);
+	}
+/*	public Content selectByAdminUserId(String user_id){
+		return session.selectOne("ContentMapper.selectByAdminUserId", user_id); 
+	}*/
+	public List<Content> selectAllAdmin(){
+		return session.selectList("ContentMapper.selectAllAdmin"); 
+	}
 }

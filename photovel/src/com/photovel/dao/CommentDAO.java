@@ -17,8 +17,11 @@ public class CommentDAO {
 		session.insert("CommentMapper.insertComment", comment);
 	}
 	
-	public List<Comment> selectById(int content_id){
-		return session.selectList("CommentMapper.selectById", content_id); 
+	public List<Comment> selectByContentId(int content_id){
+		return session.selectList("CommentMapper.selectByContentId", content_id); 
 	}
-
+	
+	public void deleteComment(String comment_id){
+		session.delete("CommentMapper.deleteComment",comment_id);
+	}
 }

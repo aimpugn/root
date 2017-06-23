@@ -7,7 +7,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<%--  RemoteModal ------------------------------------------- --%>
-				<%@include file="/admin/board/modalBoardUpdateBody.jsp" %>
+				<%@include file="/admin/board/modalContentUpdateBody.jsp" %>
 			</div>
 			<!-- /.modal-content -->
 		</div>

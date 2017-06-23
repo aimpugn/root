@@ -13,11 +13,24 @@
       <result column="user_nick_name" property="user_nick_name"/>
     </association>
   </resultMap>
+  
   <insert id="insertComment" parameterType="Comment">
-    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.getUser_id()}, #{comment_content}, #{comment_date})
+    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.getUser_id()}, #{comment_content}, SYSDATE())
   </insert>
+  
+  <update id="updateComment" parameterType="Comment">
+    UPDATE comment
+    <set>
+		<if test="comment_content != null">comment_content=#{comment_content}</if>
+    </set>
+     WHERE comment_id = #{comment_id}
+  </update>
+  
+  <delete id="deleteComment" parameterType="string">
+    DELETE FROM comment WHERE comment_id = #{comment_id}
+  </delete>
 
-  <select id="selectById" parameterType="int" resultMap="CommentMap">
+  <select id="selectByContentId" parameterType="int" resultMap="CommentMap">
 	SELECT comment.content_id content_id, comment_id, comment_content, comment_date, comment.user_id user_id, user_nick_name
 	FROM comment JOIN content ON comment.content_id = content.content_id
 	JOIN user ON comment.user_id = user.user_id

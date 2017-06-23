@@ -12,9 +12,9 @@
 					<div class="modal-body">
 						<div class="form-horizontal">
 							<div class="form-group">
-								<label for="inputId" class="col-sm-3 control-label" placeholder="아이디: 영문, 숫자. 40자 이내" >아이디</label> 
+								<label for="inputId" class="col-sm-3 control-label" >아이디</label> 
 								<div class="col-sm-9">
-									<input type="email" class="form-control" id="inputId" name="user_id">
+									<input type="email" class="form-control" id="inputId" name="user_id" placeholder="아이디: 영문, 숫자. 40자 이내" >
 								</div>
 							</div>
 							<div class="form-group">

@@ -1,15 +1,12 @@
 package com.photovel.control;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -18,16 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.photovel.dao.UserDAO;
-import com.photovel.vo.Admin;
 import com.photovel.vo.User;
 
 @RestController
@@ -86,12 +79,7 @@ public class AdminUserController {
 	public String update(@ModelAttribute User user, Model model) {
 		String msg = "-1";
 		System.out.println("user update in" + user);
-		//int user_phone1 = model.addAttribute(arg0, arg1)();
-		//user.setUser_phone1(Integer.parseInt(((Integer)user.getUser_phone1()).toString()));
-		//System.out.println((Integer.parseInt(((Integer)user.getUser_phone1()).toString())).class);
 		System.out.println((user.getUser_phone1())+1);
-		//User userUpdate = new User();
-		
 		try {
 			System.out.println("유저 상태" + user);
 			dao.update(user);
@@ -117,8 +105,6 @@ public class AdminUserController {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	@PutMapping("/normal/{chkList}")
 	public String normal(@RequestParam("chkList") String[] chkList, Model model) {
