@@ -42,8 +42,8 @@ public class ContentController {
 	private CommentDAO commentDao;
 	
 	@GetMapping("/{content_id}")
-    public Content selectById(@PathVariable int content_id){
-		Content content = contentDao.selectById(content_id);
+    public Content selectByContentId(@PathVariable int content_id){
+		Content content = contentDao.selectByContentId(content_id);
 		content.setDetails(contentDetailDao.selectById(content_id));
 		content.setComments(commentDao.selectById(content_id));
 		return content;
@@ -55,6 +55,12 @@ public class ContentController {
 		return contents;
     }
 	
+	@GetMapping("/user/{user_id}")
+    public List<Content> selectByUserId(@PathVariable String user_id){
+		List<Content> contents = contentDao.selectByUserId(user_id);
+		return contents;
+    }
+	
 	@GetMapping("/recommend")
     public List<Content> selectAllOrderByGood(){
 		List<Content> contents = contentDao.selectAllOrderByGood();
@@ -63,29 +69,31 @@ public class ContentController {
 
 	@PostMapping(consumes = "multipart/form-data")
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void insert(@RequestParam("content") String json,
+	public int insert(@RequestParam("content") String json,
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
 		Content content;
+		int content_id;
 		try {
 			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
 			contentDao.insert(content);
-			int content_id = contentDao.selectCurId();
+			content_id = contentDao.selectCurId();
 			List<ContentDetail> details = content.getDetails();
 			for(int i = 0; i < details.size(); i++){
 				ContentDetail detail = details.get(i);
 				insertDetail(content_id, detail, i);
 				uploadPicture(uploadFile[i], detail, request);
 			}
+			return content_id;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+		return -1;
 	}
 	
 	@PostMapping("/{content_id}")
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public String update(@PathVariable int content_id, @RequestParam("content") String json, 
+	public int update(@PathVariable int content_id, @RequestParam("content") String json, 
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 			 HttpServletRequest request){
 		Content content;
@@ -108,10 +116,10 @@ public class ContentController {
 				}
 				uploadPicture(uploadFile[i], detail, request);
 			}
-			return "1";
+			return content_id;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			return "-1";
+			return content_id;
 		}		
 	}
 	

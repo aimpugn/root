@@ -22,8 +22,11 @@ public class ContentDAO {
 	public void updateDeleteStatus(int content_id){
 		session.update("ContentMapper.updateDeleteStatus", content_id);
 	}
-	public Content selectById(int content_id){
-		return session.selectOne("ContentMapper.selectById", content_id); 
+	public Content selectByContentId(int content_id){
+		return session.selectOne("ContentMapper.selectByContentId", content_id); 
+	}
+	public List<Content> selectByUserId(String user_id){
+		return session.selectList("ContentMapper.selectByUserId", user_id); 
 	}
 	public List<Content> selectAllOrderByDate(){
 		return session.selectList("ContentMapper.selectAllOrderByDate"); 

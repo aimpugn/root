@@ -30,35 +30,50 @@
   <insert id="insertContent" parameterType="Content">
 	INSERT INTO content VALUES(null, 'leeej9201@gmail.com', #{content_subject}, #{content}, SYSDATE(), #{content_private_flag}, 'F', 0, #{ad.ad_id}, 0)
   </insert>
-  <select id="selectById" parameterType="int" resultMap="ContentMap">
+    
+  <select id="selectByContentId" parameterType="int" resultMap="ContentMap">
 	SELECT 
-	  content.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content, 
+	  c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content, 
 	  content_written_date, content_private_flag, content_delete_status, 
 	  content_warning_status, ad_id, content_share_count, 
-	  (select count(*) from content JOIN good ON content.content_id = good.content_id) good_count,
-	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count 
-	FROM content JOIN content_detail ON content.content_id = content_detail.content_id JOIN user ON content.user_id = user.user_id 
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count 
+	FROM content c JOIN content_detail ON c.content_id = content_detail.content_id JOIN user ON c.user_id = user.user_id 
 	WHERE content.content_id = #{content_id} AND content_delete_status = 'F'
   </select>
   
+  <select id="selectByUserId" parameterType="string" resultMap="ContentMap">
+	SELECT 
+	  c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content, 
+	  content_written_date, content_private_flag, content_delete_status, 
+	  content_warning_status, ad_id, content_share_count, 
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count 
+	FROM content c JOIN content_detail ON c.content_id = content_detail.content_id JOIN user ON c.user_id = user.user_id 
+	WHERE user.user_id = #{user_id} AND content_delete_status = 'F' AND content_private_flag = 'F'
+    group by c.content_id;
+  </select>
+  
   <select id="selectAllOrderByDate" resultMap="ContentMap">
-	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
-		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
-		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
-		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
-	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
 	WHERE content_delete_status = 'F' AND photo_top_flag = 1
 	ORDER BY content_written_date DESC
   </select>
+  
   <select id="selectAllOrderByGood" resultMap="ContentMap">
-	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
-		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
-		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
-		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
-	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
 	WHERE content_delete_status = 'F' AND photo_top_flag = 1
 	ORDER BY good_count DESC
   </select>
+  
   <update id="updateContent" parameterType="Content">
     UPDATE content
 	<set>
