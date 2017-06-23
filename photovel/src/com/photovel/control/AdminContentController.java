@@ -60,7 +60,6 @@ public class AdminContentController {
 			e.printStackTrace();
 		}
 	}
-
 	
 	@GetMapping("/{content_id}")
     public Content selectById(@PathVariable int content_id){

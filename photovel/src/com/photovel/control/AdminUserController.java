@@ -79,12 +79,7 @@ public class AdminUserController {
 	public String update(@ModelAttribute User user, Model model) {
 		String msg = "-1";
 		System.out.println("user update in" + user);
-		//int user_phone1 = model.addAttribute(arg0, arg1)();
-		//user.setUser_phone1(Integer.parseInt(((Integer)user.getUser_phone1()).toString()));
-		//System.out.println((Integer.parseInt(((Integer)user.getUser_phone1()).toString())).class);
 		System.out.println((user.getUser_phone1())+1);
-		//User userUpdate = new User();
-		
 		try {
 			System.out.println("유저 상태" + user);
 			dao.update(user);

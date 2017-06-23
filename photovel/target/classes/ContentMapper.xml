@@ -39,17 +39,6 @@
 	FROM content JOIN content_detail ON content.content_id = content_detail.content_id JOIN user ON content.user_id = user.user_id 
 	WHERE content.content_id = #{content_id} AND content_delete_status = 'F'
   </select>
-<!--   <select id="selectByAdminUserId" parameterType="string" resultMap="ContentMap">
-	SELECT 
-	  content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content, 
-	  content_written_date, content_private_flag, content_delete_status, 
-	  content_warning_status, ad_id, content_share_count, 
-	  (select count(*) from content JOIN good ON content.content_id = good.content_id) good_count,
-	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count 
-	FROM content JOIN content_detail ON content.content_id = content_detail.content_id JOIN user ON content.user_id = user.user_id 
-	WHERE content.user_id = #{content.user_id} 
-	ORDER BY user.user_id ASC AND content.content_id DESC
-  </select> -->
   
   <select id="selectAll" resultMap="ContentMap">
 	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,

@@ -23,17 +23,38 @@
 									<input type="email" class="form-control" id="inputId" name="user_id" placeholder="아이디: 영문, 숫자. 40자 이내">
 								</div>
 							</div>
-							<div class="form-group" id="photoInputWrap">
-								<div>
-									<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label> 
+							<%-- <div class="form-group" id="cntFileWrap">
+								<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label>
+								<div class="photoFileRow"> 
 									<div class="col-sm-6 form-inline">
-										<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">
-									</div>
+										<input type="file" class="form-control" id="inputContentFile${i}" name="inputContentFile">
+				 					</div>
 									<div class="col-sm-2 form-inline">
-										<button type="button" name="photoInputAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 사진 추가</button>
+										<button type="button" name="btnContentFileAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 사진 추가</button>
 									</div>
 								</div>
-							</div>
+							</div> --%>
+							<%-- <div class="row"> --%>
+							<div class="form-group"> 
+					            <label class="col-sm-3 control-label" for="field1">사진 업로드</label>
+								<input type="hidden" name="count" value="1" />
+						        <div class="control-group col-sm-9" id="fields">
+						            <div class="controls" id="profs"> 
+						                <form class="input-append">
+						                    <div id="field" class="form-inline">
+						                    	<input autocomplete="off" class="input" id="field1" name="prof1" type="file" data-items="8"/>
+						                    	<button id="b1" class="btn add-more" type="button">+</button>
+						                    </div>
+						                   <!--  <div class="col-sm-2 form-inline">
+						                    	
+						                    </div> -->
+						                </form>
+						            <!-- <br>
+						            <small>Press + to add another form field :)</small> -->
+						            </div>
+						        </div>
+					        </div>
+							<%-- /div--%>
 							<div class="form-group">
 								<label for="dropdownMenu1" class="col-sm-3 control-label">상태설정</label> 
 								<div class="col-sm-2 form-inline">
@@ -141,66 +162,33 @@
 		});
 		
 		// 사진 인풋박스 추가하기
+		var next = 1;
+	    $(".add-more").click(function(e){
+	        e.preventDefault();
+	        var addto = "#field" + next;
+	        var addRemove = "#field" + (next);
+	        next = next + 1;
+	        var newIn = '<div id="field" class="col-sm-9 form-inline"><input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="file">';
+	        var newInput = $(newIn);
+	        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button><div id="field"></dv>';
+	        var removeButton = $(removeBtn);
+	        $(addto).after(newInput);
+	        $(addRemove).after(removeButton);
+	        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+	        $("#count").val(next);  
+	        
+	            $('.remove-me').click(function(e){
+	                e.preventDefault();
+	                var fieldNum = this.id.charAt(this.id.length-1);
+	                var fieldID = "#field" + fieldNum;
+	                $(this).remove();
+	                $(fieldID).remove();
+	            });
+	   	});	
+	    
+
+		////////////////////////////	
 		
-								<div class="form-group photoInputWrap">
-								<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label> 
-								<div class="col-sm-6 form-inline">
-								<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">
-								</div>
-								<div class="col-sm-2 form-inline">
-								<button type="button" name="photoInputAdd" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 사진 추가</button>
-								</div>
-								</div>
-								
-var oTbl;
-//Row 추가
-function addFrom() {
-  oTbl = document.getElementById("addTable");
-  var oForm = oTbl.addForm();
-  oForm.onmouseover=function(){oTbl.clickedFormIndex=this.FormIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
-  var oCell = oForm.insertCell();
-
-  //삽입될 Form Tag
-
-	var formTag =  '<div class="form-group photoInputWrap">';
-		formTag  += '<label for="inputProfilePhoto" class="col-sm-3 control-label">사진 업로드</label>'; 
-		formTag  +=		'<div class="col-sm-6 form-inline">'
-		formTag  +=			'<input type="file" class="form-control" id="inputProfilePhoto" name="user_profile_photo">'
-		formTag  +=		'</div>'
-		formTag  +=		'<div class="col-sm-2 form-inline">'
-		formTag  +=			'<button type="button" name="photoInputAdd" class="btn btn-primary">''
-		formTag  +=					'<span class="glyphicon glyphicon-plus"></span> 사진 추가'
-		formTag  +=			'</button>'
-		formTag  +=		'</div>'
-		formTag  += '</div>';
-		formTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
-  oCell.innerHTML = formTag;
-}
-//Row 삭제
-function removeForm() {
-  oTbl.deleteForm(oTbl.clickedFormIndex);
-}
-
-function frmCheck()
-{
-  var frm = document.form;
-  
-  for( var i = 0; i <= frm.elements.length - 1; i++ ){
-     if( frm.elements[i].name == "addText" )
-     {
-         if( !frm.elements[i].value ){
-             alert("텍스트박스에 값을 입력하세요!");
-                 frm.elements[i].focus();
-	 return;
-          }
-      }
-   }
- }								
-		var $photoInputAdd = $('button[name=photoInputAd]');
-		$photoInputAdd.click(function(){
-			
-		});
-								
 		// 국가번호 선택창 고정하기
 		$('.dropdown-menu.user').on('click', 'li a', function(){
 		    $('.nationBtn:first-child').html($(this).html() + ' <span class="caret"></span>');
