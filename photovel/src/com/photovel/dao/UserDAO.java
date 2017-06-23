@@ -82,14 +82,12 @@ public class UserDAO {
 	 */
 	public void insert(User user) throws Exception {
 		HashMap<String, Object> list = new HashMap<>();
+		list.put("user_id", user.getUser_id());
 		list.put("user_password", user.getUser_password());
 		list.put("user_nick_name", user.getUser_nick_name());
 		list.put("user_gender", user.getUser_gender());
 		list.put("user_phone1", user.getUser_phone1());
 		list.put("user_phone2", user.getUser_phone2());
-		list.put("user_profile_photo", user.getUser_profile_photo());
-		list.put("user_state_flag", user.getUser_state_flag());
-		list.put("user_id", user.getUser_id());
 		session.insert("UserMapper.insertUser", user);//id 값 , parameter로 보낼 값
 		
 		//#{user_password}, #{user_nick_name}, #{user_gender},

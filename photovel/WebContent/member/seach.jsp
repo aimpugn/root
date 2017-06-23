@@ -17,7 +17,7 @@
 <%--  head
 ------------------------------------------- --%>
 <%@include file="/admin/include/head.jsp" %>
-<%@include file="/admin/include/scriptMemberAdmin.jsp" %>
+<%@include file="/admin/member/scriptAdmin.jsp" %>
 </head>
 
 <body>
