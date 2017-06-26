@@ -3,6 +3,7 @@ package com.photovel.control;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +28,16 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping(value="/email", consumes="application/json; charset=UTF-8")
-	public String login(@RequestBody User user,HttpSession sesson){
+	public String login(@RequestBody User user,HttpSession session){
 		String msg = "0";
-		sesson.removeAttribute("loginInfo");
+		System.out.println(user);
+		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
 			if(checkUser !=null && checkUser.getUser_password().equals(user.getUser_password())){
 				msg="1";
-				sesson.setAttribute("loginInfo",checkUser);
+				session.setAttribute("loginInfo",checkUser);
+				session.setMaxInactiveInterval(240*60*60);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +74,17 @@ public class UserController {
 		}
 		System.out.println(msg);
 		return msg;
+	}
+	
+	@GetMapping
+	public String compareSession(HttpSession session){
+		String resultValue="0";
+		User isUser = (User)session.getAttribute("loginInfo");
+		System.out.println(isUser);
+		if(isUser!=null){
+			resultValue="1";
+		}
+		return resultValue;
 	}
 	
 /*	
