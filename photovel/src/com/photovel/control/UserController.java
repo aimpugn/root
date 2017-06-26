@@ -86,6 +86,12 @@ public class UserController {
 		}
 		return resultValue;
 	}
+	@GetMapping(value="/logout")
+	public void logout(HttpSession session){
+		//System.out.println(((User)session.getAttribute("loginInfo")).getUser_id() +"님이 로그아웃");
+		session.removeAttribute("loginInfo");
+		
+	}
 	
 /*	
 	//삭제
