@@ -13,8 +13,16 @@ public class CommentDAO {
 	@Autowired
 	private SqlSession session;
 	
+	public int selectMaxComment(int content_id) {
+		return session.selectOne("CommentMapper.selectMaxComment", content_id);
+	}
+	
 	public void insert(Comment comment) {
 		session.insert("CommentMapper.insertComment", comment);
+	}
+	
+	public void update(Comment comment) {
+		session.insert("CommentMapper.updateComment", comment);
 	}
 	
 	public List<Comment> selectByContentId(int content_id){

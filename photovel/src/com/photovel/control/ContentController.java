@@ -10,7 +10,11 @@ import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +35,7 @@ import com.photovel.dao.ContentDAO;
 import com.photovel.dao.ContentDetailDAO;
 import com.photovel.vo.Content;
 import com.photovel.vo.ContentDetail;
+import com.photovel.vo.User;
 
 @RestController
 @RequestMapping("/content/photo")
@@ -55,9 +61,23 @@ public class ContentController {
 		return contents;
     }
 	
-	@GetMapping("/user/{user_id}")
-    public List<Content> selectByUserId(@PathVariable String user_id){
-		List<Content> contents = contentDao.selectByUserId(user_id);
+	@GetMapping("/user/{user_id:.+}")
+    public void selectByUserId(@PathVariable("user_id") String user_id,
+    		HttpServletRequest request, HttpServletResponse response){
+		try {
+			String forwardURL = "/content/photo/user/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<Content> contents = contentDao.selectByUserId(user_id);
+			request.setAttribute("contents", contents);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	@GetMapping("/user/response")
+	public List<Content> selectByUserIdResponse(HttpServletRequest request){
+		List<Content> contents = (List<Content>) request.getAttribute("contents");
 		return contents;
     }
 	
@@ -71,11 +91,13 @@ public class ContentController {
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public int insert(@RequestParam("content") String json,
 			@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
-			 HttpServletRequest request){
+			 HttpServletRequest request, HttpSession session){
 		Content content;
 		int content_id;
 		try {
 			content = JSON.parseObject(URLDecoder.decode(json,"UTF-8"), Content.class);
+			/*User user =(User) session.getAttribute("loginInfo");
+			content.setUser(user);*/
 			contentDao.insert(content);
 			content_id = contentDao.selectCurId();
 			List<ContentDetail> details = content.getDetails();

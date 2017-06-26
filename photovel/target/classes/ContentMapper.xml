@@ -40,7 +40,8 @@
 	  content_written_date, content_private_flag, content_delete_status, 
 	  content_warning_status, ad_id, content_share_count, 
 	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
-	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count 
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+	  (select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count 
 	FROM content c JOIN content_detail ON c.content_id = content_detail.content_id JOIN user ON c.user_id = user.user_id 
 	WHERE c.content_id = #{content_id} AND content_delete_status = 'F'
   </select>
@@ -51,6 +52,7 @@
 	  content_written_date, content_warning_status, ad_id, content_share_count, 
 	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
 	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+	  (select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
       (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
 		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
       (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
@@ -70,7 +72,7 @@
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
 		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
 	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
-	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1 
 	ORDER BY content_written_date DESC
   </select>
   
@@ -80,7 +82,7 @@
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
 		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
 	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
-	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
 	ORDER BY good_count DESC
   </select>
   
