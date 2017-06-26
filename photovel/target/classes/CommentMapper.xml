@@ -13,9 +13,11 @@
       <result column="user_nick_name" property="user_nick_name"/>
     </association>
   </resultMap>
-  
+  <select id="selectMaxComment" resultType="int" parameterType="int">
+	SELECT IFNULL(MAX(SUBSTRING_INDEX(comment_id, '_', -1)), 0) FROM comment WHERE content_id = #{content_id}
+  </select>
   <insert id="insertComment" parameterType="Comment">
-    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.getUser_id()}, #{comment_content}, SYSDATE())
+    INSERT INTO comment VALUES(#{content_id}, #{comment_id}, #{user.user_id}, #{comment_content}, SYSDATE())
   </insert>
   
   <update id="updateComment" parameterType="Comment">
