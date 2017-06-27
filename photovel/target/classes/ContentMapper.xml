@@ -63,14 +63,45 @@
 		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
 	FROM content c JOIN photo ON photo.content_id = c.content_id  JOIN user ON user.user_id = c.user_id
 	WHERE user.user_id = #{user_id} AND content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
-    group by c.content_id
+    GROUP BY c.content_id
+    ORDER BY content_written_date DESC
+  </select>
+  
+  
+  <select id="selectMyStory" parameterType="string" resultMap="ContentMap">
+	SELECT 
+	  c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, photo_file_name,
+	  content_written_date, content_warning_status, ad_id, content_share_count, 
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+	  (select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
+      (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+      (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
+	FROM content c JOIN photo ON photo.content_id = c.content_id  JOIN user ON user.user_id = c.user_id
+	WHERE user.user_id = #{user_id} AND content_delete_status = 'F' AND photo_top_flag = 1
+    GROUP BY c.content_id
+    ORDER BY content_written_date DESC
   </select>
   
   <select id="selectAllOrderByDate" resultMap="ContentMap">
 	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
 		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
-		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
+      (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+      (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
 	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
 	WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1 
 	ORDER BY content_written_date DESC
@@ -80,7 +111,15 @@
 	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
 		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
-		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
+      (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+      (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
 	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
 	WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
 	ORDER BY good_count DESC
@@ -90,10 +129,17 @@
 	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
 		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
-		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
-	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
-	WHERE content_delete_status = 'F' AND photo_top_flag = 1
-	GROUP by photo_file_name
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
+      (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+      (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
+	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
+	WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
 	ORDER BY content.content_id ASC
   </select>
   

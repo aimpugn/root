@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +34,6 @@ import com.photovel.dao.ContentDAO;
 import com.photovel.dao.ContentDetailDAO;
 import com.photovel.vo.Content;
 import com.photovel.vo.ContentDetail;
-import com.photovel.vo.User;
 
 @RestController
 @RequestMapping("/content/photo")
@@ -62,7 +60,7 @@ public class ContentController {
     }
 	
 	@GetMapping("/user/{user_id:.+}")
-    public void selectByUserId(@PathVariable("user_id") String user_id,
+    public void selectByUserId(@PathVariable String user_id,
     		HttpServletRequest request, HttpServletResponse response){
 		try {
 			String forwardURL = "/content/photo/user/response";
@@ -77,6 +75,27 @@ public class ContentController {
 	
 	@GetMapping("/user/response")
 	public List<Content> selectByUserIdResponse(HttpServletRequest request){
+		List<Content> contents = (List<Content>) request.getAttribute("contents");
+		return contents;
+    }
+	
+	@GetMapping("/my/{user_id:.+}")
+    public void selectMyStory(@PathVariable String user_id,
+    		HttpServletRequest request, HttpServletResponse response){
+		
+		//user_id가 자기 인지 확인!
+		try {
+			String forwardURL = "/content/photo/my/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<Content> contents = contentDao.selectMyStory(user_id);
+			request.setAttribute("contents", contents);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+    }
+	@GetMapping("/my/response")
+	public List<Content> selectMyStoryResponse(HttpServletRequest request){
 		List<Content> contents = (List<Content>) request.getAttribute("contents");
 		return contents;
     }

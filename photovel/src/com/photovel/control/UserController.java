@@ -30,7 +30,7 @@ public class UserController {
 	@PostMapping(value="/email", consumes="application/json; charset=UTF-8")
 	public String login(@RequestBody User user,HttpSession session){
 		String msg = "0";
-		System.out.println(user);
+		//System.out.println(user);
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
@@ -80,7 +80,7 @@ public class UserController {
 	public String compareSession(HttpSession session){
 		String resultValue="0";
 		User isUser = (User)session.getAttribute("loginInfo");
-		System.out.println(isUser);
+		//System.out.println(isUser);
 		if(isUser!=null){
 			resultValue="1";
 		}

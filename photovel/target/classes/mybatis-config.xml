@@ -28,5 +28,7 @@
   	<mapper resource="PhotoMapper.xml"/>
   	<mapper resource="AdminMapper.xml"/>
   	<mapper resource="MainImageMapper.xml"/>
+  	<mapper resource="GoodMapper.xml"/>
+  	<mapper resource="BookmarkMapper.xml"/>
   </mappers>
 </configuration>

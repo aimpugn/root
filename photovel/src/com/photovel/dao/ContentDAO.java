@@ -28,6 +28,9 @@ public class ContentDAO {
 	public List<Content> selectByUserId(String user_id){
 		return session.selectList("ContentMapper.selectByUserId", user_id); 
 	}
+	public List<Content> selectMyStory(String user_id){
+		return session.selectList("ContentMapper.selectMyStory", user_id); 
+	}
 	public List<Content> selectAllOrderByDate(){
 		return session.selectList("ContentMapper.selectAllOrderByDate"); 
 	}
