@@ -27,24 +27,25 @@ public class UserController {
 	 * @param sesson 안드로이드에서 해당하는 session의 쿠키값을 저장하여 로그인상태를 유지하려고 사용합니다.
 	 * @return
 	 */
-	@PostMapping(value="/email", consumes="application/json; charset=UTF-8")
-	public String login(@RequestBody User user,HttpSession session){
+	@PostMapping(value = "/email", consumes = "application/json; charset=UTF-8")
+	public User login(@RequestBody User user, HttpSession session) {
 		String msg = "0";
-		//System.out.println(user);
+		// System.out.println(user);
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
-			if(checkUser !=null && checkUser.getUser_password().equals(user.getUser_password())){
-				msg="1";
-				session.setAttribute("loginInfo",checkUser);
-				session.setMaxInactiveInterval(240*60*60);
+			if (checkUser != null && checkUser.getUser_password().equals(user.getUser_password())) {
+				// msg="1";
+				session.setAttribute("loginInfo", checkUser);
+				session.setMaxInactiveInterval(240 * 60 * 60);
+				return checkUser;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
-	
+
 	@PostMapping(value="/idCheck", consumes="application/json; charset=UTF-8")
 	public String idCheck(@RequestBody User user){
 		String msg ="0"; //비정상 코드를 의미

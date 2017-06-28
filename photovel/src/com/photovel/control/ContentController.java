@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -45,25 +46,65 @@ public class ContentController {
 	@Autowired
 	private CommentDAO commentDao;
 	
-	@GetMapping("/{content_id}")
-    public Content selectByContentId(@PathVariable int content_id){
-		Content content = contentDao.selectByContentId(content_id);
-		content.setDetails(contentDetailDao.selectById(content_id));
-		content.setComments(commentDao.selectByContentId(content_id));
-		return content;
+	@GetMapping("/recommend/{user_id:.+}")
+    public void selectAllOrderByGood(@PathVariable String user_id,
+    		HttpServletRequest request, HttpServletResponse response){
+		
+		try {
+			String forwardURL = "/content/photo/list/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<Content> contents = contentDao.selectAllOrderByGood(user_id);
+			request.setAttribute("contents", contents);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
     }
 	
-	@GetMapping("/new")
-    public List<Content> selectAllOrderByDate(){
-		List<Content> contents = contentDao.selectAllOrderByDate();
-		return contents;
+	@GetMapping("/new/{user_id:.+}")
+    public void selectAllOrderByDate(@PathVariable String user_id,
+    		HttpServletRequest request, HttpServletResponse response){
+		
+		try {
+			String forwardURL = "/content/photo/list/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<Content> contents = contentDao.selectAllOrderByDate(user_id);
+			request.setAttribute("contents", contents);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
     }
 	
+	@GetMapping("/{content_id}/{user_id:.+}")
+    public void selectByContentId(@PathVariable int content_id, @PathVariable String user_id,
+    		HttpServletRequest request, HttpServletResponse response){
+		
+		try {
+			String forwardURL = "/content/photo/one/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("content_id", content_id);
+			map.put("user_id", user_id);
+			
+			Content content = contentDao.selectByContentId(map);
+			content.setDetails(contentDetailDao.selectById(content_id));
+			content.setComments(commentDao.selectByContentId(content_id));
+			
+			request.setAttribute("content", content);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	//다른사람 스토리
 	@GetMapping("/user/{user_id:.+}")
     public void selectByUserId(@PathVariable String user_id,
     		HttpServletRequest request, HttpServletResponse response){
 		try {
-			String forwardURL = "/content/photo/user/response";
+			String forwardURL = "/content/photo/list/response";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			List<Content> contents = contentDao.selectByUserId(user_id);
 			request.setAttribute("contents", contents);
@@ -73,19 +114,13 @@ public class ContentController {
 		}
     }
 	
-	@GetMapping("/user/response")
-	public List<Content> selectByUserIdResponse(HttpServletRequest request){
-		List<Content> contents = (List<Content>) request.getAttribute("contents");
-		return contents;
-    }
-	
+	//내스토리
 	@GetMapping("/my/{user_id:.+}")
     public void selectMyStory(@PathVariable String user_id,
     		HttpServletRequest request, HttpServletResponse response){
 		
-		//user_id가 자기 인지 확인!
 		try {
-			String forwardURL = "/content/photo/my/response";
+			String forwardURL = "/content/photo/list/response";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			List<Content> contents = contentDao.selectMyStory(user_id);
 			request.setAttribute("contents", contents);
@@ -94,18 +129,33 @@ public class ContentController {
 			e.printStackTrace();
 		}
     }
-	@GetMapping("/my/response")
-	public List<Content> selectMyStoryResponse(HttpServletRequest request){
+	
+	@DeleteMapping("/{content_id}")
+	public void delete(@PathVariable int content_id){
+		contentDao.updateDeleteStatus(content_id);
+	}
+	
+	@PostMapping("/{content_id}/warning")
+	public void warning(@PathVariable int content_id){
+		if(contentDao.selectContentWarningStatus(content_id) < 6){
+			contentDao.updateWarningStatus(content_id);
+		}else{
+			contentDao.updateDeleteStatusByWarning(content_id);
+		}
+	}
+
+	@GetMapping("/list/response")
+	public List<Content> selectContentListResponse(HttpServletRequest request){
 		List<Content> contents = (List<Content>) request.getAttribute("contents");
 		return contents;
     }
 	
-	@GetMapping("/recommend")
-    public List<Content> selectAllOrderByGood(){
-		List<Content> contents = contentDao.selectAllOrderByGood();
-		return contents;
+	@GetMapping("/one/response")
+	public Content selectContentResponse(HttpServletRequest request){
+		Content content = (Content) request.getAttribute("content");
+		return content;
     }
-
+	
 	@PostMapping(consumes = "multipart/form-data")
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public int insert(@RequestParam("content") String json,
@@ -164,21 +214,7 @@ public class ContentController {
 		}		
 	}
 	
-	@DeleteMapping("/{content_id}")
-	public void delete(@PathVariable int content_id){
-		contentDao.updateDeleteStatus(content_id);
-	}
-	
-	@PostMapping("/{content_id}/warning")
-	public void warning(@PathVariable int content_id){
-		Content content = contentDao.selectByContentId(content_id);
-		if(content.getContent_warning_status()<6){
-			contentDao.updateWarningStatus(content_id);
-		}else{
-			contentDao.updateDeleteStatusByWarning(content_id);
-		}
-	}
-	
+
 	public void insertDetail(int content_id, ContentDetail detail, int i){
 		String photo_date = new SimpleDateFormat("yyyy-MM-dd-hh24-mm-ss").format(detail.getPhoto().getPhoto_date());
 		StringBuilder content_detail_id = new StringBuilder();

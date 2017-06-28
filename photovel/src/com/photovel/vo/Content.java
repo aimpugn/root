@@ -28,7 +28,21 @@ public class Content {
 	private List<Comment> comments;
 	private List<ContentDetail> details;
 	
+	private int good_status;
+	private int bookmark_status;
 	
+	public int getGood_status() {
+		return good_status;
+	}
+	public void setGood_status(int good_status) {
+		this.good_status = good_status;
+	}
+	public int getBookmark_status() {
+		return bookmark_status;
+	}
+	public void setBookmark_status(int bookmark_status) {
+		this.bookmark_status = bookmark_status;
+	}
 	public double getPhoto_latitude() {
 		return photo_latitude;
 	}
@@ -159,7 +173,8 @@ public class Content {
 				+ ", comment_count=" + comment_count + ", content_detail_count=" + content_detail_count
 				+ ", photo_file_name=" + photo_file_name + ", photo_latitude=" + photo_latitude + ", photo_longitude="
 				+ photo_longitude + ", fr_photo_date=" + fr_photo_date + ", to_photo_date=" + to_photo_date + ", user="
-				+ user + ", ad=" + ad + ", comments=" + comments + ", details=" + details + "]";
+				+ user + ", ad=" + ad + ", comments=" + comments + ", details=" + details + ", good_status="
+				+ good_status + ", bookmark_status=" + bookmark_status + "]";
 	}
 	
 }

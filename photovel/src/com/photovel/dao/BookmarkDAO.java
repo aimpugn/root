@@ -1,10 +1,13 @@
 package com.photovel.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.photovel.vo.Content;
 
 
 @Repository
@@ -22,5 +25,9 @@ public class BookmarkDAO {
 	
 	public void delete(HashMap map){
 		session.delete("BookmarkMapper.deleteBookmark", map);
+	}
+
+	public List<Content> selectBookmarkList(String user_id) {
+		return session.selectList("BookmarkMapper.selectBookmarkList", user_id);
 	}
 }

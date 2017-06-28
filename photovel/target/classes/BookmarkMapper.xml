@@ -3,15 +3,64 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BookmarkMapper">
-  <select id="selectBookmark" parameterType="hashmap" resultType="int">
-    SELECT IFNULL(count(*), 0) FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
-  </select>
-
-  <insert id="insertBookmark" parameterType="hashmap">
-    INSERT INTO bookmark VALUES(#{content_id}, #{user_id})
-  </insert>
+<resultMap type="Content" id="ContentMap">
+	<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
+	<id column="content_id" property="content_id" />
+	<result column="content_subject" property="content_subject"/>
+	<result column="content" property="content"/>
+	<result column="content_written_date" property="content_written_date"/>
+	<result column="content_private_flag" property="content_private_flag"/>
+	<result column="content_delete_status" property="content_delete_status"/>
+	<result column="content_warning_status" property="content_warning_status"/>
+	<result column="content_share_count" property="content_share_count"/>
+	<result column="good_count" property="good_count"/>
+	<result column="comment_count" property="comment_count"/>
+	<result column="content_detail_count" property="content_detail_count"/>
+	<result column="photo_file_name" property="photo_file_name"/>
+	<result column="photo_latitude" property="photo_latitude"/>
+	<result column="photo_longitude" property="photo_longitude"/>
+	<result column="fr_photo_date" property="fr_photo_date"/>
+	<result column="to_photo_date" property="to_photo_date"/>
+	<result column="good_status" property="good_status" />
+	<result column="bookmark_status" property="bookmark_status" />
+	<association property="user" javaType="User">
+		<id column="user_id" property="user_id"/>
+		<result column="user_nick_name" property="user_nick_name"/>
+	</association>
+	<association property="ad" javaType="Advertisement">
+		<id column="ad_id" property="ad_id"/>
+	</association>
+</resultMap>
   
-  <delete id="deleteBookmark" parameterType="hashmap">
-    DELETE FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
-  </delete>
+	<select id="selectBookmark" parameterType="hashmap" resultType="int">
+    	SELECT IFNULL(count(*), 0) FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
+	</select>
+
+	<insert id="insertBookmark" parameterType="hashmap">
+		INSERT INTO bookmark VALUES(#{content_id}, #{user_id})
+	</insert>
+  
+	<delete id="deleteBookmark" parameterType="hashmap">
+		DELETE FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
+	</delete>
+  
+	<select id="selectBookmarkList" parameterType="string" resultMap="ContentMap">
+		SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
+			(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
+			(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+			(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count,
+			(SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+			WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+			(SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+			WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+			(SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+			WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+			(SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+			WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date,
+			(SELECT IFNULL(COUNT(*), 0) FROM good WHERE user_id = #{user_id} AND content_id = c.content_id) good_status,
+			(SELECT IFNULL(COUNT(*), 0) FROM bookmark WHERE user_id = #{user_id} AND content_id = c.content_id) bookmark_status
+		FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
+		WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1 AND c.content_id IN (select content_id from bookmark where user_id = #{user_id})
+		ORDER BY content_written_date DESC
+	</select>
 </mapper>
