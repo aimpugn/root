@@ -3,7 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PermissionMapper">
-  <insert id="insertPermission" parameterType="Permission">
-    INSERT INTO Permission VALUES(#{user_id}, 1, 1, 1)
-  </insert>
+	<insert id="insertPermission" parameterType="string">
+		INSERT INTO Permission VALUES(#{user_id}, 1, 1, 1)
+	</insert>
+
+	<update id="updatePermission" parameterType="Permission">
+		UPDATE permission
+			<set>
+				<if test="friend_recom_flag != null">friend_recom_flag=#{friend_recom_flag},</if>
+				<if test="friend_search_flag != null">friend_search_flag=#{friend_search_flag},</if>
+				<if test="feed_flag != null">feed_flag=#{feed_flag}</if>
+			</set>
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<select id="selectPermission" parameterType="string" resultType="Permission">
+		SELECT * FROM permission WHERE user_id = #{user_id}
+	</select>
 </mapper>

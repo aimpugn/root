@@ -30,5 +30,6 @@
   	<mapper resource="MainImageMapper.xml"/>
   	<mapper resource="GoodMapper.xml"/>
   	<mapper resource="BookmarkMapper.xml"/>
+  	<mapper resource="FriendMapper.xml"/>
   </mappers>
 </configuration>

@@ -38,14 +38,14 @@ public class ContentDAO {
 	public List<Content> selectAllOrderByDate(String user_id){
 		return session.selectList("ContentMapper.selectAllOrderByDate", user_id); 
 	}
-	public Content selectByContentId(HashMap map) {
+	public Content selectByContentId(HashMap map){
 		return session.selectOne("ContentMapper.selectByContentId", map); 
 	}
 	public int selectContentWarningStatus(int content_id) {
 		return session.selectOne("ContentMapper.selectContentWarningStatus", content_id);
 	}
-	public List<Content> selectByUserId(String user_id){
-		return session.selectList("ContentMapper.selectByUserId", user_id); 
+	public List<Content> selectByUserId(HashMap map){
+		return session.selectList("ContentMapper.selectByUserId", map); 
 	}
 	public List<Content> selectMyStory(String user_id){
 		return session.selectList("ContentMapper.selectMyStory", user_id); 

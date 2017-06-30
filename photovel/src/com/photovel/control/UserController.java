@@ -1,16 +1,36 @@
 package com.photovel.control;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.photovel.dao.UserDAO;
+import com.photovel.vo.Permission;
 import com.photovel.vo.User;
 
 @RestController
@@ -87,6 +107,7 @@ public class UserController {
 		}
 		return resultValue;
 	}
+	
 	@GetMapping(value="/logout")
 	public void logout(HttpSession session){
 		//System.out.println(((User)session.getAttribute("loginInfo")).getUser_id() +"님이 로그아웃");
@@ -94,12 +115,79 @@ public class UserController {
 		
 	}
 	
-/*	
-	//삭제
-	@DeleteMapping
-	//조회
-	@GetMapping
-	//수정
-	@PutMapping
-	*/
+	//은지추가
+	@GetMapping("/setting/{user_id:.+}")
+	public void selectPermission(@PathVariable String user_id,
+			HttpServletRequest request, HttpServletResponse response){
+		
+		try {
+			String forwardURL = "/common/user/setting/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			Permission permission = userDAO.selectPermission(user_id);
+			request.setAttribute("permission", permission);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping("/setting/response")
+	public Permission selectPermissionResponse(HttpServletRequest request){
+		Permission permission = (Permission) request.getAttribute("permission");
+		return permission;
+    }
+	
+	@DeleteMapping("/leave/{user_id:.+}")
+	public void leave(@PathVariable String user_id){
+		userDAO.updateUserState(user_id);
+    }
+	
+	@PostMapping(value = "/setting", consumes = "multipart/form-data")
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void update(@RequestParam("user") String user1, @RequestParam("permission") String permission1,
+			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile, HttpServletRequest request,
+			HttpSession session) {
+		User user;
+		Permission permission;
+		OutputStream out = null;
+		PrintWriter printWriter = null;
+		try {
+			user = JSON.parseObject(URLDecoder.decode(user1, "UTF-8"), User.class);
+			permission = JSON.parseObject(URLDecoder.decode(permission1, "UTF-8"), Permission.class);
+			
+			user.setUser_profile_photo(user.getUser_id() + ".jpg");
+			userDAO.updateInfo(user);
+			userDAO.updatePermission(permission);
+
+			// 파일의 바이트 정보 얻기
+			byte[] bytes = uploadFile.getBytes();
+			String path = request.getSession().getServletContext().getRealPath("");
+			String uploadPath = path + "/upload/profile/" + user.getUser_id() + ".jpg";
+
+			File file = new File(uploadPath);
+			// 상위 폴더 존재 여부 확인
+			if (!file.getParentFile().exists()) {
+				file.getParentFile().mkdirs();
+			}
+			out = new FileOutputStream(file);
+			out.write(bytes);
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (out != null) {
+					out.close();
+				}
+				if (printWriter != null) {
+					printWriter.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

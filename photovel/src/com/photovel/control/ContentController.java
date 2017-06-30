@@ -100,13 +100,16 @@ public class ContentController {
     }
 	
 	//다른사람 스토리
-	@GetMapping("/user/{user_id:.+}")
-    public void selectByUserId(@PathVariable String user_id,
+	@GetMapping("/user/{user_id1:.+}/{user_id2:.+}")
+    public void selectByUserId(@PathVariable String user_id1, @PathVariable String user_id2, 
     		HttpServletRequest request, HttpServletResponse response){
 		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("user_id1", user_id1);
+			map.put("user_id2", user_id2);
 			String forwardURL = "/content/photo/list/response";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			List<Content> contents = contentDao.selectByUserId(user_id);
+			List<Content> contents = contentDao.selectByUserId(map);
 			request.setAttribute("contents", contents);
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {

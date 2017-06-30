@@ -26,6 +26,7 @@
 		<association property="user" javaType="User">
 			<id column="user_id" property="user_id" />
 			<result column="user_nick_name" property="user_nick_name" />
+			<result column="user_profile_photo" property="user_profile_photo" />
 		</association>
 		<association property="ad" javaType="Advertisement">
 			<id column="ad_id" property="ad_id" />
@@ -63,7 +64,7 @@
 	</select>
   
 	<select id="selectAllOrderByGood" parameterType="string" resultMap="ContentMap">
-		SELECT c.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
+		SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
 			(SELECT COUNT(*) FROM content JOIN good ON content.content_id = good.content_id WHERE content.content_id = c.content_id) good_count, 
 			(SELECT COUNT(*) FROM content JOIN comment ON content.content_id = comment.content_id WHERE content.content_id = c.content_id) comment_count,
 			(SELECT COUNT(*) FROM content JOIN content_detail ON content.content_id = content_detail.content_id WHERE content.content_id = c.content_id) content_detail_count,
@@ -128,7 +129,7 @@
 		SELECT content_warning_status FROM content WHERE c.content_id = #{content_id}
 	</select>
 	
-	<select id="selectByUserId" parameterType="string" resultMap="ContentMap">
+	<select id="selectByUserId" parameterType="hashmap" resultMap="ContentMap">
 		SELECT 
 			c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, photo_file_name,
 			content_written_date, content_warning_status, ad_id, content_share_count, 
@@ -143,10 +144,10 @@
 			WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
 			(SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
 			WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date,
-			(SELECT IFNULL(COUNT(*), 0) FROM good WHERE user_id = #{user_id} AND content_id = c.content_id) good_status,
-			(SELECT IFNULL(COUNT(*), 0) FROM bookmark WHERE user_id = #{user_id} AND content_id = c.content_id) bookmark_status
+			(SELECT IFNULL(COUNT(*), 0) FROM good WHERE user_id = #{user_id2} AND content_id = c.content_id) good_status,
+			(SELECT IFNULL(COUNT(*), 0) FROM bookmark WHERE user_id = #{user_id2} AND content_id = c.content_id) bookmark_status
 		FROM content c JOIN photo ON photo.content_id = c.content_id  JOIN user ON user.user_id = c.user_id
-		WHERE user.user_id = #{user_id} AND content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
+		WHERE user.user_id = #{user_id1} AND content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
 		GROUP BY c.content_id
 		ORDER BY content_written_date DESC
 	</select>
