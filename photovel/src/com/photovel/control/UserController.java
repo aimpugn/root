@@ -83,7 +83,7 @@ public class UserController {
 	@PostMapping(value="/join", consumes="application/json; charset=UTF-8")
 	public String join(@RequestBody User user){
 		String msg ="0"; //비정상 코드를 의미
-		
+		//System.out.println(user);
 		User idCheckUser = userDAO.selectById(user.getUser_id());
 		if(idCheckUser==null){
 			try {
@@ -93,7 +93,7 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(msg);
+		//System.out.println(msg);
 		return msg;
 	}
 	
