@@ -12,6 +12,7 @@
       <id column="user_id" property="user_id"/>
       <result column="user_nick_name" property="user_nick_name"/>
       <result column="user_profile_photo" property="user_profile_photo" />
+      <result column="user_sns_status" property="user_sns_status" />
     </association>
   </resultMap>
   <select id="selectMaxComment" resultType="int" parameterType="int">
@@ -34,7 +35,7 @@
   </delete>
 
   <select id="selectByContentId" parameterType="int" resultMap="CommentMap">
-	SELECT comment.content_id content_id, comment_id, comment_content, comment_date, comment.user_id user_id, user_nick_name, user_profile_photo
+	SELECT comment.content_id content_id, comment_id, comment_content, comment_date, comment.user_id user_id, user_nick_name, user_profile_photo, user_sns_status
 	FROM comment JOIN content ON comment.content_id = content.content_id
 	JOIN user ON comment.user_id = user.user_id
 	WHERE content.content_id = #{contentId}
