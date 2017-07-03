@@ -1116,6 +1116,7 @@ img {
   vertical-align: middle;
 }
 .img-responsive,
+.chart-responsive,
 .thumbnail > img,
 .thumbnail a > img,
 .carousel-inner > .item > img,

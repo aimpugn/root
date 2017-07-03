@@ -96,27 +96,23 @@
 			// 입력된 라디오 버튼의 value 얻기
 			var state = document.getElementsByName('adminState');
 			var checkedIndex = -1;
-			var admin_state_flag = '';
+			var admin_status_flag = '';
 			for( i=0; i<state.length; i++ ) {
 				if(state[i].checked) {
 					checkedIndex = i;
-					admin_state_flag = state[i].value;
+					admin_status_flag = state[i].value;
 				}
 			}
-			var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_state_flag': admin_state_flag};
+			var data = {'admin_id': admin_id, 'admin_password': admin_password, 'admin_nickname': admin_nickname, 'admin_status_flag': admin_status_flag};
 			console.log(data);
 			$.ajax({
-				url: '/admin',
+				url: '/admin/adminAdd',
 				method: 'POST',
 				data: data,
 				success: function(responseData){
 					var data = responseData.trim();
-					//console.log(data);
-					//if( data == '1' ){
-						location.href='/admin/member/admin';
-					//} else{
-					//	alert("잘못된 정보입니다.");
-					//}
+					alert("계정 등록 성공");
+					location.href='/admin/member/admin';
 				},
 				error: function(xhr, status, error){
 					

@@ -99,7 +99,8 @@ body {
 .placeholder {
   margin-bottom: 20px;
 }
-.placeholder img {
+.placeholder img, .placeholder .piechart{
   display: inline-block;
   border-radius: 50%;
 }
+

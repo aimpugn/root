@@ -4,8 +4,8 @@
 $(function() {
 <%-- 라디오 상태별 검색 --%>
 	$('input[name=showStatus]').click(function(){
-		var admin_state_flag = $(this).val();
-		var data = {'admin_state_flag' : admin_state_flag};
+		var admin_status_flag = $(this).val();
+		var data = {'admin_status_flag' : admin_status_flag};
 		$.ajax({
 			url:'/admin/adminState',
 			method: 'GET',

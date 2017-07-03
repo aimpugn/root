@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminUserMapper">
+	<insert id="insertAdminUser" parameterType="AdminUser">
+		INSERT INTO user
+		(
+			user_id, user_password, user_nick_name, user_gender, user_phone1, user_phone2, user_profile_photo, 
+			user_sign_date, user_state_flag, user_last_connection, user_sns_token, user_push_token, user_friend_count
+		)
+		VALUES 
+		(
+			#{user_id}, #{user_password}, #{user_nick_name}, #{user_gender},
+			#{user_phone1}, #{user_phone2}, #{user_profile_photo}, 
+			SYSDATE(), #{user_state_flag}, SYSDATE(),
+			"O", null, "push_token_origin", 0
+		)
+	</insert>
+ 	<select id="selectAll" resultType="AdminUser">
+ 		SELECT * FROM user
+ 		ORDER BY user_sign_date DESC
+ 	</select>
+ 	<select id="selectByState" resultType="AdminUser" parameterType="string">
+		SELECT * FROM user 
+		<where>
+	     <choose>
+	     <when  test='_parameter != "A"'>
+		    user_state_flag = #{user_state_flag}
+		 </when>
+		 </choose> 
+	    </where>
+		<!-- WHERE 
+			user_state_flag = #{user_state_flag} -->
+		ORDER BY user_sign_date DESC
+	</select>
+	<select id="selectByDate" resultType="AdminUser" parameterType="hashmap">
+		SELECT * FROM user WHERE
+		<![CDATA[ ( date(user_sign_date) <= date(#{to_date}) ) and
+	 	 		  ( date(user_sign_date) >= date(#{from_date}) ) ]]>
+	  	ORDER BY user_sign_date 
+	</select>	
+	<select id="selectById" resultType="AdminUser" parameterType="string">
+		SELECT * FROM user 
+		WHERE user_id = #{user_id}
+	</select>
+	<select id="selectByIds" resultType="AdminUser" parameterType="string">
+		SELECT * FROM user 
+		WHERE user_id LIKE '%${value}%'
+		ORDER BY user_id ASC
+	</select>
+	<select id="selectByName" resultType="AdminUser" parameterType="string">
+		SELECT * FROM user 
+		WHERE user_nickname LIKE '%${value}%'
+		ORDER BY user_nickname ASC
+	</select>
+	<update id="update" parameterType="hashmap">
+	    UPDATE user SET 
+	    <choose>
+	      	<when test="user_profile_photo != null">
+	    		user_password = #{user_password}, 
+	    		user_nick_name = #{user_nick_name}, 
+	    		user_gender = #{user_gender}, 
+	    		user_phone1 = #{user_phone1}, 
+	    		user_phone2 = #{user_phone2}, 
+	    		user_profile_photo = #{user_profile_photo},
+	    		user_state_flag = #{user_state_flag}
+	    	</when>
+	    	<otherwise>
+	    		user_password = #{user_password}, 
+	    		user_nick_name = #{user_nick_name}, 
+	    		user_gender = #{user_gender}, 
+	    		user_phone1 = #{user_phone1}, 
+	    		user_phone2 = #{user_phone2}, 
+	    		user_state_flag = #{user_state_flag}
+			</otherwise>
+	    </choose>
+	    WHERE user_id = #{user_id}
+	</update>
+	<update id="leave" parameterType="string">
+	    UPDATE user
+	    SET user_state_flag = 'L' 
+	    WHERE user_id = #{user_id, jdbcType=VARCHAR}
+	</update>
+	<update id="black" parameterType="string">
+	    UPDATE user 
+	    SET user_state_flag = 'B' 
+	    where user_id = #{user_id, jdbcType=VARCHAR}
+	</update>
+	<update id="normal" parameterType="string">
+	    UPDATE user 
+	    SET user_state_flag = 'N' 
+	    WHERE user_id = #{user_id, jdbcType=VARCHAR}
+	</update> 
+	<select id="selectByGender" resultType="AdminUser">
+		SELECT user_gender, count(user_id) user_gender_count
+		FROM user
+		GROUP BY user_gender
+	</select>
+ 	<!-- <select id="selectByPhone2" resultType="User">
+ 		SELECT REGEXP_REPLACE(user_phone2,'([[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') 
+ 		FROM user
+ 		WHERE user_phone2 LIKE '%${value}%'
+		ORDER BY user_nickname ASC
+	</select> -->
+	
+</mapper>

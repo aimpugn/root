@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminStaticMapper">
+	<resultMap type="AdminContent" id="AdminStaticMap">
+		<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
+		<id column="content_id" property="content_id" />
+		<result column="content_subject" property="content_subject" />
+		<result column="content" property="content" />
+		<result column="content_written_date" property="content_written_date" />
+		<result column="content_private_flag" property="content_private_flag" />
+		<result column="content_delete_status" property="content_delete_status" />
+		<result column="content_warning_status" property="content_warning_status" />
+		<result column="content_share_count" property="content_share_count" />
+		<result column="good_count" property="good_count" />
+		<result column="comment_count" property="comment_count" />
+		<result column="content_detail_count" property="content_detail_count" />
+		<result column="photo_file_name" property="photo_file_name" />
+		<result column="photo_latitude" property="photo_latitude" />
+		<result column="photo_longitude" property="photo_longitude" />
+		<result column="fr_photo_date" property="fr_photo_date" />
+		<result column="to_photo_date" property="to_photo_date" />
+		<result column="content_count" property="content_count" />
+		<result column="gender_count" property="gender_count" />
+		<association property="user" javaType="AdminUser">
+			<id column="user_id" property="user_id" />
+			<result column="user_nick_name" property="user_nick_name" />
+			<result column="user_phone1" property="user_phone1" />
+			<result column="user_gender" property="user_gender" />
+		</association>
+		<association property="ad" javaType="Advertisement">
+			<id column="ad_id" property="ad_id" />
+		</association>
+	</resultMap>
+
+	<!-- 사용 0628
+		select id="countAllPhone1ByDate" resultMap="AdminContentMap">
+       	SELECT count(distinct content_id) content_count, content_written_date, user_phone1		
+       	FROM content c JOIN user ON c.user_id = user.user_id
+		GROUP BY user_phone1
+	 	HAVING DATE_FORMAT(content_written_date, 'YYYY-MM-DD') = DATE_FORMAT(#{content_written_date},  'YYYY-MM-DD') 
+	</select-->
+	
+	<select id="countAllPhone1ByDate" resultMap="AdminStaticMap">
+		SELECT date_format(content_written_date, '%Y-%m-%d') content_written_date, user_phone1, count(*) content_count
+		FROM content c JOIN user ON c.user_id = user.user_id 
+		GROUP BY date_format(content_written_date, '%Y-%m-%d'), user_phone1
+	</select>
+	
+	<select id="selectByToday" resultMap="AdminStaticMap">
+		SELECT date_format(content_written_date, '%Y-%m-%d') content_written_date, count(*) content_count
+		FROM content c JOIN user ON c.user_id = user.user_id 
+		WHERE date_format(content_written_date, '%Y-%m-%d') = SYSDATE() || date_format(content_written_date, '%Y-%m-%d') = SYSDATE() - 1
+		GROUP BY date_format(content_written_date, '%Y-%m-%d'), user_phone1
+	</select>
+
+	
+</mapper>

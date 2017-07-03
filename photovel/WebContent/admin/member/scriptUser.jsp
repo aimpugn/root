@@ -176,11 +176,11 @@ $(function() {
 	
 	
 <%-- 검색창 --%>
-	$('.dropdown-menu').on('click', 'li a', function(){
+	$('.dropdown-menu.user').on('click', 'li a', function(){
 	    $('.searchBtn:first-child').html($(this).html() + '<span class="caret"></span>');
 	    $('.searchBtn:first-child').val($(this).text() );
 	 }); 
-	
+
 	<%-- 검색창 --%>
 	var $btnSearch = $('button[name=btnSearch]');
 	$btnSearch.click(function(){
@@ -191,8 +191,9 @@ $(function() {
 		var searchCategory= $('.searchBtn:first-child').val();
 		var searchItem= $('input[name=searchItem]').val();
 		
-		<%-- 기간 검색 --%>
-		 if ( ( ("" != (searchCategory) ) && ("" != (searchItem) ) ) && ( ( typeof(to_date) != Date ) || ( typeof(from_date) != Date  ) ) ){
+		<%-- 검색어  검색 --%>
+		// if ( ( ("" != (searchCategory) ) && ("" != (searchItem) ) ) && ( ( typeof(to_date) != Date ) || ( typeof(from_date) != Date  ) ) ){
+		 if ( ( ("" != (searchCategory) ) && ("" != (searchItem) ) ) && ( ( !Date.parse(from_date) ) || ( !Date.parse(to_date) ) ) ){
 			var data={'searchCategory': searchCategory, 'searchItem': searchItem};
 			console.log("검색어" + searchCategory + "아이디" + searchItem );
 			$.ajax({
@@ -207,8 +208,8 @@ $(function() {
     	           	$parentObj.html(data);
 				}
 			});
-		return false;
-		} else if( ("" != (from_date)) && ("" != (to_date)) ){
+		return false; <%-- 기간 검색 --%>
+		} else if( ( Date.parse(from_date) ) && ( Date.parse(to_date) ) ){
 			var data = {'from_date': from_date, 'to_date' : to_date};
 			console.log(data);
 	        $.ajax({

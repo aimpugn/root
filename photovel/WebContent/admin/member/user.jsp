@@ -78,7 +78,7 @@
 								</c:choose>  
 								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<ul class="dropdown-menu user" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">아이디</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">닉네임</a></li>
 							</ul>
@@ -97,60 +97,59 @@
 					<div class="form-group form-inline">
 					<c:choose>
 						<c:when test="${param.user_state_flag == 'N'}">
-							<label for="showState1" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState1" value="A">전체
+							<label for="showState1-1"> 
+								<input type="radio" name="showState" id="showState1-1" value="A">전체보기
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N" checked>일반
+							<label for="showState1-2">
+								<input type="radio" name="showState" id="showState1-2" value="N" checked>일반
 							</label>
-							<label for="showState23" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+							<label for="showState1-3"> 
+								<input type="radio" name="showState" id="showState1-3" value="B">블랙
 							</label>
-							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState4" value="L">탈퇴
+							<label for="showState1-4"> 
+								<input type="radio" name="showState" id="showState1-4" value="L">탈퇴
 							</label>
 						</c:when>
 						<c:when test="${param.user_state_flag == 'B'}">
-							<label for="showState1" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState1" value="A">전체
+							<label for="showState2-1" class="chekbox-inline">
+								<input type="radio" name="showState" id="showState2-1" value="A">전체보기
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
+							<label for="showState2-2"> 
+								<input type="radio" name="showState" id="showState2-2" value="N">일반
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B" checked>블랙
+							<label for="showState2-3" class="chekbox-inline">
+								<input type="radio" name="showState" id="showState2-3" value="B" checked>블랙
 							</label>
-							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="sshowState4" value="L">탈퇴
+							<label for="showState2-4" class="chekbox-inline">
+								<input type="radio" name="showState" id="showState2-4" value="L">탈퇴
 							</label>
 						</c:when>
 						<c:when test="${param.user_state_flag == 'L'}">
-							<label for="showState1" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState1" value="A">전체
+							<label for="showState3-1"> 
+								<input type="radio" name="showState" id="showState3-1" value="A">전체보기
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
+							<label for="showState3-2"> 
+								<input type="radio" name="showState" id="showState3-2" value="N">일반
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+							<label for="showState3-3" class="chekbox-inline">
+								<input type="radio" name="showState" id="showState3-3" value="B">블랙
 							</label>
-							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="sshowState4" value="L" checked>탈퇴
+							<label for="showState3-4"> 
+								<input type="radio" name="showState" id="showState3-4" value="L" checked>탈퇴
 							</label>
-							
 						</c:when>
 						<c:otherwise>
-							<label for="showState1" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState1" value="A" checked>전체
+							<label for="showState4-1"> 
+								<input type="radio" name="showState" id="showState4-1" value="A" checked>전체보기
 							</label>
-							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="N">일반
+							<label for="showState4-2"> 
+								<input type="radio" name="showState" id="showState4-2" value="N">일반
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="B">블랙
+							<label for="showState4-3"> 
+								<input type="radio" name="showState" id="showState4-3" value="B">블랙
 							</label>
-							<label for="showState4" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState4" value="L">탈퇴
+							<label for="showState4-4"> 
+								<input type="radio" name="showState" id="showState4-4" value="L">탈퇴
 							</label>
 						</c:otherwise>
 					</c:choose>

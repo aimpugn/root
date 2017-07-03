@@ -4,7 +4,29 @@
 * 작성자 : 박경란
 * 작성일 : 2017. 06
 */
-
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanssc.css);
+/*  한국어 */
+:lang(ko) {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+ /* 일본어 */
+:lang(ja) {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+ /* 중국어 (간체) */
+:lang(zh-Hans) {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+  font-family: 'Noto Sans KR', sans-serif;
+}
 /* 색상 */
 .color-sky{color: #20a8d8;}
 /* 여백 */

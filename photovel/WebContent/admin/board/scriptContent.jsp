@@ -4,11 +4,11 @@ $(function() {
 
 <%-- 라디오 상태별 검색 --%>
 	$('input[name=showState]').click(function(){
-		var user_state_flag = $(this).val();
-		var data = {'user_state_flag' : user_state_flag};
+		var content_delete_status = $(this).val();
+		var data = {'content_delete_status' : content_delete_status};
 		console.log(data);
 		$.ajax({
-			url:'/admin/member/user/state',
+			url:'/admin/board/content/state',
 			method: 'GET',
 			data: data,
 			success: function(responseData){
@@ -57,11 +57,11 @@ $(function() {
 		});
 	});
 	
-<%-- 체크박스 : 사용 상태로 변경  --%>
+<%-- 체크박스 : 게시 상태로 변경  --%>
  	var $btnNormal = $('button[name=btnNormal]');
 	$btnNormal.click(function(){
 		
-		var flag = confirm('일반 회원으로 변경하시겠습니까?');
+		var flag = confirm('게시 상태로 변경하시겠습니까?');
         if(flag==true){
 			var chkList = new Array();
 			var cnt = 0;
@@ -76,13 +76,13 @@ $(function() {
 			jQuery.ajaxSettings.traditional = true;
 			
 	        $.ajax({
-	        	url:'/admin/member/user/normal/'+chkList,
+	        	url:'/admin/board/content/normal/'+chkList,
 	        	method:'put',
                 data: data,
                 success:function(responseData){
                 	if(responseData.trim() =='1'){
-                       alert("일반 회원으로 변경 성공");
-                       location.href="/admin/member/user";
+                       alert("게시 상태로 변경 성공");
+                       location.href="/admin/board/content";
                     }else{
                        alert("변경 실패" + responseData);
                     } 
@@ -94,11 +94,11 @@ $(function() {
            	return false;	
 		};
      });	
-		
-<%-- 체크박스 : 중지 상태로 변경 --%>
- 	var $btnBlack = $('button[name=btnBlack]');
-	$btnBlack.click(function(){
-		var flag = confirm('블랙 회원으로 변경하시겠습니까?');
+
+<%-- 체크박스 : 사용자 삭제 상태로 변경 --%>
+ 	var $btnDelete= $('button[name=btnDelete]');
+	$btnDelete.click(function(){
+		var flag = confirm('사용자 삭제 상태로 변경하시겠습니까?');
         if(flag==true){
 			var chkList = new Array();
 			var cnt = 0;
@@ -113,13 +113,13 @@ $(function() {
 			jQuery.ajaxSettings.traditional = true;
 			
 	        $.ajax({
-	        	url:'/admin/member/user/black/'+chkList,
+	        	url:'/admin/board/content/delete/'+chkList,
                  method:'put',
                  data: data,
                  success:function(responseData){
                      if(responseData.trim() =='1'){
-                       alert("블랙 회원으로 변경 성공");
-                       location.href="/admin/member/user";
+                       alert("사용자 삭재 상태로 변경");
+                       location.href="/admin/board/content";
                     }else{
                        alert("변경 실패" + responseData);
                     } 
@@ -133,11 +133,11 @@ $(function() {
      });
 	
 	
-<%-- 체크박스 : 탈퇴 상태로 변경 --%>
- 	var $btnLeave = $('button[name=btnLeave]');
-	$btnLeave.click(function(){
+<%-- 체크박스 : 어드민 삭제 상태로 변경 --%>
+ 	var $btnManagerDelete = $('button[name=btnManagerDelete]');
+	$btnManagerDelete.click(function(){
 		
-		var flag = confirm('탈퇴 회원으로 변경하시겠습니까?');
+		var flag = confirm('관리자 삭제(M)로 변경하시겠습니까?');
         if(flag==true){
 			var chkList = new Array();
 			var cnt = 0;
@@ -152,13 +152,13 @@ $(function() {
 			jQuery.ajaxSettings.traditional = true;
 			
 	        $.ajax({
-	        	url:'/admin/member/user/leave/'+chkList,
+	        	url:'/admin/board/content/MangerDelete/'+chkList,
                  method:'put',
                  data: data,
                  success:function(responseData){
                      if(responseData.trim() =='1'){
-                       alert("탈퇴 회원으로 변경 성공");
-                       location.href="/admin/member/user";
+                       alert("관리자 삭제(M)로 변경 성공");
+                       location.href="/admin/board/content";
                     }else{
                        alert("변경 실패" + responseData);
                     } 

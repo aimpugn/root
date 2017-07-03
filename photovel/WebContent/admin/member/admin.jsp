@@ -46,10 +46,11 @@
 							</div>
 							<input type="date" class="form-control" name="from_date" 
 								<c:choose>
-									<c:when test="${!empty from_date}">
+<%-- 									<c:when test="${!empty from_date}"> --%>
+									<c:when test="${(from_date).valuOf(Date)}">
 										value="${from_date}"
 									</c:when> 
-									<c:otherwise></c:otherwise> 
+									<c:otherwise>value=""</c:otherwise> 
 								</c:choose>  
 							>
 							
@@ -61,10 +62,10 @@
 							</div>
 							<input type="date" class="form-control"  name="to_date" 
 								<c:choose>
-									<c:when test="${!empty to_date}">
+									<c:when test="${(to_date).valuOf(Date)}">
 										value="${to_date}"
 									</c:when> 
-									<c:otherwise></c:otherwise> 
+									<c:otherwise>value=""</c:otherwise> 
 								</c:choose>  
 							>
 						</div>
@@ -99,12 +100,12 @@
 					<div class="form-group form-inline">
 					<c:choose>
 
-						<c:when test="${param.admin_state_flag == 'S'}">
+						<c:when test="${param.admin_status_flag == 'S'}">
 							<label for="showStatus1" class="checkbox-inline"> 
 								<input type="radio" name="showStatus" id="showStatus1" value="A">전체
 							</label>
 							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="N">사용
+								<input type="radio" name="showStatus" id="showStatus2" value="N">사용중
 							</label>
 							<label for="showStatus3" class="checkbox-inline"> 
 								<input type="radio" name="showStatus" id="showStatus3" value="S" checked>중지
@@ -113,12 +114,12 @@
 								<input type="radio" name="showStatus" id="showStatus4" value="L">탈퇴
 							</label>
 						</c:when>
-						<c:when test="${param.admin_state_flag == 'L'}">
+						<c:when test="${param.admin_status_flag == 'L'}">
 							<label for="showStatus1" class="checkbox-inline"> 
 								<input type="radio" name="showStatus" id="showStatus1" value="A">전체
 							</label>
 							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="N">사용
+								<input type="radio" name="showStatus" id="showStatus2" value="N">사용중
 							</label>
 							<label for="showStatus3" class="checkbox-inline"> 
 								<input type="radio" name="showStatus" id="showStatus3" value="S">중지
@@ -132,7 +133,7 @@
 								<input type="radio" name="showStatus" id="showStatus1" value="A" checked>전체
 							</label>
 							<label for="showStatus2" class="checkbox-inline"> 
-								<input type="radio" name="showStatus" id="showStatus2" value="N">사용
+								<input type="radio" name="showStatus" id="showStatus2" value="N">사용중
 							</label>
 							<label for="showStatus3" class="checkbox-inline"> 
 								<input type="radio" name="showStatus" id="showStatus3" value="S">중지
@@ -156,7 +157,7 @@
 					<div class="btn-group" role="group">
 						<button type="button" name="btnLeave" 	class="btn btn-warning">탈퇴</button>
 						<button type="button" name="btnStop" 	class="btn btn-warning">중지</button>
-						<button type="button" name="btnNormal"	class="btn btn-warning">사용</button>
+						<button type="button" name="btnNormal"	class="btn btn-warning">사용중</button>
 					</div>
 					<%-- 조회 인원 --%>
 					<div class="btn-group radio">
@@ -202,11 +203,14 @@
 								<td><fmt:formatDate value="${admin.admin_sign_date}" pattern="yyyy.MM.dd"/></td>
 								<td class="tdAdminStatusFlag">
 									<c:choose>
-										<c:when test="${admin.admin_state_flag == 'L'}">
+										<c:when test="${admin.admin_status_flag == 'L'}">
 											<span class="text-danger">탈퇴</span>
 										</c:when>
-										<c:when test="${admin.admin_state_flag == 'S'}">
+										<c:when test="${admin.admin_status_flag == 'S'}">
 											<span class="text-warning">중지</span>
+										</c:when>
+										<c:when test="${admin.admin_status_flag == 'N'}">
+											<span class="text-default">사용중</span>
 										</c:when>
 										<c:otherwise><span></span></c:otherwise>
 									</c:choose>

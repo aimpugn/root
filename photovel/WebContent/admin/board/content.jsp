@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<jsp:useBean id="content_written_date" class="java.util.Date" />
 <!-- content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
 		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
 		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
@@ -18,7 +19,7 @@ contentList -->
 
 <jsp:useBean id="to_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.to_date}" pattern="yyyy-MM-dd" var="to_date"/>
-<jsp:useBean id="fromfrom_date" class="java.util.Date" />
+<jsp:useBean id="from_date" class="java.util.Date" />
 <fmt:formatDate value="${requestScope.from_date}" pattern="yyyy-MM-dd" var="from_date"/>
 
 <jsp:useBean id="boardWirteDate" class="java.util.Date" />
@@ -180,7 +181,7 @@ contentList -->
 				<%-- 삭제, 관리자 삭제, 게시 --%>
 					<div class="btn-group" role="group">
 						<button type="button" name="btnDelete" 	class="btn btn-warning">사용자 삭제</button>
-						<button type="button" name="btnAdminDelte"	class="btn btn-warning">관리자 삭제</button>
+						<button type="button" name="btnManagerDelete"	class="btn btn-warning">관리자 삭제</button>
 						<button type="button" name="btnNormal" 	class="btn btn-warning">게시</button>
 					</div>
 					<div class="btn-group radio">
@@ -225,12 +226,14 @@ contentList -->
 								<td>${content.content_id}</td>
 								<td><a href="/admin/board/content/view">${content.content_subject}</a></td>
 								<td>${content.user.user_id}</td>
-								<td>${content.content_written_date}</td>
+								<td>
+									<fmt:formatDate value="${content.content_written_date}" pattern="yyyy.MM.dd"/>
+								</td>
 								<td>${content.content_share_count}</td>
 								<td>
 									<%-- 비공개(T)/공개(F) --%>
 									<c:choose>
-										<c:when test='${"T" == content_private_flag}'>
+										<c:when test="${'T' == content_private_flag}">
 											<span class="text-warning">비공개</span>
 										</c:when>
 										<c:otherwise><span class="text-default">공개</span></c:otherwise>
@@ -245,13 +248,13 @@ contentList -->
 									</c:choose>
 								</td>
 								<td>
-									<%-- 삭제(T)/게시(F)/어드민삭제(A:신고 6 점시 ) --%>
+									<%-- 삭제(T)/게시(F)/관리자 삭제(M신고 6 점시, 또는 관리자 개별 판단에 의한 삭제) --%>
 									<c:choose>
-										<c:when test='${"T" == content_delete_status}'>
+										<c:when test="${'T' == content.content_delete_status}">
 											<span class="text-warning">삭제</span>
 										</c:when>
-										<c:when test='${"A" == content_delete_status}'>
-											<span class="text-warning">어드민 삭제</span>
+										<c:when test="${'M' == content.content_delete_status}">
+											<span class="text-warning">관리자 삭제</span>
 										</c:when>
 										<c:otherwise><span class="text-default">게시</span></c:otherwise>
 									</c:choose>

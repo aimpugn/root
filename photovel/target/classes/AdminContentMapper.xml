@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminContentMapper">
+  <resultMap type="AdminContent" id="AdminContentMap">
+	<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
+	<id column="content_id" property="content_id" />
+	<result column="content_subject" property="content_subject"/>
+	<result column="content" property="content"/>
+	<result column="content_written_date" property="content_written_date"/>
+	<result column="content_private_flag" property="content_private_flag"/>
+	<result column="content_delete_status" property="content_delete_status"/>
+	<result column="content_warning_status" property="content_warning_status"/>
+	<result column="content_share_count" property="content_share_count"/>
+	<result column="good_count" property="good_count"/>
+	<result column="comment_count" property="comment_count"/>
+	<result column="content_detail_count" property="content_detail_count"/>
+	<result column="photo_file_name" property="photo_file_name"/>
+	<result column="photo_latitude" property="photo_latitude"/>
+	<result column="photo_longitude" property="photo_longitude"/>
+	<result column="fr_photo_date" property="fr_photo_date"/>
+	<result column="to_photo_date" property="to_photo_date"/>
+	<association property="user" javaType="AdminUser">
+		<id column="user_id" property="user_id"/>
+		<result column="user_nick_name" property="user_nick_name"/>
+		<result column="user_phone1" property="user_phone1"/>
+	</association>
+	<association property="ad" javaType="Advertisement">
+		<id column="ad_id" property="ad_id"/>
+	</association>
+  </resultMap>
+  <!--  사용    -->
+  <insert id="insertContent" parameterType="AdminContent">
+	INSERT INTO content VALUES(null, #{AdminUser.user_id}, #{content_subject}, #{content}, SYSDATE(), 'F', 'F', 0, null, 0)
+  </insert>
+  <!-- 사용  -->
+  <select id="selectOne" resultType="int">
+	SELECT IFNULL(MAX(content_id), 0) FROM content
+  </select>
+  <!--  사용    -->
+  <select id="selectByDeleteStatus" parameterType="string" resultMap="AdminContentMap">
+	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name, content_delete_status, 
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	WHERE content_delete_status = #{content_delete_status} 
+	GROUP by photo_file_name
+	ORDER BY content_written_date DESC
+  </select>
+  <!--  사용    -->
+  <select id="selectAllAdmin" resultMap="AdminContentMap">
+	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name, content_delete_status, 
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	GROUP by photo_file_name
+	ORDER BY content_written_date DESC
+  </select>  
+  <!-- 사용  -->
+  <update id="updateDeleteStatusNormal" parameterType="int">
+    UPDATE content SET content_delete_status = 'F' WHERE content_id = #{content_id}
+  </update>
+  <!-- 사용  -->
+  <update id="updateDeleteStatusDelete" parameterType="int">
+    UPDATE content SET content_delete_status = 'T' WHERE content_id = #{content_id}
+  </update>
+  <!-- 사용  -->
+  <update id="updateDeleteStatusManager" parameterType="int">
+  <!--  A 가 아니고  M입니다. A상태는 어드민 웹페이지의 검색시 전체 조회에 사용합니다. -->
+    UPDATE content SET content_delete_status = 'M' WHERE content_id = #{content_id}
+  </update>
+
+  
+  
+  
+  
+  
+  <!-- 이하  -->
+  <!-- 미사용  -->
+  <select id="selectByContentId" parameterType="int" resultMap="AdminContentMap">
+	SELECT 
+	  c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content, 
+	  content_written_date, content_private_flag, content_delete_status, 
+	  content_warning_status, ad_id, content_share_count, 
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count 
+	FROM content c JOIN content_detail ON c.content_id = content_detail.content_id JOIN user ON c.user_id = user.user_id 
+	WHERE c.content_id = #{content_id} AND content_delete_status = 'F'
+  </select>
+  <update id="updateWarningStatus" parameterType="int">
+    UPDATE content SET content_warning_status = (content_warning_status+1) WHERE content_id = #{content_id}
+  </update>
+  <select id="selectByUserId" parameterType="string" resultMap="AdminContentMap">
+	SELECT 
+	  c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, photo_file_name,
+	  content_written_date, content_warning_status, ad_id, content_share_count, 
+	  (select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count,
+	  (select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+      (SELECT photo_latitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_latitude,
+      (SELECT photo_longitude FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) photo_longitude,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MIN(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) fr_photo_date,
+      (SELECT photo_date FROM photo p JOIN content_detail cd ON p.content_detail_id = cd.content_detail_id
+		WHERE  cd.content_detail_id = (SELECT IFNULL(MAX(content_detail_id), 0) FROM content_detail WHERE detail_delete_status = 'F' AND content_id = c.content_id)) to_photo_date
+	FROM content c JOIN photo ON photo.content_id = c.content_id  JOIN user ON user.user_id = c.user_id
+	WHERE user.user_id = #{user_id} AND content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1
+    group by c.content_id
+  </select>
+  
+  <select id="selectAllOrderByDate" resultMap="AdminContentMap">
+	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
+	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	ORDER BY content_written_date DESC
+  </select>
+  
+  <select id="selectAllOrderByGood" resultMap="AdminContentMap">
+	SELECT c.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id where content.content_id = c.content_id) content_detail_count
+	FROM content c JOIN user ON c.user_id = user.user_id JOIN photo ON photo.content_id = c.content_id  
+	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	ORDER BY good_count DESC
+  </select>
+  
+  <select id="selectAll" resultMap="AdminContentMap">
+	SELECT content.content_id content_id, user.user_id user_id, user_nick_name, content_subject, content_share_count, content_written_date, photo_file_name,
+		(select count(*) from content JOIN good ON content.content_id = good.content_id) good_count, 
+		(select count(*) from content JOIN comment ON content.content_id = comment.content_id) comment_count,
+		(select count(*) from content JOIN content_detail ON content.content_id = content_detail.content_id) content_detail_count
+	FROM content JOIN user ON content.user_id = user.user_id JOIN photo ON photo.content_id = content.content_id  
+	WHERE content_delete_status = 'F' AND photo_top_flag = 1
+	GROUP by photo_file_name
+	ORDER BY content.content_id ASC
+  </select>
+  
+  <update id="updateContent" parameterType="Content">
+    UPDATE content
+	<set>
+		<if test="content_subject != null">content_subject=#{content_subject},</if>
+		<if test="content != null">content=#{content},</if>
+		<if test="content_private_flag != null">content_private_flag=#{content_private_flag}</if>
+	</set>
+	WHERE content_id = #{content_id}
+  </update>
+  
+  
+
+  
+
+</mapper>
