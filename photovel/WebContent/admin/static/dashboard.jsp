@@ -82,7 +82,7 @@ $(function(){
 				<%--   대시보드 차트 --%>
 				<div class="row placeholders">
 					<%@include file="/admin/static/profit.jsp"%>
-					<%@include file="/admin/static/usage.jsp"%>
+					<%@include file="/admin/static/for2months.jsp"%>
 					<div class="col-xs-6 col-sm-3">
 						<canvas id="chartNation" class="piechart chart-responsive" style="width: 200px; height: 200px;"></canvas>
 						<%-- 사용현황 : 국가별 --%>

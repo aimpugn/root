@@ -16,7 +16,7 @@ public class AdminStaticDAO {
 	public List<AdminContent> countAllPhone1ByDate(){
 		return session.selectList("AdminStaticMapper.countAllPhone1ByDate"); 
 	}
-/*	public List<AdminContent> selectByGender(){
-		return session.selectList("AdminStaticMapper.selectByGender"); 
-	}*/
+	public List<AdminContent> for2monthsList(){
+		return session.selectList("AdminStaticMapper.for2monthsList");
+	}
 }

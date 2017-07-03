@@ -1,5 +1,8 @@
 package com.photovel.control;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,16 +31,19 @@ public class AdminStaticController {
 	
 		List<AdminContent> countAllList;
 		List<AdminUser> genderList;
+		List<AdminContent> for2monthsList;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY.MM");
 		try{
 			countAllList = AdminStaticDao.countAllPhone1ByDate();
 			genderList = AdminUserDao.selectByGender();	
+			for2monthsList = AdminStaticDao.for2monthsList();
 			for(int i = 0 ; i < genderList.size() ; i++ ){
 				String gender = genderList.get(i).getUser_gender();
-				System.out.println(genderList.get(i).getUser_gender_count() + gender);
 			}
 			String forwardURL = "/admin/static/dashboard.jsp";//"/admin/static/dashboard.jsp";
 			request.setAttribute("countAllList", countAllList);
 			request.setAttribute("genderList", genderList);
+			request.setAttribute("for2monthsList", for2monthsList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			dispatcher.forward(request, response);

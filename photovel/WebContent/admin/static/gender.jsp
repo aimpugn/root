@@ -19,10 +19,7 @@ for(AdminUser temp : genderList){
 <div class="col-xs-6 col-sm-3">
 						<canvas id="genderCount" class="piechart chart-responsive" style="width: 200px; height: 200px;"></canvas>
 						<%-- 남여 가입현황 --%>
-							<script>
-							 var genderList = '<%= genderList %>';
-							//console.log(genderList);
-							
+							<script>						
 							var ctx = document.getElementById("genderCount").getContext('2d');
 							var contentCount = new Chart(ctx, {
 							  type: 'pie',

@@ -8,6 +8,7 @@ public class AdminContent {
 	private String content_subject;
 	private String content;
 	private Date content_written_date;
+	private String content_written_month;
 	private String content_private_flag;
 	private String content_delete_status;
 	private int content_warning_status;
@@ -30,7 +31,12 @@ public class AdminContent {
 	private List<Comment> comments;
 	private List<AdminContentDetail> details;
 	
-	
+	public String getContent_written_month() {
+		return content_written_month;
+	}
+	public void setContent_written_month(String content_written_month) {
+		this.content_written_month = content_written_month;
+	}
 	public int getContent_count() {
 		return content_count;
 	}
@@ -169,7 +175,7 @@ public class AdminContent {
 	@Override
 	public String toString() {
 		return "AdminContent [content_id=" + content_id + ", content_subject=" + content_subject + ", content="
-				+ content + ", content_written_date=" + content_written_date + ", content_private_flag="
+				+ content + ", content_written_date=" + content_written_date + ", content_written_month =" + content_written_month + ", content_private_flag="
 				+ content_private_flag + ", content_delete_status=" + content_delete_status
 				+ ", content_warning_status=" + content_warning_status + ", content_share_count=" + content_share_count
 				+ ", good_count=" + good_count + ", comment_count=" + comment_count + ", content_detail_count="
@@ -178,5 +184,6 @@ public class AdminContent {
 				+ to_photo_date + ", user=" + user + ", content_count=" + content_count + user + ", gender_count=" + gender_count+ ", ad=" + ad + ", comments="
 				+ comments + ", details=" + details + "]";
 	}
+
 	
 }
