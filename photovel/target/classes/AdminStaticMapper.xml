@@ -9,6 +9,7 @@
 		<result column="content_subject" property="content_subject" />
 		<result column="content" property="content" />
 		<result column="content_written_date" property="content_written_date" />
+		<result column="content_written_month" property="content_written_month" />
 		<result column="content_private_flag" property="content_private_flag" />
 		<result column="content_delete_status" property="content_delete_status" />
 		<result column="content_warning_status" property="content_warning_status" />
@@ -47,13 +48,19 @@
 		FROM content c JOIN user ON c.user_id = user.user_id 
 		GROUP BY date_format(content_written_date, '%Y-%m-%d'), user_phone1
 	</select>
-	
 	<select id="selectByToday" resultMap="AdminStaticMap">
 		SELECT date_format(content_written_date, '%Y-%m-%d') content_written_date, count(*) content_count
 		FROM content c JOIN user ON c.user_id = user.user_id 
 		WHERE date_format(content_written_date, '%Y-%m-%d') = SYSDATE() || date_format(content_written_date, '%Y-%m-%d') = SYSDATE() - 1
-		GROUP BY date_format(content_written_date, '%Y-%m-%d'), user_phone1
+		<!--  GROUP BY date_format(content_written_date, '%Y-%m-%d'), user_phone1  -->
 	</select>
-
+	<!-- 사용  -->
+	<select id="for2monthsList" resultMap="AdminStaticMap">
+		SELECT date_format(content_written_date, '%m') content_written_month, count(*) content_count
+		FROM content c JOIN user ON c.user_id = user.user_id 
+		WHERE date_format(content_written_date, '%Y.%m') = date_format(DATE_SUB(  curdate(),  INTERVAL 1 month  ), '%Y.%m')
+		     || date_format(content_written_date, '%Y.%m') = date_format(SYSDATE(), '%Y.%m')
+		GROUP BY date_format(content_written_date, '%Y.%m');
+	</select>	
 	
 </mapper>

@@ -66,5 +66,4 @@ public class AdminContentDAO {
 	public List<AdminContent> selectAllAdmin(){
 		return session.selectList("AdminContentMapper.selectAllAdmin"); 
 	}
-
 }
