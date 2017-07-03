@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BookmarkMapper">
+<mapper namespace="SocialMapper">
 <resultMap type="Content" id="ContentMap">
 	<!-- 다른 행들과 구분해 줄 수 있는 컬럼(Primary key) -->
 	<id column="content_id" property="content_id" />
@@ -31,7 +31,19 @@
 		<id column="ad_id" property="ad_id"/>
 	</association>
 </resultMap>
+
+	<select id="selectGood" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(count(*), 0) FROM good WHERE content_id = #{content_id} AND user_id = #{user_id}
+	</select>
+
+	<insert id="insertGood" parameterType="hashmap">
+		INSERT INTO good VALUES(#{content_id}, #{user_id})
+	</insert>
   
+	<delete id="deleteGood" parameterType="hashmap">
+		DELETE FROM good WHERE content_id = #{content_id} AND user_id = #{user_id}
+	</delete>
+	
 	<select id="selectBookmark" parameterType="hashmap" resultType="int">
     	SELECT IFNULL(count(*), 0) FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
 	</select>
@@ -44,7 +56,7 @@
 		DELETE FROM bookmark WHERE content_id = #{content_id} AND user_id = #{user_id}
 	</delete>
   
-	<select id="selectBookmarkList" parameterType="string" resultMap="ContentMap">
+	<select id="bookmarkSelectList" parameterType="string" resultMap="ContentMap">
 		SELECT c.content_id content_id, user.user_id user_id, user_nick_name, user_profile_photo, content_subject, content_share_count, content_written_date, photo_file_name,
 			(select count(*) from content JOIN good ON content.content_id = good.content_id where content.content_id = c.content_id) good_count, 
 			(select count(*) from content JOIN comment ON content.content_id = comment.content_id where content.content_id = c.content_id) comment_count,
@@ -63,4 +75,9 @@
 		WHERE content_delete_status = 'F' AND content_private_flag = 'F' AND photo_top_flag = 1 AND c.content_id IN (select content_id from bookmark where user_id = #{user_id})
 		ORDER BY content_written_date DESC
 	</select>
+	
+	<update id="updateShare" parameterType="int">
+		UPDATE content SET content_share_count=content_share_count+1 WHERE content_id = #{content_id}
+	</update>
+
 </mapper>
