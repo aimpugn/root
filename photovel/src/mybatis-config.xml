@@ -15,7 +15,7 @@
     <typeAlias alias="Permission" type="com.photovel.vo.Permission"/>
     <typeAlias alias="Photo" type="com.photovel.vo.Photo"/>
     <typeAlias alias="User" type="com.photovel.vo.User"/>
-    <!-- Admin -->
+        <!-- Admin -->
     <typeAlias alias="Admin" type="com.photovel.vo.Admin"/> 
     <typeAlias alias="AdminUser" type="com.photovel.vo.AdminUser"/>
     <typeAlias alias="AdminContent" type="com.photovel.vo.AdminContent"/> 
@@ -31,13 +31,12 @@
   	<mapper resource="CommentMapper.xml"/>
   	<mapper resource="PhotoMapper.xml"/>
   	<mapper resource="MainImageMapper.xml"/>
-  	<mapper resource="GoodMapper.xml"/>
-  	<mapper resource="BookmarkMapper.xml"/>
   	<mapper resource="FriendMapper.xml"/>
-  	<!-- Admin -->
-  	<mapper resource="AdminMapper.xml"/> 
-  	<mapper resource="AdminUserMapper.xml"/> 
-  	<mapper resource="AdminContentMapper.xml"/> 
-  	<mapper resource="AdminStaticMapper.xml"/> 
+  	<mapper resource="SocialMapper.xml"/>
+  	     <!-- Admin -->
+    <mapper resource="AdminMapper.xml"/> 
+    <mapper resource="AdminUserMapper.xml"/> 
+    <mapper resource="AdminContentMapper.xml"/> 
+    <mapper resource="AdminStaticMapper.xml"/> 
   </mappers>
 </configuration>

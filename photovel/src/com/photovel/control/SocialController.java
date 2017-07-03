@@ -13,26 +13,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.photovel.dao.BookmarkDAO;
+import com.photovel.dao.SocialDAO;
 import com.photovel.vo.Content;
 
 @RestController
-public class BookmarkController {
+public class SocialController {
 	@Autowired
-	private BookmarkDAO bookmarkDao;
+	private SocialDAO socialDao;
 	
-	@PostMapping("/content/photo/{content_id}/bookmark/{user_id:.+}")
-	public void insert(@PathVariable int content_id, @PathVariable String user_id){
+	@PostMapping("/content/photo/{content_id}/good/{user_id:.+}")
+	public void goodInsert(@PathVariable int content_id, @PathVariable String user_id){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("content_id", content_id);
 		map.put("user_id", user_id);
-		if(bookmarkDao.select(map) == 0){
-			bookmarkDao.insert(map);
+		if(socialDao.goodSelect(map) == 0){
+			socialDao.goodInsert(map);
 		}else{
-			bookmarkDao.delete(map);
+			socialDao.goodDelete(map);
+		}
+	}
+	
+	//shareCountUpdate
+	@PostMapping("/content/photo/{content_id}/share")
+	public void shareCountUpdate(@PathVariable int content_id){
+		socialDao.shareUpdate(content_id);
+	}
+	
+	@PostMapping("/content/photo/{content_id}/bookmark/{user_id:.+}")
+	public void bookmarkInsert(@PathVariable int content_id, @PathVariable String user_id){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("content_id", content_id);
+		map.put("user_id", user_id);
+		if(socialDao.bookmarkSelect(map) == 0){
+			socialDao.bookmarkInsert(map);
+		}else{
+			socialDao.bookmarkDelete(map);
 		}
 	}
 	
@@ -42,7 +59,7 @@ public class BookmarkController {
 		try {
 			String forwardURL = "/bookmark/response";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
-			List<Content> contents = bookmarkDao.selectBookmarkList(user_id);
+			List<Content> contents = socialDao.bookmarkSelectList(user_id);
 			request.setAttribute("contents", contents);
 			dispatcher.forward(request, response);
 		} catch (ServletException e) {
