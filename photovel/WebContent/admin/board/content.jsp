@@ -220,6 +220,7 @@ contentList -->
 							
 							<c:otherwise>
 							<c:forEach var="content" items="${contentList}" varStatus="status">
+							<%-- c:if test="${ (i * 10) <= status.index and status.index <= (i+1)*10 }" --%>
 							<tr>
 								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${content.content_id}"></td>
 								<td>${len - status.index}</td>
@@ -260,6 +261,7 @@ contentList -->
 									</c:choose>
 								</td>
 							</tr>
+							<%-- /c:if --%>
 							</c:forEach>
 							</c:otherwise>
 							</c:choose>
@@ -268,8 +270,16 @@ contentList -->
 				</div>
 				<%--  pagination
 		   		------------------------------------------- --%>
-				<%@include file="/admin/include/pagination.jsp" %>
-			</div>
+		   		<c:set var="paging" value="${requestScope.paging}" />
+				<jsp:include page="/admin/include/pagination.jsp" flush="true">
+					<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+					<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+					<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+					<jsp:param name="pageNo" value="${paging.pageNo}" />
+					<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+					<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+					<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+				</jsp:include>
 		</div>
 	</div>
 

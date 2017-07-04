@@ -34,9 +34,11 @@ import com.photovel.dao.CommentDAO;
 import com.photovel.dao.AdminContentDetailDAO;
 
 import com.photovel.dao.UserDAO;
+import com.photovel.vo.Admin;
 import com.photovel.vo.AdminContent;
 import com.photovel.vo.AdminUser;
 import com.photovel.vo.Content;
+import com.photovel.vo.Paging;
 import com.photovel.vo.AdminContentDetail;
 import com.photovel.vo.Photo;
 import com.photovel.vo.User;
@@ -54,9 +56,18 @@ public class AdminContentController {
 	//private CommentDAO commentDao;
 	@GetMapping
 	public void contentList(HttpServletRequest request, HttpServletResponse response) {
+		
+		int totalCount = 0 ;//토탈카운트를 세는 메서드가 필요함
+		
 		try {
+			Paging paging = new Paging();
+			paging.setPageNo(1);
+			paging.setPageSize(10);
 			List<AdminContent> contentList = AdminContentDao.selectAllAdmin();	
+			totalCount = contentList.size();
+			paging.setTotalCount(totalCount);
 			String forwardURL = "/admin/board/content.jsp";
+			request.setAttribute("paging", paging);
 			request.setAttribute("contentList", contentList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			dispatcher.forward(request, response);
@@ -194,7 +205,7 @@ public class AdminContentController {
 			
 			System.out.println(user_idUTF+", "+content_subjectUTF+", " +contentUTF);
 			AdminContent content = new AdminContent();
-			AdminUser user = new AdminUser();
+			User user = new User();
 			user.setUser_id(user_idUTF);
 			content.setUser(user);
 			content.setContent_subject(content_subjectUTF);
