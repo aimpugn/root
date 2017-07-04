@@ -50,7 +50,7 @@ public class UserController {
 	@PostMapping(value = "/email", consumes = "application/json; charset=UTF-8")
 	public User login(@RequestBody User user, HttpSession session) {
 		String msg = "0";
-		// System.out.println(user);
+		System.out.println(user);
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
@@ -105,6 +105,7 @@ public class UserController {
 		if(isUser!=null){
 			resultValue="1";
 		}
+		System.out.println(resultValue);
 		return resultValue;
 	}
 	
@@ -189,5 +190,24 @@ public class UserController {
 			}
 		}
 
+	}
+	
+	@PostMapping("/push/update")
+	public String updatePushToken(@RequestBody User user, HttpSession session){
+		System.out.println("받아온 값은 : " +user );
+		User tmp = (User)session.getAttribute("loginInfo");
+		System.out.println("현재 세션의 아이디는"+tmp.getUser_id());
+		String msg = "1";
+		tmp.setUser_push_token(user.getUser_push_token());
+		System.out.println("최종 User는 "+ user);
+		try{
+			userDAO.updatePushToken(tmp);
+			
+		}catch (Exception e) {
+			msg="0";
+			System.out.println("토큰저장 실패");
+			e.printStackTrace();
+		}
+		return msg;
 	}
 }
