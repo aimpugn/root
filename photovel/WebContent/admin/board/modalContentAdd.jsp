@@ -92,7 +92,7 @@
 					</div>
 					<div class="modal-footer">
 					<button id="cancle" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input type="submit" id="contentConfirm" class="btn btn-primary" >Submit changes
+					<input type="submit" id="contentConfirm" class="btn btn-primary" value="Submit">
 				</div>
 				</form>
 			</div>

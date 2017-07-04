@@ -63,4 +63,12 @@
 	<update id="updateMinusUserCount2" parameterType="hashmap">
 		UPDATE user SET user_friend_count = user_friend_count-1 WHERE user_id = #{user_id2}
 	</update>
+	
+	<select id="selectByIdOrName" parameterType="hashmap" resultType="User">
+		SELECT * FROM user WHERE (user_id like CONCAT('%',#{text},'%') OR user_nick_name like CONCAT('%',#{text},'%')) AND user_id != #{user_id}
+	</select>
+	
+	<select id="selectByPhone2" parameterType="hashmap" resultType="User">
+		SELECT * FROM user WHERE user_phone2 LIKE CONCAT('%',#{text},'%') AND user_id != #{user_id}
+	</select>
 </mapper>

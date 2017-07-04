@@ -24,7 +24,7 @@ public class AdminContent {
 	private Date fr_photo_date;
 	private Date to_photo_date;
 	
-	private AdminUser user;
+	private User user;
 	private int content_count;
 	private int gender_count;
 	private Advertisement ad;
@@ -152,11 +152,10 @@ public class AdminContent {
 	public void setContent_detail_count(int content_detail_count) {
 		this.content_detail_count = content_detail_count;
 	}
-	
-	public AdminUser getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(AdminUser user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public List<Comment> getComments() {
@@ -181,7 +180,7 @@ public class AdminContent {
 				+ ", good_count=" + good_count + ", comment_count=" + comment_count + ", content_detail_count="
 				+ content_detail_count + ", photo_file_name=" + photo_file_name + ", photo_latitude=" + photo_latitude
 				+ ", photo_longitude=" + photo_longitude + ", fr_photo_date=" + fr_photo_date + ", to_photo_date="
-				+ to_photo_date + ", user=" + user + ", content_count=" + content_count + user + ", gender_count=" + gender_count+ ", ad=" + ad + ", comments="
+				+ to_photo_date + ", user=" + user + ", content_count=" + content_count + ", gender_count=" + gender_count+ ", ad=" + ad + ", comments="
 				+ comments + ", details=" + details + "]";
 	}
 

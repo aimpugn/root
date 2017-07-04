@@ -41,5 +41,7 @@ public class UserDAO {
 	public void updatePushToken(User user){
 		session.update("UserMapper.updateUserToken",user);
 	}
-	
+	public User selectBySnsToken(String user_sns_token){
+		return session.selectOne("UserMapper.selectBySnsToken", user_sns_token);
+	}
 }

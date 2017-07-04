@@ -65,6 +65,25 @@ public class UserController {
 		}
 		return null;
 	}
+	
+	//페이스북 로그인
+	@GetMapping("/facebook/{user_sns_token}")
+	public User loginFacebook(@PathVariable String user_sns_token, HttpSession session) {
+		String msg = "0";
+		session.removeAttribute("loginInfo");
+		try {
+			User checkUser = userDAO.selectBySnsToken(user_sns_token);
+			if (checkUser != null ) {
+				// msg="1";
+				session.setAttribute("loginInfo", checkUser);
+				session.setMaxInactiveInterval(240 * 60 * 60);
+				return checkUser;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@PostMapping(value="/idCheck", consumes="application/json; charset=UTF-8")
 	public String idCheck(@RequestBody User user){
@@ -113,7 +132,6 @@ public class UserController {
 	public void logout(HttpSession session){
 		//System.out.println(((User)session.getAttribute("loginInfo")).getUser_id() +"님이 로그아웃");
 		session.removeAttribute("loginInfo");
-		
 	}
 	
 	//은지추가

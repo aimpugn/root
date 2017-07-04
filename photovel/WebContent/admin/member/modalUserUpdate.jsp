@@ -9,20 +9,6 @@
 <script src="/admin/bootstrap/assets/js/vendor/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/admin/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
-
-    
-	<!--회원  정보 수정 Modal -->
-	<div class="modal fade" id="modalUserId" tabindex="-1" role="dialog" aria-labelledby="modalUserIdLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<%--  RemoteModal ------------------------------------------- --%>
-				<%@include file="/admin/member/modalUserUpdateBody.jsp" %>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
 <script>
 $(function () { $('#modalUserId').modal('hide') });
 </script>
@@ -55,3 +41,17 @@ $(function () {
 });		
 </script>	
 
+
+    
+	<!--회원  정보 수정 Modal -->
+	<div class="modal fade" id="modalUserId" tabindex="-1" role="dialog" aria-labelledby="modalUserIdLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<%--  RemoteModal ------------------------------------------- --%>
+				<%@include file="/admin/member/modalUserUpdateBody.jsp" %>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->

@@ -12,20 +12,20 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanssc.css);
 /*  한국어 */
 :lang(ko) {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans KR', 'Glyphicons Halflings', sans-serif;
 }
  /* 일본어 */
 :lang(ja) {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Noto Sans JP', 'Glyphicons Halflings', sans-serif;
 }
  /* 중국어 (간체) */
 :lang(zh-Hans) {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: 'Noto Sans SC', 'Glyphicons Halflings', sans-serif;
 }
 body {
   padding-bottom: 40px;
   color: #5a5a5a;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans KR', 'Glyphicons Halflings', sans-serif;
 }
 /* 색상 */
 .color-sky{color: #20a8d8;}
