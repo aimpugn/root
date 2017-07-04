@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.photovel.vo.Friend;
 import com.photovel.vo.User;
 
-
 @Repository
 public class FriendDAO {
 	@Autowired
@@ -56,5 +55,13 @@ public class FriendDAO {
 		session.delete("FriendMapper.delete2", map);
 		session.update("FriendMapper.updateMinusUserCount1", map);
 		session.update("FriendMapper.updateMinusUserCount2", map);
+	}
+
+	public List<User> selectByIdOrName(HashMap map) {
+		return session.selectList("FriendMapper.selectByIdOrName", map);
+	}
+
+	public List<User> selectByPhone2(HashMap map) {
+		return session.selectList("FriendMapper.selectByPhone2", map);
 	}
 }

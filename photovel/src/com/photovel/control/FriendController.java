@@ -132,4 +132,47 @@ public class FriendController {
 	public int selectStatusResponse(HttpServletRequest request){
 		return (int) request.getAttribute("friend");
     }
+	
+	@GetMapping("/search/list/response")
+	public List<User> selectByIdOrNameResponse(HttpServletRequest request) {
+		List<User> list = (List<User>) request.getAttribute("users");
+		return list;
+	}
+
+	// 아이디,닉네임 검색
+	@GetMapping("/selectid/{text:.+}/{user_id:.+}")
+	public void selectByIdOrName(@PathVariable String text, @PathVariable String user_id, HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("text", text);
+			map.put("user_id", user_id);
+			String forwardURL = "/friend/search/list/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<User> user = (List<User>) friendDao.selectByIdOrName(map);
+			request.setAttribute("users", user);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 번호로 검색
+	@GetMapping("/selectphone/{text:.+}/{user_id:.+}")
+	public void selectByPhone2(@PathVariable String text, @PathVariable String user_id, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("text", text);
+			map.put("user_id", user_id);
+			String forwardURL = "/friend/search/list/response";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			List<User> user = (List<User>) friendDao.selectByPhone2(map);
+			request.setAttribute("users", user);
+			dispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
