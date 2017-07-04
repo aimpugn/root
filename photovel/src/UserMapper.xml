@@ -8,10 +8,15 @@
 		VALUES (
 			#{user_id}, #{user_password}, #{user_nick_name}, #{user_gender}, #{user_phone1}, #{user_phone2},
 			#{user_profile_photo}, SYSDATE(), 'N', SYSDATE(), 
-			#{user_sns_status}, null, 'tmp', 0)
+			#{user_sns_status}, #{user_sns_token}, 'tmp', 0)
 	</insert>
+	
 	<select id="selectById" resultType="User" parameterType="string">
 		SELECT * FROM user WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="selectBySnsToken" resultType="User" parameterType="string">
+		SELECT * FROM user WHERE user_sns_token = #{user_sns_token}
 	</select>
 	
 	<update id="updateInfo" parameterType="User">
