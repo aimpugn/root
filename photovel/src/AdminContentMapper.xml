@@ -21,7 +21,7 @@
 		<result column="photo_longitude" property="photo_longitude" />
 		<result column="fr_photo_date" property="fr_photo_date" />
 		<result column="to_photo_date" property="to_photo_date" />
-		<association property="user" javaType="AdminUser">
+		<association property="user" javaType="User">
 			<id column="user_id" property="user_id" />
 			<result column="user_nick_name" property="user_nick_name" />
 			<result column="user_phone1" property="user_phone1" />
@@ -32,7 +32,7 @@
 	</resultMap>
 	<!-- 사용 -->
 	<insert id="insertContent" parameterType="AdminContent">
-		INSERT INTO content VALUES(null, #{AdminUser.user_id}, #{content_subject},
+		INSERT INTO content VALUES(null, #{user.user_id}, #{content_subject},
 		#{content}, SYSDATE(), 'F', 'F', 0, null, 0)
 	</insert>
 	<!-- 사용 -->

@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,23 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSON;
 import com.photovel.dao.AdminUserDAO;
 import com.photovel.vo.AdminUser;
+import com.photovel.vo.Paging;
 import com.photovel.vo.User;
 
 @RestController
@@ -43,10 +39,19 @@ public class AdminUserController {
 	
 	@GetMapping
 	public void userList(HttpServletRequest request, HttpServletResponse response) {
+		int totalCount = 0 ;//토탈카운트를 세는 메서드가 필요함
 		try {
-			List<AdminUser> userList = dao.selectAll();	
+			Paging paging = new Paging();
+	        paging.setPageNo(1);
+	        paging.setPageSize(10);
+			
+	        List<AdminUser> userList = dao.selectAll();	
+			totalCount = userList.size();
+			paging.setTotalCount(totalCount);
+			
 			String forwardURL = "/admin/member/user.jsp";
 			request.setAttribute("userList", userList);
+			request.setAttribute("paging", paging);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

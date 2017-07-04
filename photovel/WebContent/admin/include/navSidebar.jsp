@@ -26,9 +26,9 @@ $(function(){
 	var url = location.href;
 	var pageArray = new Array(
 			//통계
-			url.indexOf("/admin/static/dashboard.jsp"),
+			url.indexOf("/admin/static/dashboard"),
 			url.indexOf("/admin/static/user.jsp"),
-			url.indexOf("/admin/static/connect.jsp"),
+			//url.indexOf("/admin/static/connect.jsp"),
 			url.indexOf("/admin/static/borad.jsp"),
 			
 			//멤버
@@ -77,9 +77,9 @@ $(function(){
 	if(pageArray[10] != -1){
 	    $(".sidebar li:eq(10)").addClass("active");
 	};
-	if(pageArray[11] != -1){
+	/* if(pageArray[11] != -1){
 	    $(".sidebar li:eq(11)").addClass("active");
-	};
+	}; */
 
 	/*for (i=0; i < pageArray.length ; i++){
 			
@@ -95,12 +95,12 @@ $(function(){
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li>
-						<a href="/admin/static/dashboard.jsp">대시보드
+						<a href="/admin/static/dashboard">대시보드
 						<!-- <span class="sr-only">(current)</span-->
 						</a>
 					</li>
 					<li><a href="/admin/static/user.jsp">회원통계</a></li>
-					<li><a href="/admin/static/connect.jsp">접속통계</a></li>
+					<!-- li><a href="/admin/static/connect.jsp">접속통계</a></li -->
 					<li><a href="/admin/static/board.jsp">게시글통계</a></li>
 	 				<!--li><a href="/admin/static/advertise.jsp">광고 통계</a></li> -->
 				</ul>
