@@ -185,12 +185,14 @@ $(function(){
 							</div>
 							
 							
+							
+							
+							
+							
+							
 							<div class="form-group">
 								<label for="dropdownMenu2" class="col-sm-3 control-label">전화번호</label> 
 								<div class="col-sm-2 form-inline">
-								
-								
-				
 								
 									<div class="dropdown">
 									  	<button class="nationBtnAdd  btn btn-default dropdown-toggle" name="user_phone1" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
@@ -209,7 +211,7 @@ $(function(){
 									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">61</a></li>
 									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">62</a></li>
 									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">63</a></li>
-									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">81</a></li>								    
+									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">81</a></li>
 									    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">86</a></li>
 									  </ul>
 								  	</div>

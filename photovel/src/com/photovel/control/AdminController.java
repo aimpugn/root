@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.photovel.dao.AdminDAO;
 import com.photovel.vo.Admin;
+import com.photovel.vo.AdminUser;
+import com.photovel.vo.Paging;
 
 @RestController
 @RequestMapping("/admin")
@@ -82,10 +84,18 @@ public class AdminController {
 	@GetMapping("/member/admin")
 	public void adminList(HttpServletRequest request, HttpServletResponse response) {
 		String msg = "-1";
+		int totalCount = 0 ;//토탈카운트를 세는 메서드가 필요함
 		try {
+			Paging paging = new Paging();
+	        paging.setPageNo(1);
+	        paging.setPageSize(10);
+			
 			List<Admin> adminList = dao.selectAll();	
+			totalCount = adminList.size();
+			paging.setTotalCount(totalCount);
 			String forwardURL = "/admin/member/admin.jsp";
 			request.setAttribute("adminList", adminList);
+			request.setAttribute("paging", paging);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
 			msg = "1";
 			dispatcher.forward(request, response);

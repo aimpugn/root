@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
 <c:set var="userList" value="${requestScope.userList}" />
 <c:set var="len" value="${fn:length(userList)}"/>
 
@@ -98,58 +96,58 @@
 					<c:choose>
 						<c:when test="${param.user_state_flag == 'N'}">
 							<label for="showState1-1"> 
-								<input type="radio" name="showState" id="showState1-1" value="A">전체보기
+								<input type="radio" name="showState" id="showState1-1" value="A"> 전체보기
 							</label>
 							<label for="showState1-2">
-								<input type="radio" name="showState" id="showState1-2" value="N" checked>일반
+								<input type="radio" name="showState" id="showState1-2" value="N" checked> 일반
 							</label>
 							<label for="showState1-3"> 
-								<input type="radio" name="showState" id="showState1-3" value="B">블랙
+								<input type="radio" name="showState" id="showState1-3" value="B"> 블랙
 							</label>
 							<label for="showState1-4"> 
-								<input type="radio" name="showState" id="showState1-4" value="L">탈퇴
+								<input type="radio" name="showState" id="showState1-4" value="L"> 탈퇴
 							</label>
 						</c:when>
 						<c:when test="${param.user_state_flag == 'B'}">
 							<label for="showState2-1" class="chekbox-inline">
-								<input type="radio" name="showState" id="showState2-1" value="A">전체보기
+								<input type="radio" name="showState" id="showState2-1" value="A"> 전체보기
 							</label>
 							<label for="showState2-2"> 
-								<input type="radio" name="showState" id="showState2-2" value="N">일반
+								<input type="radio" name="showState" id="showState2-2" value="N"> 일반
 							</label>
 							<label for="showState2-3" class="chekbox-inline">
-								<input type="radio" name="showState" id="showState2-3" value="B" checked>블랙
+								<input type="radio" name="showState" id="showState2-3" value="B" checked> 블랙
 							</label>
 							<label for="showState2-4" class="chekbox-inline">
-								<input type="radio" name="showState" id="showState2-4" value="L">탈퇴
+								<input type="radio" name="showState" id="showState2-4" value="L"> 탈퇴
 							</label>
 						</c:when>
 						<c:when test="${param.user_state_flag == 'L'}">
 							<label for="showState3-1"> 
-								<input type="radio" name="showState" id="showState3-1" value="A">전체보기
+								<input type="radio" name="showState" id="showState3-1" value="A"> 전체보기
 							</label>
 							<label for="showState3-2"> 
-								<input type="radio" name="showState" id="showState3-2" value="N">일반
+								<input type="radio" name="showState" id="showState3-2" value="N"> 일반
 							</label>
 							<label for="showState3-3" class="chekbox-inline">
-								<input type="radio" name="showState" id="showState3-3" value="B">블랙
+								<input type="radio" name="showState" id="showState3-3" value="B"> 블랙
 							</label>
 							<label for="showState3-4"> 
-								<input type="radio" name="showState" id="showState3-4" value="L" checked>탈퇴
+								<input type="radio" name="showState" id="showState3-4" value="L" checked> 탈퇴
 							</label>
 						</c:when>
 						<c:otherwise>
 							<label for="showState4-1"> 
-								<input type="radio" name="showState" id="showState4-1" value="A" checked>전체보기
+								<input type="radio" name="showState" id="showState4-1" value="A" checked> 전체보기
 							</label>
 							<label for="showState4-2"> 
-								<input type="radio" name="showState" id="showState4-2" value="N">일반
+								<input type="radio" name="showState" id="showState4-2" value="N"> 일반
 							</label>
 							<label for="showState4-3"> 
-								<input type="radio" name="showState" id="showState4-3" value="B">블랙
+								<input type="radio" name="showState" id="showState4-3" value="B"> 블랙
 							</label>
 							<label for="showState4-4"> 
-								<input type="radio" name="showState" id="showState4-4" value="L">탈퇴
+								<input type="radio" name="showState" id="showState4-4" value="L"> 탈퇴
 							</label>
 						</c:otherwise>
 					</c:choose>
@@ -207,6 +205,7 @@
 							
 							<c:otherwise>
 							<c:forEach var="user" items="${userList}" varStatus="status">
+							<c:if test="${ (i * 10) <= status.index and status.index <= (i+1)*10 }">
 							<tr>
 								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${user.user_id}"></td>
 								<td>${len - status.index}</td>
@@ -252,6 +251,7 @@
 									</c:choose>
 								</td>
 							</tr>
+							</c:if>
 							</c:forEach>
 							</c:otherwise>
 							</c:choose>
@@ -260,7 +260,16 @@
 				</div>
 				<%--  pagination
 		   		------------------------------------------- --%>
-				<%@include file="/admin/include/pagination.jsp" %>
+		   		<c:set var="paging" value="${requestScope.paging}" />
+				<jsp:include page="/admin/include/pagination.jsp" flush="true">
+					<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+					<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+					<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+					<jsp:param name="pageNo" value="${paging.pageNo}" />
+					<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+					<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+					<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+				</jsp:include>
 			</div>
 		</div>
 	</div>
