@@ -49,13 +49,10 @@ public class UserController {
 	 */
 	@PostMapping(value = "/email", consumes = "application/json; charset=UTF-8")
 	public User login(@RequestBody User user, HttpSession session) {
-		String msg = "0";
-		System.out.println(user);
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
 			if (checkUser != null && checkUser.getUser_password().equals(user.getUser_password())) {
-				// msg="1";
 				session.setAttribute("loginInfo", checkUser);
 				session.setMaxInactiveInterval(240 * 60 * 60);
 				return checkUser;
@@ -69,12 +66,10 @@ public class UserController {
 	//페이스북 로그인
 	@GetMapping("/facebook/{user_sns_token}")
 	public User loginFacebook(@PathVariable String user_sns_token, HttpSession session) {
-		String msg = "0";
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectBySnsToken(user_sns_token);
 			if (checkUser != null ) {
-				// msg="1";
 				session.setAttribute("loginInfo", checkUser);
 				session.setMaxInactiveInterval(240 * 60 * 60);
 				return checkUser;
@@ -100,18 +95,19 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/join", consumes="application/json; charset=UTF-8")
-	   public User join(@RequestBody User user){
-	      User idCheckUser = userDAO.selectById(user.getUser_id());
-	      if(idCheckUser==null){
-	         try {
-	            userDAO.insert(user);
-	            return user;
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         }
-	      }
-	      return null;
-	   }
+	public User join(@RequestBody User user){
+		User idCheckUser = userDAO.selectById(user.getUser_id());
+		if(idCheckUser==null){
+			try {
+				userDAO.insert(user);
+				return user;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 	
 	@GetMapping
 	public String compareSession(HttpSession session){
