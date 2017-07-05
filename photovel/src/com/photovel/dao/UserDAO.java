@@ -37,8 +37,14 @@ public class UserDAO {
 	public void updateUserState(String user_id) {
 		session.update("UserMapper.updateUserState", user_id);
 	}
-
-	public User selectBySnsToken(String user_sns_token) {
+	
+	public void updatePushToken(User user){
+		session.update("UserMapper.updateUserToken",user);
+	}
+	public User selectBySnsToken(String user_sns_token){
 		return session.selectOne("UserMapper.selectBySnsToken", user_sns_token);
+	}
+	public User getPushToken(User user){
+		return session.selectOne("UserMapper.getPushToken",user);
 	}
 }

@@ -34,4 +34,12 @@
 	    UPDATE user SET user_state_flag = 'L' WHERE user_id = #{user_id}
 	</update>
 	
+	<update id="updateUserToken" parameterType="User">
+		update user set user_push_token = #{user_push_token} where user_id = #{user_id}
+	</update>
+	
+	<select id="getPushToken" parameterType="User" resultType="User">
+		SELECT * FROM user WHERE user_id = #{user_id};
+	</select>
+	
 </mapper>
