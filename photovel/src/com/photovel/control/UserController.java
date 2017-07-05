@@ -49,7 +49,6 @@ public class UserController {
 	 */
 	@PostMapping(value = "/email", consumes = "application/json; charset=UTF-8")
 	public User login(@RequestBody User user, HttpSession session) {
-		
 		session.removeAttribute("loginInfo");
 		try {
 			User checkUser = userDAO.selectById(user.getUser_id());
@@ -108,15 +107,19 @@ public class UserController {
 		}
 		return null;
 	}
+
 	
 	@GetMapping
 	public String compareSession(HttpSession session){
+		System.out.println("compareSession 호출");
 		String resultValue="0";
 		User isUser = (User)session.getAttribute("loginInfo");
 		//System.out.println(isUser);
 		if(isUser!=null){
+			System.out.println(isUser);
 			resultValue="1";
 		}
+		System.out.println(resultValue);
 		return resultValue;
 	}
 	
@@ -200,5 +203,42 @@ public class UserController {
 			}
 		}
 
+	}
+	
+	@PostMapping("/push/update")
+	public String updatePushToken(@RequestBody User user, HttpSession session){
+		String msg = "1";
+		System.out.println("받아온 값은 : " +user );
+		User tmp = (User)session.getAttribute("loginInfo");
+		System.out.println("현재 세션의 아이디는"+tmp.getUser_id());
+		tmp.setUser_push_token(user.getUser_push_token());
+		System.out.println("업데이트할 User"+ tmp);
+		try{
+			userDAO.updatePushToken(tmp);
+			
+		}catch (Exception e) {
+			msg="0";
+			System.out.println("토큰저장 실패");
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	@PostMapping("/push/getPushToken")
+	public String getPushToken(@RequestBody User user, HttpSession session){
+		String result="0";
+		System.out.println("content주인(푸시알람받을사람)의 아이디 : " +user );
+		User tmp = (User)session.getAttribute("loginInfo");
+		try{
+			User realUser = userDAO.getPushToken(user);
+			if(realUser!=null){
+				result=realUser.getUser_push_token();
+			}
+		}catch (Exception e) {
+
+			System.out.println("토큰저장 실패");
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
