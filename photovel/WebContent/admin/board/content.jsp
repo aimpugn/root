@@ -113,11 +113,11 @@ contentList -->
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F" checked>게시
-							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="T">삭제
+								<input type="radio" name="showState" id="showState2" value="F" checked>게시
+							</label>
+							<label for="showState3" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState3" value="T">삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="sshowState4" value="M">관리자 삭제
@@ -127,11 +127,11 @@ contentList -->
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
-							<label for="showState23" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">게시
-							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="T" checked>삭제
+								<input type="radio" name="showState" id="showState2" value="F">게시
+							</label>
+							<label for="showState3" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState3" value="T" checked>삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState4" value="M">관리자 삭제
@@ -142,11 +142,11 @@ contentList -->
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A">전체
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">게시
-							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="T">삭제
+								<input type="radio" name="showState" id="showState2" value="F">게시
+							</label>
+							<label for="showState3" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState3" value="T">삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="sshowState4" value="M" checked>관리자 삭제
@@ -157,11 +157,11 @@ contentList -->
 							<label for="showState1" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState1" value="A" checked>전체
 							</label>
-							<label for="showState3" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState3" value="F">게시
-							</label>
 							<label for="showState2" class="checkbox-inline"> 
-								<input type="radio" name="showState" id="showState2" value="T">삭제
+								<input type="radio" name="showState" id="showState2" value="F">게시
+							</label>
+							<label for="showState3" class="checkbox-inline"> 
+								<input type="radio" name="showState" id="showState3" value="T">삭제
 							</label>
 							<label for="showState4" class="checkbox-inline"> 
 								<input type="radio" name="showState" id="showState4" value="M">관리자 삭제
@@ -220,7 +220,8 @@ contentList -->
 							
 							<c:otherwise>
 							<c:forEach var="content" items="${contentList}" varStatus="status">
-							<%-- c:if test="${ (i * 10) <= status.index and status.index <= (i+1)*10 }" --%>
+							<c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
+							<c:if test="${ (i * 10) < status.index and status.index <= (i+1)*10 }">
 							<tr>
 								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${content.content_id}"></td>
 								<td>${len - status.index}</td>
@@ -261,7 +262,8 @@ contentList -->
 									</c:choose>
 								</td>
 							</tr>
-							<%-- /c:if --%>
+							</c:if>
+							</c:forEach>
 							</c:forEach>
 							</c:otherwise>
 							</c:choose>

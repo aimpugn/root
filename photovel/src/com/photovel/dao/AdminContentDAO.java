@@ -38,7 +38,7 @@ public class AdminContentDAO {
 		return session.selectList("AdminContentMapper.selectByPhone1", user_phone1); 
 	}
 	/********************/
-	public Content selectByContentId(int content_id){
+	public AdminContent selectByContentId(int content_id){
 		return session.selectOne("AdminContentMapper.selectByContentId", content_id); 
 	}
 	

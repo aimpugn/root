@@ -30,7 +30,7 @@ $(function(){
 			success: function(responseData){
 				var data = responseData.trim();
 				if( data == '1' ){
-					location.href='/admin/member/admin.jsp';
+					location.href='/admin/static/dashboard';
 				} else if ( data == 'leave'){
 					alert('탈퇴한 회원입니다.');						
 				} else if ( data == 'stop'){

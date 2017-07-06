@@ -26,23 +26,22 @@ $(function(){
 	var url = location.href;
 	var pageArray = new Array(
 			//통계
-			url.indexOf("/admin/static/dashboard.jsp"),
-			url.indexOf("/admin/static/user.jsp"),
-			url.indexOf("/admin/static/connect.jsp"),
-			url.indexOf("/admin/static/borad.jsp"),
+			url.indexOf("/admin/static/dashboard"),
+			url.indexOf("/admin/static/user"),
+			url.indexOf("/admin/static/borad"),
 			
 			//멤버
 			url.indexOf("/admin/member/user"),
 			url.indexOf("/admin/member/admin"),
 			
 			//콘텐츠
-			url.indexOf("/admin/board/board.jsp"),
+			url.indexOf("/admin/board/board"),
 			
 			//사이트
-			url.indexOf("/admin/site/mainSlide.jsp"),
-			url.indexOf("/admin/site/term.jsp"),
-			url.indexOf("/admin/site/privacy.jsp"),
-			url.indexOf("/admin/site/gpsTerm.jsp")
+			url.indexOf("/admin/site/mainSlide"),
+			url.indexOf("/admin/site/term"),
+			url.indexOf("/admin/site/privacy"),
+			url.indexOf("/admin/site/gpsTerm")
 	);
 	if(pageArray[0] != -1){
 	    $(".sidebar li:eq(0)").addClass("active");
@@ -77,9 +76,9 @@ $(function(){
 	if(pageArray[10] != -1){
 	    $(".sidebar li:eq(10)").addClass("active");
 	};
-	if(pageArray[11] != -1){
-	    $(".sidebar li:eq(11)").addClass("active");
-	};
+	//if(pageArray[11] != -1){
+	//    $(".sidebar li:eq(11)").addClass("active");
+	//};
 
 	/*for (i=0; i < pageArray.length ; i++){
 			
@@ -95,13 +94,13 @@ $(function(){
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li>
-						<a href="/admin/static/dashboard.jsp">대시보드
+						<a href="/admin/static/dashboard">대시보드
 						<!-- <span class="sr-only">(current)</span-->
 						</a>
 					</li>
-					<li><a href="/admin/static/user.jsp">회원통계</a></li>
-					<li><a href="/admin/static/connect.jsp">접속통계</a></li>
-					<li><a href="/admin/static/board.jsp">게시글통계</a></li>
+					<li><a href="/admin/static/user">회원통계 ing</a></li>
+					<!-- <li><a href="/admin/static/connect.jsp">접속통계 ing</a></li> -->
+					<li><a href="/admin/static/board">게시글통계 ing</a></li>
 	 				<!--li><a href="/admin/static/advertise.jsp">광고 통계</a></li> -->
 				</ul>
 				<ul class="nav nav-sidebar">
@@ -109,13 +108,13 @@ $(function(){
 					<li><a href="/admin/member/admin">관리자 목록</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
-					<li><a href="/admin/board/board.jsp">콘텐츠 목록</a></li>
+					<li><a href="/admin/board/board">콘텐츠 목록</a></li>
 					<!-- <li><a href="/admin/board/advertise.jsp">광고 목록</a></li> -->
 				</ul>
 				<ul class="nav nav-sidebar">
-					<li><a href="/admin/site/mainSlide.jsp">메인슬라이드</a></li>
-					<li><a href="/admin/site/term.jsp">이용약관</a></li>
-					<li><a href="/admin/site/privacy.jsp">개인정보처리방침</a></li>
-					<li><a href="/admin/site/gpsTerm.jsp">위치정보이용약관</a></li>
+					<li><a href="/admin/site/mainSlide">메인슬라이드 ing</a></li>
+					<li><a href="/admin/site/term">이용약관 ing</a></li>
+					<li><a href="/admin/site/privacy">개인정보처리방침 ing</a></li>
+					<li><a href="/admin/site/gpsTerm">위치정보이용약관 ing</a></li>
 				</ul>
 			</div>

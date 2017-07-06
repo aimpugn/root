@@ -75,6 +75,22 @@ public class AdminContentController {
 			e.printStackTrace();
 		}
 	}
+	@GetMapping("/view")
+	public void contentViewList(int content_id, HttpServletRequest request, HttpServletResponse response) {
+		
+		int totalCount = 0 ;//토탈카운트를 세는 메서드가 필요함
+		
+		try {
+			
+			AdminContent contentOne = AdminContentDao.selectByContentId(content_id);	
+			String forwardURL = "/admin/board/view.jsp";
+			request.setAttribute("contentOne", contentOne);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 라디오 버튼 선택시 선택된 게시글만 조회함
 	 * @param content_delete_status

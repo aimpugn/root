@@ -205,6 +205,7 @@
 							
 							<c:otherwise>
 							<c:forEach var="user" items="${userList}" varStatus="status">
+							<c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
 							<c:if test="${ (i * 10) <= status.index and status.index <= (i+1)*10 }">
 							<tr>
 								<td><input class="chk${status.index + 1} checkMember" name="chk" type="checkbox" value="${user.user_id}"></td>
@@ -252,6 +253,7 @@
 								</td>
 							</tr>
 							</c:if>
+							</c:forEach>
 							</c:forEach>
 							</c:otherwise>
 							</c:choose>
