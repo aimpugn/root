@@ -1,0 +1,104 @@
+@charset "utf-8";
+/*  모바일용(=기본) CSS  */
+/* ***************** */
+
+/* ratio */
+.ratio-1-1-1,
+.ratio-1-1-2{width:100%;}
+/* story 영역 CSS */
+
+.story-head{position:relative;overflow:hidden;box-sizing:border-box;padding-top:65px; 
+width:100%;height:340px;color:#fff;background-image:url(/images/pic/user-a1.jpg);background-size:cover; background-position: center center;}
+/* a link 색상 */
+.story-head a{color:#fff; }
+.story-head a:hover, .story-head a:active, .story-head a:focus, .story-head a.on{color:#62b5b9;}
+/* 텍스트 쉐도우, 센터 정렬 */
+.story-head .story-info,
+.story-head h2.title, 
+.story-head h3.place, 
+.story-head .social, 
+.story-head .depth-type a{text-shadow:0px 1px 2px rgba(0,0,0,1);}
+.story-head .story-info a.btn-edit-set,
+.story-head h2.title, 
+.story-head h3.place,
+.story-head .social, 
+.story-head .depth-type{text-align:center;} 
+/* 구조 */
+.story-head .container{margin:0 auto;height: auto;}
+/* 작성자 정보*/
+.story-head .story-info{position:relative;margin: 0 auto;text-align:left;}
+.story-head .story-info a.btn-edit-set{float:right;display:inline-block;width:30px; text-align:right;}
+.story-head .story-info a.btn-edit-set span{vertical-align:baseline;font-size:1.2rem;line-height:1.4rem;}
+/* box-sizing:border-box;border-radius:20px; */
+/* background:rgba(50,53,62,0.7);box-shadow:0px 0px 5px rgba(0,0,0,0.7) */}
+.story-head .story-info a.btn-edit-set:hover,
+.story-head .story-info a.btn-edit-set:active,
+.story-head .story-info a.btn-edit-set:focus{color:#62b5b9;}
+.story-head .story-info ul.btn-wrap{display:none;position:absolute; top:0.5rem;right:1rem;padding:1rem;background: rgba(50,53,62,0.7)}
+.story-head .story-info ul.btn-wrap.on{display:inline-block;}
+.story-head .story-info ul.btn-wrap li a{display:inline-block; line-height:1.5rem;}
+/*글 제목, 장소, 뷰 타입*/
+.story-head h2.title{margin:3.5rem 0rem 0.2rem;padding:0.5rem 0rem 0rem 0rem;background:url(/images/p/bg-story-title.gif) center top no-repeat;
+font-family:'Montserrat',Sans-serif,'Noto Sans KR', sans-serif;font-size: 1rem;
+ font-stretch:condensed; line-height:2rem; font-weight:bold;}
+.story-head h3.place{font-weight:normal;font-size: 1rem;}
+.story-head .depth-type{position: absolute; display:block;padding:16px 0 30px;width:100%;bottom:0px;background:rgba(50,53,62,0.9);} 
+.story-head .social{display:inline-block;margin-left:1.2rem;}
+.story-head .social span{font-size:1.2rem;} 
+.story-head .social span.number{margin-right:1rem;}
+.story-head .social span.number:last-child{margin-right:0;}
+.story-head .depth-type a{font-weight:normal;font-size: 1rem;}
+.story-head .depth-type a, 
+.story-head h2.title, 
+.story-head .story-info span.date{text-shadow:0px 1px 2px rgba(0,0,0,1);}
+.story-head .depth-type a, .story-head .story-info span.date{display:inline-block;} 
+.story-head .depth-type a{margin-left:1rem;}
+.story-head h3.place span{margin-right:0.5rem;}
+.story-head .depth-type a{display:inline-block; margin-left:2rem}
+.story-head .depth-type a:first-child{margin-left:0rem}
+/* 콘텐츠 섹션 */
+.top-section .author{text-align:center;}
+.top-section .author a.btn-login-info span.login-info img{vertical-align:middle; width:40px; height:40px; border-radius:20px;}
+.top-section .author .story-day{margin-top:1rem;}
+.top-section .ratio-1-1-1 p{padding-top:1rem;padding-bottom:1rem;padding-right:2%;}
+
+.intro-section .wrap-ratio .ratio-1-1-2{margin-top:1.5rem;}
+.intro-section .ratio-1-1-2 .map #map-api{vertical-align:middle;height:7.5rem; background:yellow}
+.intro-section .ratio-1-1-2 .map ul li{position:relative;line-height:1rem;}
+.intro-section .ratio-1-1-2 .map ul li:first-child{margin-bottom:1.5rem;}
+.intro-section .ratio-1-1-2 .map ul li span.fa{position:absolute; display:inline-block; left:0; top:0; margin-right: 1rem; height:3rem;line-height:3rem;}
+.intro-section .ratio-1-1-2 .map ul li span.text{display:inline-block;margin-left:30px;height:3rem;line-height:1.5rem;}
+
+.story-section{text-align:center;} 
+.story-section span.fa{display:inline-block; margin-bottom:2rem;width:40px; height:40px; line-height:40px; border-radius:20px; text-align:center;} 
+.story-section .pic-area{}
+.story-section .pic-area .ratio-2-1-2{width:33.333333%;}
+.story-section .pic-area .ratio-2-1-1{width:66.66666%;}
+.story-section .pic-area img{max-width:100%;width /***/:auto;height:auto;verticla-align:bottom;}
+.story-section .pic-info{width:100%; background:#ffffff;}
+/* **************** 태블릿용 CSS ***************** */
+/* ******************************************** */
+@media all and (min-width:768px){
+.story-head{padding-top:90px;height:400px;}
+.story-head .social{margin-left:2rem;}
+.intro-section .ratio-1-1-1{padding-right:1rem;padding-top:0;}
+/* ratio */
+.ratio-1-1-1,
+.ratio-1-1-2{width:48%;}
+.ratio-1-1-1{float:left;border-right:1px solid #ece1db;}
+.ratio-1-1-2{float:right;padding-left:1.9999%;}
+section.ratio-2-1-2, .wrap-ratio .cont-area .match.ratio-2-1-2{width:64%; float:left;}
+section.ratio-2-1-1, .wrap-ratio .cont-area .channel.ratio-2-1-1{width:31%; float:right}
+
+}
+/* ********************* PC용 CSS ************** */
+/* ******************************************** */
+@media all and (min-width:1240px){
+.story-head{padding-top:100px; height:450px;}
+.story-head h2.title{margin-top:5rem;font-size:1.5rem;}
+.story-head h3.place{font-size:1.5rem;}
+}
+/* ******************** PC WIDE용 CSS ********** */
+/* ******************************************** */
+@media all and (min-width:1920px){
+}
