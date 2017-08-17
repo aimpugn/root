@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>Photovel-storyView</title>
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<script src="https://use.fontawesome.com/3d9c57f5bf.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
+<link rel="stylesheet" type="text/css" href="/css/common.css">
+<link rel="stylesheet" type="text/css" href="/css/sub.css">
+<link rel="apple-touch-icon-precomposed" href="/images/favicon/indigo-touch-icon.png">
+<script src="/js/jquery.min.js"></script>
+<!-- <script src="/js/placeholders.min.js/"></script> -->
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+<script src="/js/jquery.bxslider.js"></script>
+<link rel="shortcut icon" href="/images/favicon/favicon.ico">
+
+<script>
+$(document).ready(function() {		
+	/* 모바일 사이즈 GNB 토글 */
+	/* 모바일 사이즈 GNB 클릭 토글 */
+	$('.menu-toggle-btn').click(function(){
+		$('.gnb-wrap').stop().slideToggle('fast');
+	});
+	/* 모바일 사이즈 검색창 클릭 토글 */
+	$('.search-toggle-btn').click(function(){
+		$('.search-wrap').stop().slideToggle('fast');
+	});
+	/* 모바일 사이즈 GNB 포커싱 토글 */
+   	$('#set-focus-gnb').focus(function(){
+   		$('.gnb-wrap').stop().slideToggle('fast');
+	}); 
+   	/* 모바일 사이즈 검색창 포커싱 토글 */
+   	$('#set-focus-search').focus(function(){
+   		$('.search-wrap').stop().slideToggle('fast');
+	});
+	/* 모바일 사이즈 에디트 버튼 토글 */
+   $('.btn-edit-set').on('click mouseenter', function(){
+		$('.btn-wrap').stop().slideToggle('fast');
+	}); 
+   	/* 모바일 사이즈 에디트 버튼 포커싱 토글 */
+   	$('.btn-edit-set').focus(function(){
+   		$('.btn-wrap').stop().slideToggle('fast');
+	});
+   	
+	/*탭 포커싱 스킵내비*/
+	$("#skipNavi li a").bind("focusin", function() {
+	    $(this).addClass("on").siblings().removeClass("on");
+	});
+	$("#skipNavi li a").bind("focusout", function() {
+	    $(this).removeClass("on");
+	}); 
+	/* 탭 포커싱을 이용한 메뉴 이동 */
+ 	$(".header nav #util li").bind("focusin", function() {
+	    $(this).addClass("on").siblings().removeClass("on");
+	});
+	$(".header nav #util li").bind("focusout", function() {
+	    $(this).removeClass("on");
+	});	
+});
+/* 원하는 곳까지 스크롤 시퀀스 번호로 위치 설정*/
+function fnScroll(seq){
+    var offset = $("#scroll-to-" + seq).offset();
+    $('html, body').animate({scrollTop : offset.top}, 500);
+}
+</script>
+</head>
+<body>
+<div id="scroll-to-1"></div>
+<div id="wrap">
+	<ul id="skipNavi">
+		<li><a onclick="fnScroll('3')" href="#scroll-to-3">본문 바로가기</a></li>
+	</ul>
+	<header class="cfixed">
+		<div class="header cfixed">
+			<h1 class="logo"><a href="/" >PHOTOVEL</a></h1>
+			<nav class="gnb-wrap" id="gnb-wrap">
+				<ul class="gnb">
+					<li><a href="">ALL</a></li>
+					<li><a href="">HOTTEST</a></li>
+					<li><a href="">CHANNEL</a></li>
+					<li><a href="">CREATE</a></li>
+				</ul>
+				<ul id="util">
+					<li><a href=""><span  class="login-info"><img src="/images/user/user-profile.jpg" class="prof-pic" alt="ninkname's profile picture"></span><span class="nickname">stella park</span></a>
+						<ul class="sub">
+							<li><a href=""><span class="user-icon-my"></span> MY STORY</a></li>
+							<li><a href=""><span class="user-icon-group"></span> MY GROUP</a></li>
+							<li><a href=""><span class="user-icon-freind"></span> MY FREIND</a></li>
+							<li><a href=""><span class="user-icon-insight"></span> INSIGHT</a></li>
+							<li><a href=""><span class="user-icon-setting"></span> SETTING&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+							<li><a href=""><span ></span>LOG OUT</a></li>
+						</ul>
+					</li>
+					<li><a href=""><span class="ios"></span></a></li>
+					<li><a href=""><span class="andr"></span></a></li>
+				</ul>
+				<div class="float-right">
+					<a class="search-toggle-btn" id="set-focus-search" href="javascript:void(0);">
+						<span class="fa fa-search"></span>
+					</a> 
+					<label for="lang-top" class="blind">언어 선택</label>
+					<select id="lang-top" class="lang">
+						<option value="">KOREAN</option>
+						<option value="" disabled>SOON ENGLISH</option>
+					</select>
+				</div>
+			</nav>
+			<div class="search-wrap" id="search-wrap">
+				<div class="search">
+					<div class="container">
+						<label for="search-input" >
+							<input type="search" name="search-input" placeholder="제목,내용,작성자로 검색"> 
+							<button><span class='fa fa-search'></span></button>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="toggle">
+				<a class="menu-toggle-btn" id="set-focus-gnb" href="javascript:void(0);">
+					<span class="fa fa-bars"></span>
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="story-head cfixed">
+		<div class="container">
+			<div class="story-info">
+				<span class="date">
+					<span class="fa fa-globe"></span> 2017년 05월 19일
+				</span>
+				<div class="social">
+					<span class="fa fa-heart color-red"></span> <span class="number">12</span>
+					<span class="fa fa-comments color-yg"></span> <span class="number">102</span>
+					<span class="fa fa-share-alt color-yellow"></span> <span class="number">12</span>
+				</div>
+				<a class="btn-edit-set" href="javascript:void(0)">
+					<span class="fa fa-ellipsis-v"></span>
+				</a>
+				<ul class="btn-wrap">
+					<li><a href="javascript:void(0)">수정</a></li>
+					<li><a href="javascript:void(0)">삭제</a></li>
+					<li><a href="javascript:void(0)">신고</a></li>
+				</ul>
+			</div>
+			<h2 class="title">GET A BEATIFUL TRIP IN PARIS</h2>
+			<h3 class="place"><span class="fa fa-map-marker color-purple"></span>du LOUVRE</h3>
+		</div>
+		<div class="depth-type"> 
+			<a href="" class="on">
+				<span class="fa fa-picture-o"></span> 사진
+			</a>
+			<a href=""><span class="fa fa-map"></span> 지도</a>
+			<a href=""><span class="fa fa-video-camera"></span> 슬라이드</a>
+		</div>	
+	</div>
+	<div id="scroller" class="scroller">
+		<a onclick="fnScroll('1')" href="#scroll-to-1" id="scroll-top" ><span class="fa fa-chevron-up"></span></a>
+		<a onclick="fnScroll('2')" href="#scroll-to-2" id="scroll-bottom" ><span class="fa fa-chevron-down"></span></a>
+	</div>
+	<div id="content-area" class="container content cfixed">
+		<section class="top-section" id="scroll-to-3">
+			<div class="author">
+				<a href="" class="btn-login-info" title="ninkname's profile 로 이동">
+					<span  class="login-info">
+						<img src="/images/user/user-profile.jpg" class="prof-pic" alt="ninkname's profile picture">
+					</span>&nbsp;
+					<span class="nickname">stella park</span>
+				</a>
+				
+				<div class="story-day">
+					<span class="fa fa-calendar"></span><span class="start-day">2015.04.12</span> ~ <span class="end-day">2015.04.18</span><span class="">162H</span>
+					<span class="pic-ea color-blue">10pic</span>
+				</div>
+			</div>
+		</section>
+		<div class="divider"></div>
+		<section class="intro-section">
+			<div class="wrap-ratio cfixed">
+				<div class="ratio-1-1-1">
+					<h4 class="sec-sub-tit under-nav">INTRO</h4>
+					<p>
+						<span class=""  style="font-size:5rem;">"</span>참 좋은 아침입니다.
+						대한민국은 통일을 지향하며, 자유민주적 기본질서에 입각한 평화적 통일 정책을 수립하고 이를 추진한다. 모든 국민은 그 보호하는 자녀에게 적어도 초등교육과 법률이 정하는 교육을 받게 할 의무를 진다.
+					</p>
+				</div>
+				<div class="ratio-1-1-2">
+					<div class="map">
+						<div id="map-api" class="ratio-2-1-1">
+							
+						</div>
+						<div class="ratio-2-1-2">
+							<ul>
+								<li>
+									<span class="fa fa-flag-o color-blue"></span>
+									<span class="text">Musée du Louvre. Rue de Rivoli, 75001 Paris, 프랑스</span>
+								</li>
+								<li>
+									<span class="fa fa-flag-checkered color-red"></span>
+									<span class="text">Tour Eiffel, Champ de Mars, 5 Avenue Anatole France, 75007 Paris, 프랑스</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="divider"></div>
+		<section class="story-section">
+			<span class="fa fa-tint darkblue color-white"></span>
+			
+			<div class="pic-area cfixed">
+				<div class="ratio-2-1-1">
+					<img src="/images/pic/user-a1.jpg" alt="여행1">
+				</div>
+				<div class="ratio-2-1-2">
+					<img src="/images/pic/user-a2.jpg" alt="여행2">
+					<img src="/images/pic/user-a1.jpg" alt="여행3">
+					<img src="/images/pic/user-a2.jpg" alt="여행4">
+				</div>
+			</div>
+			<div class="pic-info cfixed">
+				<span class="pic-place">프랑스, 파리</span><span class="pic-date">2017.02.03</span>
+				<div class="divider"></div>
+				<span class="pic-text">asdgklasjglkjdsklg sadjgklsd sjglk asjgkld jgkl djgklas jgkl jksladgjlkasd gjlk프랑스, 파리</span>
+			</div>
+		</section>
+					
+		
+		<div class="divider"></div>
+	</div>	
+	<footer id="scroll-to-2">
+		<div class="container">
+			<div class="f-row">
+				<div class="left">
+					<nav id="nav-ft">
+					    <ul>
+					        <li><a href="#none">Privacy</a></li>
+					        <li><a href="#none">Terms</a></li>
+					        <li><a href="#none">FAQ</a></li>
+					        <li><a href="#none">Help</a></li>
+					        <li><a href="#none">Contact Us</a></li>
+					    </ul>
+					</nav>				
+				</div>
+				<div class="right">
+					<div class="sns">
+						<ul class="app">
+							<li><a href="#none" title="Potovel iOS APP Download로 이동" target="_blank"><span class="ios">애플다운</span></a></li>
+							<li><a href="https://goo.gl/r9pJye" title="Potovel Android APP Download로 이동" target="_blank"><span class="android">구글다운</span></a></li>
+						</ul>
+						<ul class="share">
+							<li><a href="#none" title="Share Photovel to KaKao Story"  target="_blank"><span class="sh-kk">카카오톡</span></a></li>
+							<!-- <li><a href="#none" title="Share Naver Blog"><span class="sh-nv">네이버 블로그</span></a></li -->
+							<li><a href="#none" title="Share Photovel to Facebook" target="_blank"><span class="sh-fb">페이스북</span></a></li>
+							<li><a href="#none" title="Share Photovel to Twitter" target="_blank"><span class="sh-tt">트위터</span></a></li>
+							<li><a href="#none" title="Share Photovel to Google+" target="_blank"><span class="sh-gp">구글플러스</span></a></li>
+							<!-- <li><a href="#none" title="Share weibo"><span class="sh-wb">웨이보</span></a></li> -->
+							<li><a href="#none" title="Copy Photovel URK"><span class="sh-lk">링크복사</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="f-row">
+				<div class="left">
+					<label for="lang-ft" class="blind">언어 선택</label>
+					<select id="lang-ft" class="lang">
+						<option value="" class="soon" disabled>SOON ENGLISH</option>
+						<option value="">KOREAN</option>
+					</select>
+				</div>
+				<div class="right">
+					<address>Copyright ⓒ PHOTOVEL All Rights Reserved.
+						<p class="w3c">
+		    				<a href="http://jigsaw.w3.org/css-validator/check/referer" title="W3C CSS3 웹표준 준수 마크">	
+	        				<img style="border:0;width:88px;height:31px"
+	            				src="http://jigsaw.w3.org/css-validator/images/vcss"
+	            				alt="올바른 CSS입니다!" />
+	    					</a>
+						</p>
+					</address>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+</body>
+</html>

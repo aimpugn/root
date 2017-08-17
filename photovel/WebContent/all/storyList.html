@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<meta property="og:image" content="/images/pic/user-a1.jpg" /> 
 <title>Photovel</title>
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
 <script src="https://use.fontawesome.com/3d9c57f5bf.js"></script>
@@ -14,7 +13,7 @@
     <![endif]-->
 <link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/css/sub.css">
 <link rel="apple-touch-icon-precomposed" href="/images/favicon/indigo-touch-icon.png">
 <script src="/js/jquery.min.js"></script>
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
@@ -33,11 +32,11 @@ $(document).ready(function() {
 		captions: true, // 이미지의 title 속성이 노출된다.
 		autoControls: true
 	});
-	/* 모바일 사이즈 GNB 클릭 토글 */
+	/* 모바일 사이즈 GNB 토글 */
 	$('.menu-toggle-btn').click(function(){
 		$('.gnb-wrap').stop().slideToggle('fast');
 	});
-	/* 모바일 사이즈 검색창 클릭 토글 */
+	/* 모바일 사이즈 검색창 토글 */
 	$('.search-toggle-btn').click(function(){
 		$('.search-wrap').stop().slideToggle('fast');
 	});
@@ -106,17 +105,18 @@ function fnScroll(seq){
 			<h1 class="logo"><a href="/" >PHOTOVEL</a></h1>
 			<nav class="gnb-wrap" id="gnb-wrap">
 				<ul class="gnb">
-					<li><a href="">ALL</a></li>
-					<li><a href="">HOTTEST</a></li>
-					<li><a href="">CHANNEL</a></li>
-					<li><a href="">CREATE</a></li>
+					<li><a href=""><span class="user-icon-my"></span> MY STORY</a></li>
+					<li><a href=""><span class="user-icon-group"></span> MY GROUP</a></li>
+					<li><a href=""><span class="user-icon-freind"></span> MY FREIND</a></li>
+					<li><a href=""><span class="user-icon-insight"></span> INSIGHT</a></li>
+					<li><a href=""><span class="user-icon-setting"></span> SETTING&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+					<li><a href=""><span ></span>LOG OUT</a></li>
 				</ul>
 				<ul id="util">
 					<li><a href=""><span  class="login-info"><img src="/images/user/user-profile.jpg" class="prof-pic" alt="ninkname's profile picture"></span><span class="nickname">stella park</span></a>
 						<ul class="sub">
 							<li><a href=""><span class="user-icon-my"></span> MY STORY</a></li>
 							<li><a href=""><span class="user-icon-group"></span> MY GROUP</a></li>
-							<li><a href=""><span class="user-icon-freind"></span> MY FREIND</a></li>
 							<li><a href=""><span class="user-icon-insight"></span> INSIGHT</a></li>
 							<li><a href=""><span class="user-icon-setting"></span> SETTING&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 							<li><a href=""><span ></span>LOG OUT</a></li>
@@ -125,15 +125,15 @@ function fnScroll(seq){
 					<li><a href=""><span class="ios"></span></a></li>
 					<li><a href=""><span class="andr"></span></a></li>
 				</ul>
+				<a class="search-toggle-btn" id="set-focus-search" href="javascript:void(0);">
+					<span class="fa fa-search"></span>
+				</a> 
 				<label for="lang-top" class="blind">언어 선택</label>
 				<select id="lang-top" class="lang">
 					<option value="">KOREAN</option>
 					<option value="" disabled>SOON ENGLISH</option>
 				</select>
 			</nav> 
-			<a class="search-toggle-btn" id="set-focus-search" href="javascript:void(0);">
-				<span class="fa fa-search"></span>
-			</a> 
 			<div class="search-wrap" id="search-wrap">
 				<div class="search">
 					<div class="container">
@@ -144,11 +144,9 @@ function fnScroll(seq){
 					</div>
 				</div>
 			</div>
-			<div class="toggle">
-				<a class="menu-toggle-btn" id="set-focus-gnb" href="javascript:void(0);">
-					<span class="fa fa-bars"></span>
-				</a>
-			</div> 
+			<a class="menu-toggle-btn" id="set-focus-gnb" href="javascript:void(0);">
+				<span class="fa fa-bars"></span>
+			</a>
 		</div>
 	</header>
 	<div id="slide" class="cfixed" >
@@ -173,7 +171,7 @@ function fnScroll(seq){
 		<a onclick="fnScroll('2')" href="#scroll-to-2" id="scroll-bottom" ><span class="fa fa-chevron-down"></span></a>
 	</div>
 	<div id="content-area" class="container content cfixed">
-		<section class="list-section"  id="scroll-to-3">
+		<section class="list-section" id="scroll-to-3">
 			<h2 class="sec-tit">TODAY'S HOT STORY</h2>
 			<h3 class="sec-sub-tit under-nav">Meet the hottest stories of today</h3>
 			<nav class="cfixed">
@@ -186,7 +184,7 @@ function fnScroll(seq){
 			<ul class="list-cont">
 				<li>
 					<div class="card">
-						<a href="/all/storyView.html" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
+						<a href="" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
 						<div class="card-text">
 							<div class="view-type">
 								<a href="" class="type1" title="지도로 보기"><span class="fa fa-flag"></span><span>지도로 보기</span></a>
@@ -240,7 +238,7 @@ function fnScroll(seq){
 				
 				<li>
 					<div class="card">
-						<a href="/all/storyView.html" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
+						<a href="" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
 						<div class="card-text">
 							<div class="view-type">
 								<a href="" class="type1" title="지도로 보기"><span class="fa fa-flag"></span><span>지도로 보기</span></a>
@@ -293,7 +291,7 @@ function fnScroll(seq){
 				</li>
 				<li>
 					<div class="card">
-						<a href="/all/storyView.html" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
+						<a href="" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
 						<div class="card-text">
 							<div class="view-type">
 								<a href="" class="type1" title="지도로 보기"><span class="fa fa-flag"></span><span>지도로 보기</span></a>
@@ -347,7 +345,7 @@ function fnScroll(seq){
 				
 				<li>
 					<div class="card">
-						<a href="/all/storyView.html" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
+						<a href="" class="link-img" title="콘텐츠 상세보기-GET A BEAUTIFUL TRIP IN PARIS"><img src="/images/pic/user-a1.jpg" class="card-img" alt="GET A BEAUTIFUL TRIP IN PARIS"></a>
 						<div class="card-text">
 							<div class="view-type">
 								<a href="" class="type1" title="지도로 보기"><span class="fa fa-flag"></span><span>지도로 보기</span></a>
