@@ -84,13 +84,13 @@ color: #62b5b9;
 }
 .header .toggle{float:right;display:inline-block;}
 .header .gnb-wrap, .header .search-wrap{display:none;}
-.header .search-wrap.on{display:block;}
-.header .search-wrap.off{display:none;}
+.header .gnb-wrap.on, .header .search-wrap.on{display:block;}
+.header .gnb-wrap.off, .header .search-wrap.off{display:none;}
 /* .header .gnb-wrap.on{display:block;} */
 .header .search{display: block;position: absolute;top: 100%;left:0;width:100%;
 background: #fff;border-top:1px solid #ebeef2;padding:1rem 0;box-shadow:0px 0px 5px rgba(0,0,0,0.7)}
 .header .search input{box-sizing:border-box;width:100%;}
-.header .search button{position:absolute;top:1rem;right:5%;box-sizing:border-box;border:none;border-radius:5px; paddig:12px 13px;display: inline-block;cursor:pointer;
+.header .search button{position:absolute;top:1rem;right:5%;box-sizing:border-box;border:none;border-radius:5px; display: inline-block;cursor:pointer;
 width: 43px; height: 43px; line-height: 43px; text-align: center; background: #62b5b9; color: #fff;}
 .header .search button:hover,
 .header .search button:active,
@@ -467,6 +467,7 @@ border-top:1px solid #fff; border-bottom:1px solid #fff}
 {box-sizing:-border-box;border-top:1px solid #000; border-bottom:1px solid #000}
 .header nav #util li ul.sub li:last-child a {background:#62b5b9; border:none;border-radius:5px; color:#fff;padding-bottom:0;}
 .header nav #util li ul.sub li:last-child:hover a {color:#000;}
+.header .gnb-wrap.off, .header .search-wrap.off{display:none;}
 /*검색창*/
 .header .search{top:142%;box-shadow:none;}
 .header .search-toggle-btn span{width:46px; height:46px;line-height:46px; margin-right:0.5rem;border-radius:5px;}
@@ -509,7 +510,8 @@ margin-right:1rem;
 }
 .header nav #util li a span.nickname{display:inline-block;padding-top:15px;display:inline-block; height:40px; line-height:15px;margin-left: 0.5rem;}
 /* 검색창 */
-.header .search-toggle-btn{right:3%;}
+.header .search-toggle-btn,
+.header .search button{right:3%;}
 .divider{
 width:94%;
 margin-top:38px;
@@ -531,4 +533,5 @@ width:94%;
 /* ******************** PC WIDE용 CSS ****************** */
 /* **************************************************** */
 @media all and (min-width:1920px){
+
 }

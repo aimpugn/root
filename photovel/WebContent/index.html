@@ -1,9 +1,22 @@
 <!DOCTYPE HTML>
 <html lang="ko">
-<head>
+<head prefix="og: http://ogp.me/ns#">
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<meta property="og:image" content="/images/pic/user-a1.jpg" /> 
+<!-- SEO -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Photovel">
+<meta property="og:title" content="메인페이지">
+<meta property="og:url" content="http://photovel.com">
+<meta property="og:description" content="Photovel,메인페이지,포토블">
+<meta property="og:image" content="/images/pic/user-a1.jpg" />
+
+<meta name="name" content="메인페이지">
+<meta name="keywords" content="Photovel,메인페이지">
+<meta name="description" content="Photovel,메인페이지,포토블">
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive"> 
 <title>Photovel</title>
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
 <script src="https://use.fontawesome.com/3d9c57f5bf.js"></script>
@@ -15,11 +28,11 @@
 <link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="apple-touch-icon-precomposed" href="/images/favicon/indigo-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" href="/images/photovel-touch-icon.png">
 <script src="/js/jquery.min.js"></script>
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <script src="/js/jquery.bxslider.js"></script>
-<link rel="shortcut icon" href="/images/favicon/favicon.ico">
+<link rel="shortcut icon" href="/images/favicon.ico">
 
 <script>
 $(document).ready(function() {	
@@ -42,12 +55,18 @@ $(document).ready(function() {
 		$('.search-wrap').stop().slideToggle('fast');
 	});
 	/* 모바일 사이즈 GNB 포커싱 토글 */
-   	$('#set-focus-gnb').focus(function(){
-   		$('.gnb-wrap').stop().slideToggle('fast');
+   	$('#set-focus-gnb').bind("focusin",function(){
+   		$('.gnb-wrap').removeClass("off").addClass("on");
 	}); 
-   	/* 모바일 사이즈 검색창 포커싱 토글 */
-   	$('#set-focus-search').focus(function(){
-   		$('.search-wrap').stop().slideToggle('fast');
+   	$('#set-focus-gnb').bind("focusout", function(){
+   		$('.gnb-wrap').removeClass("on").addClass("off");
+	}); 
+	/* 모바일 사이즈 검색 포커싱 토글 */
+   	$('#set-focus-search').bind("focusin",function(){
+   		$('.search-wrap').removeClass("off").addClass("on");
+	});
+   	$('.header .search button').bind("focusout",function(){
+   		$('.search-wrap').removeClass("on").addClass("off");
 	});
 	/*탭 포커싱 스킵내비*/
 	$("#skipNavi li a").bind("focusin", function() {
@@ -123,7 +142,7 @@ function fnScroll(seq){
 						</ul>
 					</li>
 					<li><a href=""><span class="ios"></span></a></li>
-					<li><a href=""><span class="andr"></span></a></li>
+					<li><a href="https://play.google.com/store/apps/details?id=com.photovel" target="_blank"><span class="andr"></span></a></li>
 				</ul>
 				<label for="lang-top" class="blind">언어 선택</label>
 				<select id="lang-top" class="lang">
