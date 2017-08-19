@@ -2,9 +2,9 @@
 /*  모바일용(=기본) CSS  */
 /* ***************** */
 /*광고/파트너쉽*/
-#wrap #ad{margin: 24px 0; overflow: hidden; box-shadow: 0px 0px 5px rgba(122, 122, 122, 1); border-radius: 5px;}
+#wrap #ad{margin: 24px 0; overflow: hidden; box-shadow: 0px 0px 5px rgba(122, 122, 122, 1);-webkit-border-radius: 5px; -moz-border-radius: 5px;border-radius: 5px;behavior: url( "/pie/PIE.htc" ); }
 #wrap #ad img{width: 100%;}
-#wrap #partnership{padding:1.5rem 0;width:100%; min-height:96px; border-top:2px solid #ebeef2; border-bottom:2px solid #ebeef2; text-align:center; background:#f3f5f7;}
+#wrap #partnership{padding:24px 0;width:100%; min-height:96px; border-top:2px solid #ebeef2; border-bottom:2px solid #ebeef2; text-align:center; background:#f3f5f7;}
 /*ul 세로 정렬하기*/
 #wrap #partnership .blank{
 display:inline-block;
@@ -14,14 +14,14 @@ overflow:hidden;
 background:#f00;
 }
 #wrap #partnership ul{display:inline-block;vertical-align:middle;}
-#wrap #partnership ul li{position:relative;float:left; margin-left:0.5rem;text-align:center;}
+#wrap #partnership ul li{position:relative;float:left; margin-left:8px;text-align:center;}
 #wrap #partnership ul li:first-child{margin-left:0;}
 #wrap #partnership ul li a{
 display:inline-block;
-border-radius:3rem;
-width:6rem; 
-height:6rem; 
-line-height:1rem;
+border-radius:48px;
+width:96px; 
+height:96px; 
+line-height:16px;
 text-align:center;
 color:#fff;
 }
@@ -38,8 +38,8 @@ color:#fff;
 #wrap #partnership ul li a.ad:focus,
 #wrap #partnership ul li a.ad:active{background:#d0555d;}
 #wrap #partnership ul li a span{text-align:center;}
-#wrap #partnership ul li a span.title{font-size:1.5rem;}
-#wrap #partnership ul li a span.desc{position:absolute;left:50%;margin-left:-3rem;top:3.2rem;font-size:1rem;width:6rem;}
+#wrap #partnership ul li a span.title{font-size:24px;}
+#wrap #partnership ul li a span.desc{position:absolute;left:50%;margin-left:-48px;top:51px;font-size:16px;width:96px;}
 /* 메인  페이지 CSS */
 /*슬라이드 영역*/
 #slide{
@@ -55,28 +55,28 @@ min-height:200px;
 }
 .bx-wrapper .bx-caption span{
 left: 50%;
-margin-left: -24rem;
-padding: 0 2rem 0 2rem;
-width: 48rem;
+margin-left: -384px;
+padding: 0 32px;
+width: 768px;
 font-weight:bold;
-font-size: 1.4rem;
-bottom: 7rem;
-line-height:1.2em;
+font-size: 22px;
+bottom: 112px;
+line-height:30px;
 text-shadow: 1px 1px rgba(0,0,0,0.5);
 }
 .btn-slide{overflow: hidden; 
 position:absolute; 
 display:inline-block; 
 z-index:90; 
-bottom:1.6rem;
+bottom:26px;
 left:50%;
-margin-left:-5rem;
+margin-left:-80px;
 border:none;
 border-radius:5px; 
-width:10rem; 
-height: 3rem; 
+width:160px; 
+height: 48px; 
 text-align:center; 
-font-size: 0.8rem; 
+font-size: 13px; 
 background:#62b5b9; 
 color:#fff;
 cursor:pointer;
@@ -89,29 +89,32 @@ cursor:pointer;
 .wrap-ratio{width:100%;overflow:hidden;}
 .ratio-2-1-2, 
 .ratio-2-1-1{box-sizing: border-box;display:inline-block;width:100%;overflow:hidden;}
-.wrap-ratio .title{padding:1rem; border-bottom:1px solid #efedec; color:#000;}
+section.ratio-2-1-2,section.ratio-2-1-1,
+.wrap-ratio .cont-area .match.ratio-2-1-2, 
+.wrap-ratio .cont-area .channel.ratio-2-1-1{width:100%;float:none}
+.wrap-ratio .title{padding:16px; border-bottom:1px solid #efedec; color:#000;}
 .wrap-ratio .channel .title{background:#d7dee6;color:#000;}
-.wrap-ratio .cont-area{overflow:hidden; padding:0 0 1rem;box-sizing:border-box;box-shadow:0px 0px 5px rgba(122,122,122,0.5);border-radius:5px;background:#fff; }
-.wrap-ratio .cont-area h4.match-channel{background:#d7dee6; padding:1.5626rem 1rem;}
+.wrap-ratio .cont-area{overflow:hidden; padding:0 0 16px;box-sizing:border-box;box-shadow:0px 0px 5px rgba(122,122,122,0.5);border-radius:5px;background:#fff; }
+.wrap-ratio .cont-area h4.match-channel{background:#d7dee6; padding:25px 16px;}
 .multimedia-wrap{width:100% !important;}
-.wrap-ratio .how-to-use{box-sizing:border-box; box-shadow: 0px 0px 5px rgba(122,122,122,0.5);border-radius:5px; padding-bottom:1rem;overflow:hidden; background:#fff;}
-.wrap-ratio .faq-list{padding:0.5rem 1rem 1rem 1rem;}
+.wrap-ratio .how-to-use{box-sizing:border-box; box-shadow: 0px 0px 5px rgba(122,122,122,0.5);border-radius:5px; padding-bottom:16px;overflow:hidden; background:#fff;}
+.wrap-ratio .faq-list{padding:8px 16px 16px 16px;}
 .channel{text-align: center;}
 .channel .channel-list li, 
-.wrap-ratio .faq-list li{padding: 1rem 0 0 0 ;}
-.wrap-ratio .faq-list li{padding-bottom:1rem;border-top:1px solid #fff;border-bottom:1px solid #fff; width:100%; text-align:left;float:left; }
+.wrap-ratio .faq-list li{padding: 16px 0 0 0 ;}
+.wrap-ratio .faq-list li{padding-bottom:16px;border-top:1px solid #fff;border-bottom:1px solid #fff; width:100%; text-align:left;float:left; }
 .channel .channel-list li{display: inline-block;width: 10%;}
 .channel .channel-list li a,
 .wrap-ratio .faq-list li a{display:inline-block; min-height:13px;}
 .channel .channel-list li a{text-indent:-9999px;}
 .channel .channel-list li a{padding-left:16px;}
 .wrap-ratio .faq-list li a{font-size:14px;}
-.channel .channel-list li a.icon-facebook{background-image:url(/images/p/icon-facebook.png); background-position: center center; background-repeat: no-repeat;}
-.channel .channel-list li a.icon-twitter{background-image:url(/images/p/icon-twitter.png); background-position: center center; background-repeat: no-repeat;}
-.channel .channel-list li a.icon-google{background-image:url(/images/p/icon-google.png); background-position: center center; background-repeat: no-repeat;}
-.channel .channel-list li a.icon-naver{background-image:url(/images/p/icon-naver.png); background-position: center center; background-repeat: no-repeat;}
-.channel .channel-list li a.icon-kakao{background-image:url(/images/p/icon-kakao.png); background-position: center center; background-repeat: no-repeat;}
-.channel .channel-list li a.icon-weibo{background-image:url(/images/p/icon-weibo.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-facebook{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-facebook.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-twitter{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-twitter.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-google{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-google.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-naver{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-naver.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-kakao{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-kakao.png); background-position: center center; background-repeat: no-repeat;}
+.channel .channel-list li a.icon-weibo{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-weibo.png); background-position: center center; background-repeat: no-repeat;}
 .channel .channel-list li.on a, .wrap-ratio .faq-list li.on a,
 .channel .channel-list li:hover a, .wrap-ratio .faq-list li:hover a
 .channel .channel-list li:active a, .wrap-ratio .faq-list li:active a
@@ -124,27 +127,27 @@ cursor:pointer;
 .channel .channel-list li.on a.icon-facebook, 
 .channel .channel-list li:hover a.icon-facebook,
 .channel .channel-list li:active a.icon-facebook,
-.channel .channel-list li:focus a.icon-facebook{background-image:url(/images/p/icon-facebook-on.png)}
+.channel .channel-list li:focus a.icon-facebook{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-facebook-on.png)}
 .channel .channel-list li.on a.icon-twitter,
 .channel .channel-list:hover a.icon-twitter,
 .channel .channel-list:active a.icon-twitter,
-.channel .channel-list:focus a.icon-twitter{background-image:url(/images/p/icon-twitter-on.png)}
+.channel .channel-list:focus a.icon-twitter{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-twitter-on.png)}
 .channel .channel-list li.on a.icon-google,
 .channel .channel-list li:hover a.icon-google,
 .channel .channel-list li:active a.icon-google,
-.channel .channel-list li:focus a.icon-google{background-image:url(/images/p/icon-google-on.png)}
+.channel .channel-list li:focus a.icon-google{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-google-on.png)}
 .channel .channel-list li.on a.icon-naver,
 .channel .channel-list li:hover a.icon-naver,
 .channel .channel-list li:active a.icon-naver,
-.channel .channel-list li:focus a.icon-naver{background-image:url(/images/p/icon-naver-on.png)}
+.channel .channel-list li:focus a.icon-naver{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-naver-on.png)}
 .channel .channel-list li.on a .icon-kakao,
 .channel .channel-list li:hover a.icon-kakao,
 .channel .channel-list li:active a.icon-kakao,
-.channel .channel-list li:focus.icon-kakao{background-image:url(/images/p/icon-kakao-on.png)}
+.channel .channel-list li:focus.icon-kakao{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-kakao-on.png)}
 .channel .channel-list li.on a.icon-weibo,
 .channel .channel-list li:hover a.icon-weibo,
 .channel .channel-list li:active a.icon-weibo,
-.channel .channel-list li:focus a.icon-weibo{background-image:url(/images/p/icon-weibo-on.png)}
+.channel .channel-list li:focus a.icon-weibo{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-weibo-on.png)}
 /* **************** 태블릿용 CSS ***************** */
 /* *******************************************  */
 @media all and (min-width:768px){
@@ -155,22 +158,25 @@ cursor:pointer;
 .bx-viewport{height:320px;overflow:hidden;}
 .bx-wrapper{overflow:hidden;margin-bottom:0;height:320px; }
 .bx-viewport, .bx-wrapper img{height:320px;}
-.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto{z-index:100;bottom:4rem}
-.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager{z-index:100;bottom:4rem;}
-.bx-wrapper .bx-caption span{font-size: 2rem;bottom: 9.5rem;line-height:2.5rem;text-shadow: 2px 2px rgba(0,0,0,0.5);}
-.btn-slide{bottom:5rem;}
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto{z-index:100;bottom:64px}
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager{z-index:100;bottom:64px;}
+.bx-wrapper .bx-caption span{font-size: 32px;bottom: 152px;line-height:40px;text-shadow: 2px 2px rgba(0,0,0,0.5);}
+.btn-slide{bottom:80px;}
 .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager,
 .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto
-{bottom:3rem}
+{bottom:48px}
 /* 메인 뉴스 영역*/
 .multimedia-wrap{max-height:400px;}
+/* ratio */
+section.ratio-2-1-2, .wrap-ratio .cont-area .match.ratio-2-1-2{width:64%; float:left;}
+section.ratio-2-1-1, .wrap-ratio .cont-area .channel.ratio-2-1-1{width:31%; float:right}
 .wrap-ratio .cont-area{height:540px;}
 .wrap-ratio .channel .title{background:none;}
-.wrap-ratio .channel{padding-right:1rem}
+.wrap-ratio .channel{padding-right:16px}
 .channel .channel-list li{border-top: 1px solid #fff;
 border-bottom: 1px solid #fff;}
 .channel .channel-list li,
-.wrap-ratio .faq-list li{box-sizing:border-box;float:none;margin:0;padding:1rem; width:100%;text-align:left;}
+.wrap-ratio .faq-list li{box-sizing:border-box;float:none;margin:0;padding:16px; width:100%;text-align:left;}
 .channel .channel-list li a{padding-left:20px;}
 .wrap-ratio .faq-list li a{font-size:14px;}
 .channel .channel-list li.on, 
@@ -183,7 +189,7 @@ border-bottom: 1px solid #fff;}
 .channel .channel-list li a.icon-naver,
 .channel .channel-list li a.icon-kakao,
 .channel .channel-list li a.icon-weibo{background-position:left center}
-#wrap #partnership ul li{margin-left:11.5rem;}
+#wrap #partnership ul li{margin-left:184px;}
 }
 /* ********************** PC용 CSS ********************* */
 /* **************************************************** */
@@ -193,15 +199,15 @@ border-bottom: 1px solid #fff;}
 .bx-viewport{height:500px;overflow:hidden;}
 .bx-wrapper{overflow:hidden;margin-bottom:0;height:500px; }
 .bx-viewport, .bx-wrapper img{height:500px;}
-.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto{z-index:100;bottom:4rem}
-.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager{z-index:100;bottom:4rem;}
-.bx-wrapper .bx-caption span{font-size: 3rem;bottom: 15rem;line-height:4rem;}
-.btn-slide{bottom:8rem;}
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto{z-index:100;bottom:64px}
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager{z-index:100;bottom:64px;}
+.bx-wrapper .bx-caption span{font-size: 48px;bottom: 240px;line-height:64px;}
+.btn-slide{bottom:128px;}
 .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager,
 .bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto
-{bottom:4rem}
+{bottom:64px}
 /* 메인 콘텐츠 리스트 영역 CSS */
-#wrap #partnership {background:#f3f5f7 url(/images/p/bg-partnership.png) center center no-repeat;}
+#wrap #partnership {background:#f3f5f7 url(http://photovel.cdn3.cafe24.com/p/bg-partnership.png) center center no-repeat;}
 .wrap-ratio .cont-area{height:640px;}
 .wrap-ratio .cont-area .match.ratio-2-1-2{height:575px;}
 .wrap-ratio .cont-area .match.ratio-2-1-2, .wrap-ratio .cont-area .channel.ratio-2-1-1{width:47.5%;}
@@ -210,9 +216,9 @@ border-bottom: 1px solid #fff;}
 /* ******************** PC WIDE용 CSS ****************** */
 /* **************************************************** */
 @media all and (min-width:1920px){
-.bx-wrapper .bx-caption span{bottom: 11rem;}
-.bx-wrapper .bx-caption span{bottom:15rem;}
-.btn-slide{bottom:8rem;}
+.bx-wrapper .bx-caption span{bottom: 176px;}
+.bx-wrapper .bx-caption span{bottom:240px;}
+.btn-slide{bottom:128px;}
 /* 메인 콘텐츠 리스트 영역 CSS */
 
 .wrap-ratio .cont-area{height:666px;}

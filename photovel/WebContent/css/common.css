@@ -31,14 +31,14 @@ overflow:hidden;
 .divider{
 width:100%;
 height:1px;
-margin: 0rem auto 2rem auto;
+margin: 32px auto;
 margin-top:16px;
 background:#ece1db;
 }
 .m-divider{
 width:100%;
 height:1px;
-margin: 0rem auto 2rem auto;
+margin: 0px auto 32px auto;
 margin-top:16px;
 background:#ece1db;
 } 
@@ -78,7 +78,7 @@ line-height:40px;
 }
 .header h1.logo a{
 display:inline-block;
-font-size: 1.2rem;			
+font-size: 18px;			
 font-weight: bold;
 color: #62b5b9;
 }
@@ -88,10 +88,10 @@ color: #62b5b9;
 .header .gnb-wrap.off, .header .search-wrap.off{display:none;}
 /* .header .gnb-wrap.on{display:block;} */
 .header .search{display: block;position: absolute;top: 100%;left:0;width:100%;
-background: #fff;border-top:1px solid #ebeef2;padding:1rem 0;box-shadow:0px 0px 5px rgba(0,0,0,0.7)}
+background: #fff;border-top:1px solid #ebeef2;padding:16px 0;box-shadow:0px 0px 5px rgba(0,0,0,0.7)}
 .header .search input{box-sizing:border-box;width:100%;}
-.header .search button{position:absolute;top:1rem;right:5%;box-sizing:border-box;border:none;border-radius:5px; display: inline-block;cursor:pointer;
-width: 43px; height: 43px; line-height: 43px; text-align: center; background: #62b5b9; color: #fff;}
+.header .search button{position:absolute;top:16px;right:5%;box-sizing:border-box;border:none;border-radius:5px; display: inline-block;cursor:pointer;
+width: 41px; height: 41px; line-height: 41px; text-align: center; background: #62b5b9; color: #fff;}
 .header .search button:hover,
 .header .search button:active,
 .header .search button:focus{background:#31a0a5;}
@@ -100,13 +100,13 @@ border-top:1px solid #ebeef2;}
 .header .gnb li{
 float: left;
 width: auto;
-margin-left:1rem;
+margin-left:16px;
 }
 
 .header .gnb li a{
 display: block;
 padding: 14px 0 14px 3%;
-font-size: 0.8rem;
+font-size: 13px;
 color:#a1aabb;
 }
 .header .gnb li a:hover, .header .gnb li a:focus, .header .gnb li a:active{
@@ -119,7 +119,7 @@ float:left;
 cursor:pointer;
 border-radius:5px;
 }
- .header .search-toggle-btn{position:absolute;right:5%; margin-right:3.5rem;}
+.header .search-toggle-btn{position:absolute;right:5%; margin-right:50px;}
 .header .menu-toggle-btn span, .header .search-toggle-btn span{
 display:inline-block;
 width:40px;
@@ -141,14 +141,14 @@ padding: 14px 0 14px 3%;
 top: 180%;
 left:0;
 width:100%;
-font-size:0.8rem;
+font-size:13px;
 background: #fff;
 border-top:1px solid #ebeef2;
 border-bottom:1px solid #ebeef2;
 }
 .header nav #util li a span.nickname{display:none;}
 .header nav #util li a span.login-info{overflow:hidden;float:left; width:50px; height:50px; border-radius:25px;}
-.header nav #util li ul.sub li{float:left; margin-left: 1rem; line-height:1.5rem;}
+.header nav #util li ul.sub li{float:left; margin-left: 16px; line-height:24px;}
 /*콘텐츠 영역*/
 .container {
 width:90%;
@@ -159,16 +159,15 @@ box-sizing: border-box;
 border-radius:5px;
 box-shadow: 0px 0px 5px rgba(122, 122, 122, 0.5);	
 background: #fcf3ee;	
-margin-top: -1rem;
+margin-top: -16px;
 z-index:10;
-padding: 2rem 1.5rem 1.5rem 1.5rem;
+padding: 32px 24px 24px 24px;
 z-index:100;
 }
 #content-area{position:relative;}
-#scroller{z-index:9999;position:fixed;bottom:20%;right:5%;width:40px;
-}
+#scroller{z-index:9999;position:fixed;bottom:20%;right:5%;width:40px;}
 #scroller a{width:40px; height:40px;display:inline-block;}
-#scroller #scroll-bottom{margin-top:0.5rem;}
+#scroller #scroll-bottom{margin-top:8px;}
 #scroller #scroll-top span, 
 #scroller #scroll-bottom span
 {box-sizing:border-box;float:none;display:inline-block; width:40px; height:40px; border-radius:20px;box-shadow:0px 0px 5px rgba(0,0,0,0.7);
@@ -176,29 +175,27 @@ line-height:40px;text-align:center; color:#fff; background:rgba(50,53,62,0.7);}
 #scroller #scroll-top:hover span, 
 #scroller #scroll-bottom:hover span,
 #scroller #scroll-top:focus span, 
-#scroller #scroll-bottom:focus span,
-#scroller #scroll-top:active span, 
-#scroller #scroll-bottom:active span{background-color:#62b5b9;}
+#scroller #scroll-bottom:focus span{background-color:#62b5b9;}
 .sec-tit{
-font-size:1.4rem;
+font-size:22px;
 color:#000000;
 font-weight:bold;
 text-align: center;
 }	
 .sec-sub-tit{
-margin-top:0.5rem;
-margin-bottom:2.5rem;
-font-size: 1rem;
+margin-top:8px;
+margin-bottom:40px;
+font-size: 16px;
 color: #a1aabb;
 font-weight: bold;
 text-align: center;
 }
-.sec-sub-tit.under-nav{margin-bottom:0.5rem;}
+.sec-sub-tit.under-nav{margin-bottom:8px;}
 
 
 /*푸터 영역*/
 footer{padding: 0 0 24px 0;}
-footer .left, footer .right{overflow:hidden; margin: 1rem 0 0 0; text-align:center;}
+footer .left, footer .right{overflow:hidden; margin: 16px 0 0 0; text-align:center;}
 footer #nav-ft{clear:both; text-align:center;}
 footer #nav-ft ul{display:inline-block; margin:0 auto; text-align:center; }
 footer #nav-ft ul li{float:left;}
@@ -210,31 +207,31 @@ footer .right .sns,
 footer .right address, 
 footer .left select{width:100%; clear:both;}
 footer .right .sns{overflow:hidden;display:inline-block;margin:0 auto; text-align:center;}
-footer .right .sns .app{margin-right: 1rem;float:left;}
+footer .right .sns .app{margin-right: 16px;float:left;}
 footer .right .sns .share{float:right;}
-footer .right .sns .app li, .share li {float:left;margin-right: 0.5rem; }
+footer .right .sns .app li, .share li {float:left;margin-right: 8px; }
 footer .right .sns .share li:last-child{margin-right:0;}
 footer .right .sns .app li a span, .share li a span{display:inline-block; overflow: hidden; width:36px; height: 36px; border-radius: 18px; background-color: #e8e8e8; text-indent:-9999px;}
 footer .right .sns .app li a span:hover, .share li a span:hover,
 footer .right .sns .app li a:focus span, .share li a:focus span,
 footer .right .sns .app li a:active span, .share li a:active span
 {background-color: #62b5b9;}
-footer .right .sns .app li .ios{background-image:url(/images/p/icon-ios.png);}
-footer .right .sns .app li .android{background-image:url(/images/p/icon-and.png);}
-footer .right .sns .share li .sh-kk{background-image:url(/images/p/icon-kk.png);}
-footer .right .sns .share li .sh-nv{background-image:url(/images/p/icon-nv.png);}
-footer .right .sns .share li .sh-fb{background-image:url(/images/p/icon-fb.png);}
-footer .right .sns .share li .sh-tt{background-image:url(/images/p/icon-tt.png);}
-footer .right .sns .share li .sh-gp{background-image:url(/images/p/icon-gp.png);}
-footer .right .sns .share li .sh-wb{background-image:url(/images/p/icon-wb.png);}
-footer .right .sns .share li .sh-lk{background-image:url(/images/p/icon-lk.png);}
+footer .right .sns .app li .ios{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-ios.png);}
+footer .right .sns .app li .android{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-and.png);}
+footer .right .sns .share li .sh-kk{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-kk.png);}
+footer .right .sns .share li .sh-nv{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-nv.png);}
+footer .right .sns .share li .sh-fb{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-fb.png);}
+footer .right .sns .share li .sh-tt{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-tt.png);}
+footer .right .sns .share li .sh-gp{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-gp.png);}
+footer .right .sns .share li .sh-wb{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-wb.png);}
+footer .right .sns .share li .sh-lk{background-image:url(http://photovel.cdn3.cafe24.com/p/icon-lk.png);}
 
 footer .left #lang-ft{box-sizing: border-box; width: 100%; margin:0;}
-footer .right address{display:inline-block;height:31px; line-height:31px;font-size:0.8rem;}
-footer .w3c{display:inline-block; float:right;margin-left: 0.5rem} 
+footer .right address{display:inline-block;height:31px; line-height:31px;font-size:13px;}
+footer .w3c{display:inline-block; float:right;margin-left: 8px} 
 /* 메인  페이지 CSS */
 /* 메인 공통 */
-.circle{border-radius: 1.5rem; width:3rem; height:3rem; line-height:3rem; font-size: 1.5rem; text-align:center;color:#fff;}
+.circle{border-radius: 24px; width:48px; height:48px; line-height:48px; font-size: 24px; text-align:center;color:#fff;}
 .mint{background:#62b5b9;}
 .purple{background:#b352e0;}
 .darkblue{background:#32353e;}
@@ -255,30 +252,30 @@ text-overflow: ellipsis;
 /*여러줄 자르기*/
 display: -webkit-box; 
 white-space:normal;
-line-height:1.2rem;
-height: 4.4rem;
+line-height:18px;
+height: 70px;
 word-wrap: break-word; 
 -webkit-line-clamp: 3; 
 -webkit-box-orient: vertical;
 }
 
 .list-section{
-margin-bottom:2rem;
+margin-bottom:32px;
 overflow:hidden;
 }
 .list-section nav{width:100%;}
 .list-section nav ul{float:right;}
-.list-section nav ul li a{font-size: 0.8rem;}
+.list-section nav ul li a{font-size: 13px;}
 .list-section nav ul li a:active, .list-section nav ul li a:focus{color:#000}
-.list-section nav ul li a:after{content:"|"; display:inline-block; margin-left: 0.5rem; margin-right:0.5rem;}
+.list-section nav ul li a:after{content:"|"; display:inline-block; margin-left: 8px; margin-right:8px;}
 .list-section nav ul li:last-child a:after{content:""; display:none}
 .list-section ul li{
 float:left;
-margin-top:2rem;
+margin-top:32px;
 }
 .list-section nav ul li{
 float:left;
-margin-top: 1rem;
+margin-top: 16px;
 }
 .list-section ul.list-cont{overflow:hidden;}
 .list-section ul.list-cont li{
@@ -288,36 +285,36 @@ box-shadow:0px 0px 5px rgba(122,122,122,0.5);
 .list-section ul.list-cont li .card{
 overflow:hidden;
 width:100%;
-line-height:1.5rem;
+line-height:24px;
 border-radius: 5px;
 background: #fff;
 }
 .card .cont-box{
 position:relative;
 display:block; 
-margin-top:1rem; 
-padding-top:1rem;
+margin-top:16px; 
+padding-top:16px;
 width:100%; 
-font-size:0.8rem;
+font-size:13px;
 border-top:1px solid #efedec; 
 }
 .card .cont-box:last-child{padding-bottom:0;}
 .card a.link-img img{width:100%;min-height:180px;box-sizing:border-box;}
-.card .card-text{padding:1rem; position:relative;}
+.card .card-text{padding:16px; position:relative;}
 .card .view-type{
 position:absolute; 
 overflow:hidden; 
-margin-left:-1rem; 
-padding:1rem; 
-top:-3rem; 
+margin-left:-16px; 
+padding:16px; 
+top:-48px; 
 width:100%; 
-height: 1rem; 
-font-size:0.8rem;
-line-height: 1rem;
+height: 16px; 
+font-size:13px;
+line-height: 16px;
 background: rgba(0,0,0,0.7);
 }
-.card .view-type .type2{float:right; display:inline-block; margin-right: 2rem;}
-.card .view-type a span.fa{display:inline-block; margin-right: 0.2rem;}
+.card .view-type .type2{float:right; display:inline-block; margin-right: 32px;}
+.card .view-type a span.fa{display:inline-block; margin-right: 3px;}
 .card .view-type a{color:#fff;}
 .card .view-type a:hover,
 .card .view-type a:active,
@@ -328,11 +325,11 @@ display:inline-block;
 float: right; 
 width:28%;
 text-align: right;
-font-size:0.8rem; 
+font-size:13px; 
 font-weight:normal; 
 color: #000;
 } 
-.card .cont-title {line-height:0.9rem;}
+.card .cont-title {line-height:14px;}
 .card .card-text .card-content a.card-content-link{color:#000;}
 .card .card-text .card-content a.card-content-link:hover,
 .card .card-text .card-content a.card-content-link:active,
@@ -341,15 +338,16 @@ color: #000;
 .card .cont-box a:hover,
 .card .cont-box a:active,
 .card .cont-box a:focus{color:#a1aabb;}
-.card .cont-box .cont-left{position:relative;overflow:hidden;float:left; width: 25%; padding-top: 0.6rem; text-align: center; }
+.card .cont-box .cont-left{position:relative;overflow:hidden;float:left; width: 25%; padding-top: 10px; text-align: center; }
 .card .cont-box:last-child .cont-left{padding-top:0;}
 .card .cont-box .cont-right{float:right; width: 75%; }
-.card .cont-box .cont-left .mint{margin-bottom:1rem;}
-.card .cont-box .more-comment{z-index:999; position:absolute; left:0; bottom: -0.2rem;width:100%;color:#a1aabb; font-size: 0.8rem;}
-.card .cont-box img{width:3rem;height:3rem;border-radius:1.5rem;}
+.card .cont-box .cont-left .mint{margin-bottom:16px;}
+.card .cont-box .more-comment{z-index:999; position:absolute; left:0; bottom: -3px;width:100%;color:#a1aabb; font-size: 13px;}
+.card .cont-box img{width:48px;height:48px;border-radius:24px;}
 .card .cont-box.c-user-info .cont-right{}
 .card .cont-box.c-user-info .user-nickname{display: block; font-weight: bold;}
-.card .cont-box.c-user-info .user-share{margin-left: 1rem;}
+.card .cont-box.c-user-info .user-share{margin-left: 16px;}
+
 /* **************** 태블릿용 CSS ***************** */
 /* *******************************************  */
 @media all and (min-width:768px){
@@ -392,7 +390,7 @@ border:none;
 .header .gnb li{
 float:left;
 width:auto;
-margin-left:0.5rem;
+margin-left:8px;
 }
 .header .gnb li:first-child{
 margin-left: 0;
@@ -406,63 +404,63 @@ font-size: 14px;
 .header .menu-toggle-btn{
 display:none !important;
 }
-.header .search-toggle-btn{margin-right:6.5rem}
+.header .search-toggle-btn{margin-right:104px}
 .header nav{float:right;width:auto;}
-.header .gnb-wrap{display:block;padding-bottom:0.7rem;}
+.header .gnb-wrap{display:block;padding-bottom:11px;}
 .header nav #util{
 float:left;
 position:relative;
 display:inline-block;
-margin-left: 0.5rem;
+margin-left: 8px;
 padding:0;
 top:0;
 width:auto;
 border:none;
 }
 
-.header nav #util li{float: left;position:relative;float:left; margin-right:0.5rem;}
+.header nav #util li{float: left;position:relative;float:left; margin-right:8px;}
 .header nav #util li a{display:inline-block;vertical-align:-webkit-baseline-middle;height:40px;}
 .header nav #util li a span.login-info{padding-top:15px;width: 44px; height: 40px; border-radius: 22px;}
 .header nav #util li a span.login-info img.prof-pic{width:40px; height:40px; border-radius:20px; border:1px solid #eee;margin-top:-16px;vertical-align:top;}
 .header nav #util li a span{padding-bottom:4px;}
 .header nav #util li a .ios, 
 .header nav #util li a .andr{display:inline-block;width:44px; height:40px; border-radius:22px;}
-.header nav #util li a .ios{background: #eee url(/images/p/icon-ios.png) center center no-repeat;}
-.header nav #util li a .andr{background: #eee url(/images/p/icon-and.png) center center no-repeat;}
+.header nav #util li a .ios{background: #eee url(http://photovel.cdn3.cafe24.com/p/icon-ios.png) center center no-repeat;}
+.header nav #util li a .andr{background: #eee url(http://photovel.cdn3.cafe24.com/p/icon-and.png) center center no-repeat;}
 .header nav #util li:hover a .ios, 
 .header nav #util li a:focus .ios, 
-.header nav #util li:active a .ios{background: #62b5b9 url(/images/p/icon-ios.png) center center no-repeat;}
+.header nav #util li:active a .ios{background: #62b5b9 url(http://photovel.cdn3.cafe24.com/p/icon-ios.png) center center no-repeat;}
 .header nav #util li:hover a .andr, 
 .header nav #util li a:active .andr,
 .header nav #util li a:focus .andr
-{background: #62b5b9 url(/images/p/icon-and.png) center center no-repeat;}
+{background: #62b5b9 url(http://photovel.cdn3.cafe24.com/p/icon-and.png) center center no-repeat;}
 .header nav #util li ul.sub{
 position:absolute; 
 display: none; 
 z-index:9999;
 margin-top: 15px; 
-margin-left: -2rem; 
-padding:4px 1.5rem 1.5rem;
+margin-left: -32px; 
+padding:4px 24px 24px;
 width:9rem; 
 border-bottom-left-radius:5px;
 border-bottom-right-radius:5px;
-background: #fff url(/images/p/bg-login-info.gif) 1.5rem top no-repeat; 
+background: #fff url(http://photovel.cdn3.cafe24.com/p/bg-login-info.gif) 24px top no-repeat; 
 box-shadow: 0 0 2px rgba(122,122,122,0.5)
 }
 .header nav #util li ul.sub li{float:none; margin-left:0;margin-right:0;padding-bottom:0;}
 .header nav #util li:hover ul.sub,
 .header nav #util li.on ul.sub{display:block; padding-top:4px;}
-.header nav #util li ul.sub li a{box-sizing:-border-box;display:block;padding:1rem 0 0.5rem 0;
+.header nav #util li ul.sub li a{box-sizing:-border-box;display:block;padding:16px 0 8px 0;
 border-top:1px solid #fff; border-bottom:1px solid #fff}
 .header nav #util li ul.sub li a span{display:inline-block; margin-right: 10px;width:13px; height:13px;}
- #util li ul.sub li a span.user-icon-my{background:url(/images/p/user-icon-my.png) 0 center no-repeat;}
- #util li ul.sub li a span.user-icon-group{background:url(/images/p/user-icon-group.png) 0 center no-repeat;}
- #util li ul.sub li a span.user-icon-insight{background:url(/images/p/user-icon-insight.png) 0 center no-repeat;}
- #util li ul.sub li a span.user-icon-setting{background:url(/images/p/user-icon-setting.png) 0 center no-repeat;}
- #util li ul.sub li:hover a span.user-icon-my{background:url(/images/p/user-icon-my-on.png) 0 center no-repeat;}
- #util li ul.sub li:hover a span.user-icon-group{background:url(/images/p/user-icon-group-on.png) 0 center no-repeat;}
- #util li ul.sub li:hover a span.user-icon-insight{background:url(/images/p/user-icon-insight-on.png) 0 center no-repeat;}
- #util li ul.sub li:hover a span.user-icon-setting{background:url(/images/p/user-icon-setting-on.png) 0 center no-repeat;}
+ #util li ul.sub li a span.user-icon-my{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-my.png) 0 center no-repeat;}
+ #util li ul.sub li a span.user-icon-group{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-group.png) 0 center no-repeat;}
+ #util li ul.sub li a span.user-icon-insight{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-insight.png) 0 center no-repeat;}
+ #util li ul.sub li a span.user-icon-setting{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-setting.png) 0 center no-repeat;}
+ #util li ul.sub li:hover a span.user-icon-my{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-my-on.png) 0 center no-repeat;}
+ #util li ul.sub li:hover a span.user-icon-group{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-group-on.png) 0 center no-repeat;}
+ #util li ul.sub li:hover a span.user-icon-insight{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-insight-on.png) 0 center no-repeat;}
+ #util li ul.sub li:hover a span.user-icon-setting{background:url(http://photovel.cdn3.cafe24.com/p/user-icon-setting-on.png) 0 center no-repeat;}
 .header nav #util li ul.sub li:hover a
 {box-sizing:-border-box;border-top:1px solid #000; border-bottom:1px solid #000}
 .header nav #util li ul.sub li:last-child a {background:#62b5b9; border:none;border-radius:5px; color:#fff;padding-bottom:0;}
@@ -470,8 +468,8 @@ border-top:1px solid #fff; border-bottom:1px solid #fff}
 .header .gnb-wrap.off, .header .search-wrap.off{display:none;}
 /*검색창*/
 .header .search{top:142%;box-shadow:none;}
-.header .search-toggle-btn span{width:46px; height:46px;line-height:46px; margin-right:0.5rem;border-radius:5px;}
-.header nav #lang-top{display:inline-block;float: right; margin-left:57px; width:5rem;}
+.header .search-toggle-btn span{width:46px; height:46px;line-height:46px; margin-right:8px;border-radius:5px;}
+.header nav #lang-top{display:inline-block;float: right; margin-left:57px; width:80px;}
 footer .container{overflow:hidden;}
 footer .f-row{overflow:hidden;width:100%;}
 footer .left{float:left;}
@@ -486,10 +484,7 @@ footer .right address{text-align:right; line-height:40px; height:40px;}
 .list-section ul.list-cont li:nth-child(2n+1){margin-left:0; float:left;}
 .list-section ul.list-cont li:nth-child(2n){float:right;}
 }
-/* ratio */
 
-section.ratio-2-1-2, .wrap-ratio .cont-area .match.ratio-2-1-2{width:64%; float:left;}
-section.ratio-2-1-1, .wrap-ratio .cont-area .channel.ratio-2-1-1{width:31%; float:right}
 /* ********************** PC용 CSS ********************* */
 /* **************************************************** */
 @media all and (min-width:1240px){
@@ -499,16 +494,16 @@ section.ratio-2-1-1, .wrap-ratio .cont-area .channel.ratio-2-1-1{width:31%; floa
 
 .header .gnb{float:left;}
 .header .gnb li{
-margin-left:0rem;
-margin-right:3rem;
+margin-left:0px;
+margin-right:48px;
 }
 .header nav #util{
 margin-left:10%;
 }
 .header nav #util li{
-margin-right:1rem;	
+margin-right:16px;	
 }
-.header nav #util li a span.nickname{display:inline-block;padding-top:15px;display:inline-block; height:40px; line-height:15px;margin-left: 0.5rem;}
+.header nav #util li a span.nickname{display:inline-block;padding-top:15px;display:inline-block; height:40px; line-height:15px;margin-left: 8px;}
 /* 검색창 */
 .header .search-toggle-btn,
 .header .search button{right:3%;}
